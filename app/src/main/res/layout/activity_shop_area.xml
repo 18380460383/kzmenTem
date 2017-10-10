@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.RulesAcitivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:layout_marginRight="@dimen/margin_top10"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_provice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="省份" />
+
+            <TextView
+                android:id="@+id/tv_provice"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="城市" />
+
+            <TextView
+                android:id="@+id/tv_city"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView
+                style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="区/县" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView
+                style="@style/area_text_more"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

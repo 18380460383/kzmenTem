@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_update"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:visibility="visible"
+    android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/update_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="版本更新提示"
+            android:textSize="16dp"
+            android:textColor="#000000"/>
+    <TextView
+        style="@style/halving_line_e"/>
+        <TextView
+            android:id="@+id/update_msg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:textColor="#8c8a8a"
+            android:text="1.最新增加消息推送功能"
+            android:textSize="14dp">
+
+        </TextView>
+    <TextView
+        style="@style/halving_line_e"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/no_update"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:background="#2E75AC"
+                android:textColor="#ffffff"
+                android:text="下一次" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3" />
+
+            <Button
+                android:id="@+id/yes_update"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/select_update_button"
+                android:layout_weight="1"
+                android:textSize="14dp"
+                android:textColor="#ffffff"
+                android:text="确定" />
+        </LinearLayout>
+
+</LinearLayout>

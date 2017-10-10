@@ -1,0 +1,45 @@
+-keep class com.tencent.mm.sdk.** {
+
+   *;
+}
+-keepclassmembers class * {
+    public <init>(org.json.JSONObject);
+}
+
+#把[您的应用包名] 替换成您自己的包名，如"com.example.R$*"。
+-keep public class com.cardholder.adwlf.R$*{
+    public static final int *;
+}
+
+# 如"com.example.R$*"
+-keep public class com.cardholder.adwlf.R$*{
+    public static final int *;
+}
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+#==================gson==========================
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+
+#==================protobuf======================
+-dontwarn com.google.**
+-keep class com.google.protobuf.** {*;}
+#-dontwarn kdx.kdy.kdz.**
+#-keepclassmembers class kdx.kdy.kdz.libs.adsbase.js.base.JsInterface_Impl {
+#    *;
+#}
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-keep class com.alipay.** {*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-dontwarn com.alipay.**
+-keep class com.ut.** {*;}
+-dontwarn com.ut.**
+-keep class com.ta.** {*;}
+-dontwarn com.ta.**

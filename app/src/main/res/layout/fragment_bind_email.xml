@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/write"
+    android:orientation="vertical"
+    android:padding="@dimen/left_right_retract_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/click_press" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="绑定邮箱" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/click_press" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/old_email_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/left_right_retract_small"
+        android:layout_marginTop="@dimen/left_right_retract_small"
+        android:text="绑定投稿邮箱" />
+
+    <TextView
+        android:id="@+id/old_email_str"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/or_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/left_right_retract_small"
+        android:layout_marginTop="@dimen/left_right_retract_small"
+        android:text="绑定投稿邮箱" />
+
+    <EditText
+        android:id="@+id/email_address"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/drawable_comment_kuang"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/left_right_retract_small"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/left_right_retract_small"
+        android:layout_marginTop="@dimen/left_right_retract_small"
+        android:text="验证码" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/drawable_comment_kuang"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/email_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:inputType="number"
+            android:padding="@dimen/left_right_retract_small"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/get_num"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/drawable_comment_kuang_right_gar_button"
+            android:gravity="center"
+            android:padding="@dimen/left_right_retract_small"
+            android:text="获取验证码"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bind_go"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top30"
+        android:background="@drawable/selector_e_tv_login"
+        android:gravity="center"
+        android:text="立即绑定"
+        android:textColor="@color/write"
+        android:textSize="16dp" />
+
+</LinearLayout>

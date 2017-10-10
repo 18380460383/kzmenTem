@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
+
+    <!-- <RelativeLayout
+         android:visibility="gone"
+         android:background="@color/white"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         <include layout="@layout/kz_title"
+            />
+     </RelativeLayout>
+         <View
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:background="@color/white"/>
+     <include
+         layout="@layout/kz_course_list_head"
+         />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/msg_center_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/white"
+            android:dividerHeight="20dp" />
+
+        <include layout="@layout/kz_empty_view" />
+    </RelativeLayout>
+</LinearLayout>

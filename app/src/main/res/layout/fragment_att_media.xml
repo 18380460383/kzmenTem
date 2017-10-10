@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="12dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/attest_text"
+                    android:text="姓名"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    style="@style/attest_et"
+                    android:hint="请填写真实姓名"
+                    android:id="@+id/et_name" />
+
+                <CheckBox
+                    android:id="@+id/cb_hide"
+                    android:button="@drawable/selector_attest_hide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView style="@style/line_thin" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/attest_text"
+                    android:text="媒体名称"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    style="@style/attest_et"
+                    android:id="@+id/et_company"
+                    android:hint="填写你所在的媒体" />
+            </LinearLayout>
+            <TextView style="@style/line_thin" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/attest_text"
+                    android:text="所属板块"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    style="@style/attest_et"
+                    android:id="@+id/et_belong"
+                    android:hint="填写你的所属模块" />
+            </LinearLayout>
+            <TextView style="@style/line_thin" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    style="@style/attest_text"
+                    android:text="媒体类型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="点击选择媒体类型"
+                    android:id="@+id/tv_type" />
+                <ImageView
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/into"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView style="@style/line_thin" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/attest_text"
+                    android:text="身份证明"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.a360ads.adwlf.view.SquareImageView
+                        android:layout_marginLeft="15dp"
+                        app:layout_widthPercent="50%"
+                        android:id="@+id/iv_logo"
+                        android:src="@drawable/icon_show_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </android.support.percent.PercentRelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/line_thin" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/attest_text"
+                    android:text="微博粉丝数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:inputType="number"
+                    android:hint="请填写微博粉丝数量(选填)"
+                    android:id="@+id/et_count_wbo"
+                    style="@style/attest_et" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/attest_text"
+                    android:text="微信粉丝数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:inputType="number"
+                    style="@style/attest_et"
+                    android:hint="请填写微信粉丝人数(选填)"
+                    android:id="@+id/et_count_wxin" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="40dp"
+                    app:layout_widthPercent="55%"
+                    android:id="@+id/tv_commit"
+                    android:textColor="@android:color/white"
+                    android:padding="14dp"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="提交"
+                    android:background="@drawable/selector_attest_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </android.support.percent.PercentRelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

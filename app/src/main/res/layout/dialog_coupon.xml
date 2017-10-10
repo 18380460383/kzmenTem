@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/coupon"
+    android:gravity="center">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="189"
+        android:background="#007db3b3"
+        android:scaleType="fitXY"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="104"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/dialog_coupon_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:background="@drawable/dialog_coupon_huang_textview"
+            android:text="查看记录"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:textColor="#ffffff"
+            android:gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

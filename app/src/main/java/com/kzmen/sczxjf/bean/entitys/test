@@ -1,0 +1,154 @@
+{
+  "游戏": [
+    {
+      "cid": "91",
+      "package_title": "时尚类豪华套餐",
+      "industry": "157",
+      "content": "时尚类豪华套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/shishang.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "2521.00",
+      "old_money": "2005.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "90",
+      "package_title": "游戏类豪华套餐",
+      "industry": "157",
+      "content": "游戏类豪华套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/youxi.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "2528.00",
+      "old_money": "2020.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "79",
+      "package_title": "游戏类经济套餐",
+      "industry": "157",
+      "content": "游戏类经济套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/youxi.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "2063.00",
+      "old_money": "1860.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "68",
+      "package_title": "游戏类基础套餐",
+      "industry": "157",
+      "content": "游戏类基础套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/youxi.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "1343.00",
+      "old_money": "1210.00",
+      "media_type": "9"
+    }
+  ],
+  "食品": [
+    {
+      "cid": "93",
+      "package_title": "食品类豪华套餐",
+      "industry": "162",
+      "content": "食品类豪华套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/shipin.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "2311.00",
+      "old_money": "1850.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "82",
+      "package_title": "食品类经济套餐",
+      "industry": "162",
+      "content": "食品类经济套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/shipin.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "1846.00",
+      "old_money": "1660.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "71",
+      "package_title": "食品类基础套餐",
+      "industry": "162",
+      "content": "食品类基础套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/shipin.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "1328.00",
+      "old_money": "1200.00",
+      "media_type": "9"
+    }
+  ],
+  "母婴/亲子": [
+    {
+      "cid": "92",
+      "package_title": "母婴育儿类豪华套餐",
+      "industry": "151",
+      "content": "母婴育儿类豪华套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/muying.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "1800.00",
+      "old_money": "0.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "81",
+      "package_title": "母婴育儿类经济套餐",
+      "industry": "151",
+      "content": "母婴育儿类经济套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/muying.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "1905.00",
+      "old_money": "1620.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "70",
+      "package_title": "母婴育儿类基础套餐",
+      "industry": "151",
+      "content": "母婴育儿类基础套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/muying.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "1380.00",
+      "old_money": "1240.00",
+      "media_type": "9"
+    }
+  ],
+  "科技": [
+    {
+      "cid": "83",
+      "package_title": "科技类豪华套餐",
+      "industry": "155",
+      "content": "科技类豪华套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/keji.jpg",
+      "start_time": "1438099200",
+      "end_time": "1477843200",
+      "money": "2424.00",
+      "old_money": "1940.00",
+      "media_type": "9"
+    },
+    {
+      "cid": "61",
+      "package_title": "科技类基础套餐",
+      "industry": "155",
+      "content": "科技类基础套餐",
+      "package_logo": "/Public/uploads/recomment/2015-08/keji.jpg",
+      "start_time": "1438012800",
+      "end_time": "1477843200",
+      "money": "1290.00",
+      "old_money": "1160.00",
+      "media_type": "9"
+    }
+  ]
+}

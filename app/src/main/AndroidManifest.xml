@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kzmen.sczxjf">
+
+    <!-- SDCard中创建与删除文件权限 -->
+    <!-- 向SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <!-- baidu -->
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Required -->
+
+
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 阿里百川 -->
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+
+    <!-- Required -->
+    <permission
+        android:name="com.kzmen.sczxjf.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.kzmen.sczxjf.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name=".AppContext"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:theme="@style/BaseAppTheme">
+        <activity
+            android:name=".test.Mp3RecorderActivity"
+            android:screenOrientation="portrait" />
+        <!-- logo页面 -->
+        <activity
+            android:name=".ui.activity.LogoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/LogoTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 使用说明界面 -->
+        <activity
+            android:name=".ui.activity.personal.GuideActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 第一次引导界面 -->
+        <activity
+            android:name=".ui.activity.personal.FirstGuideActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 微信回掉页面 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <!-- 主界面 -->
+        <activity
+            android:name=".ui.activity.personal.MainTabActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".test.CityPickerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- 详情界面 -->
+        <activity
+            android:name=".ui.activity.personal.ShareActivity"
+            android:screenOrientation="portrait" />
+        <!-- 验证手机号码界面 -->
+        <activity
+            android:name=".ui.activity.CheckPhoneActivity"
+            android:screenOrientation="portrait" />
+        <!-- 网页界面 -->
+        <activity
+            android:name=".ui.activity.WebviewActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 认证详情界面 -->
+        <activity
+            android:name=".ui.activity.personal.MsgDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.personal.MsgCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.personal.SetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.personal.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 摇一摇界面 -->
+        <!-- 签到界面 -->
+        <!-- 活动详情界面 -->
+        <activity
+            android:name=".ui.activity.BaseWebActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 兑换记录界面 -->
+        <activity
+            android:name=".ui.activity.personal.ExchangeActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 兑换详情界面 -->
+        <activity
+            android:name=".ui.activity.personal.DetailEXActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- Ping++ SDK 注册 -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微信支付 sdk ，也是 Ping++ sdk 调用入口 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 支付宝 sdk -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+
+        <!-- </>值来自开发者平台取得的AppKey -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />
+
+        <!-- 企业修改密码界面 -->
+        <activity
+            android:name=".ui.activity.AlterPassword"
+            android:screenOrientation="portrait" />
+
+        <!-- 个人端手机注册 -->
+        <activity
+            android:name=".ui.activity.personal.PersonageRegister"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.personal.ShopActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 商品详情 -->
+        <activity
+            android:name=".ui.activity.personal.ShopDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 商品购买确认 -->
+        <!-- 在线支付 -->
+        <activity
+            android:name=".ui.activity.personal.ShopOrderActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 网页跳转处理界面 -->
+        <activity
+            android:name=".ui.activity.SchemeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="jiebian" />
+            </intent-filter>
+        </activity>
+
+        <!-- 创意征集 -->
+        <activity
+            android:name=".ui.activity.personal.OriginalityCoollectActivity"
+            android:screenOrientation="portrait" />
+        <!-- 申请代理 -->
+
+        <activity
+            android:name=".test.AnserQuesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.MainTabActivity"
+            android:label="@string/title_activity_main_tab"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".ui.activity.kzmessage.CourseListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.activity.kzmessage.RegisterActivity" />
+        <activity android:name=".ui.activity.kzmessage.LoginActivity" />
+        <activity android:name=".ui.activity.kzmessage.BindPhoneAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.PersonMessActivity" />
+        <activity android:name=".ui.activity.kzmessage.AccountMessageActivity" />
+        <activity
+            android:name=".ui.activity.kzmessage.UpdateNickNameAcitivy"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.activity.menu.MyIntegralActivity" />
+        <activity android:name=".ui.activity.kzmessage.IntegralRuleAcitivity" />
+        <activity android:name=".ui.activity.menu.MyPackageAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.GetBalanceActivity" />
+        <activity android:name=".ui.activity.kzmessage.RulesAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.AskListActivity" />
+        <activity android:name=".ui.activity.kzmessage.ActivListActivity" />
+        <activity android:name=".ui.activity.kzmessage.CaseListActivity" />
+        <activity
+            android:name=".ui.activity.kzmessage.CourseDetailAcitivity"
+            android:label="@string/title_activity_main_tab"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".ui.activity.kzmessage.CourseDetailNewAcitivity"
+            android:label="@string/title_activity_main_tab"
+            android:theme="@style/BaseAppTheme" />
+        <activity android:name=".ui.activity.menu.MyCollectionAcitivity" />
+        <activity android:name=".ui.activity.menu.MyAskActivity" />
+        <activity android:name=".test.MP3OnlineActivity" />
+
+        <service android:name=".server.PlayServiceNew" />
+        <service android:name=".test.server.PlayService" />
+
+        <activity android:name=".test.Mp3ServerAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.WantAskActivity" />
+        <activity android:name=".ui.activity.kzmessage.CoursePlayDeatilActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskDetailActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskIndexActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskActivity" />
+        <activity
+            android:name=".ui.activity.kzmessage.KnowageAskPreActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".imagepicker.ui.ImageBaseActivity" />
+        <activity
+            android:name=".imagepicker.ui.ImageGridActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerTheme" />
+        <activity
+            android:name=".imagepicker.ui.ImageCropActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"
+            android:theme="@style/ImagePickerTheme" />
+        <activity
+            android:name=".imagepicker.ui.ImagePreviewActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+
+        <provider
+            android:name=".imagepicker.ImagePickerProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".imagepicker.ui.ImagePreviewDelActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity
+            android:name=".easypermissions.AppSettingsDialogHolderActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/EasyPermissions.Transparent" />
+
+        <receiver android:name=".connector.NetworkConnectChangedReceiver">
+            <intent-filter>
+                <action android:name="android.NET.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.Net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.activity.kzmessage.TestListActivity" />
+        <activity android:name=".ui.activity.kzmessage.TestDetailActivity" />
+        <activity android:name=".ui.activity.kzmessage.TestResultActivity" />
+
+        <!-- Rich push 核心功能 since 2.0.6 -->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle" />
+
+        <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.kzmen.sczxjf" />
+            </intent-filter>
+        </activity>
+
+        <!-- Required SDK 核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:exported="false"
+            android:process=":mult">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.kzmen.sczxjf" />
+            </intent-filter>
+        </service>
+
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
+                <category android:name="com.kzmen.sczxjf" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
+        <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="9a3c69aec4f080f42bce9e9c" /> <!-- </>值来自开发者平台取得的AppKey -->
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="20362219410d0" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="5c94eb8beebc265d4001586d4d65704b" />
+
+        <activity
+            android:name=".ui.activity.menu.FriendOfmineAcitivty"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.CaseDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.IntegralListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.CourseSearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.IndexActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.kzmessage.ForgetPassActivity" />
+        <activity android:name=".ui.activity.kzmessage.ResetPassActivity" />
+        <activity android:name=".ui.activity.menu.ShopOfIntegralActivity" />
+        <activity android:name=".ui.activity.menu.SpecialPowerActivity" />
+        <activity
+            android:name=".ui.activity.menu.IntegralMsgActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopOrderComfirActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopAddAddressActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopAddressEditActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopAreaActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopPhoneEditAcitivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopNameEditActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopCountryDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.menu.FriendInvateActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskSheqActivity" />
+        <activity android:name=".ui.activity.menu.PayTypeAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.WebAcitivity" />
+        <activity android:name=".ui.activity.menu.AddMoneyActivity" />
+        <activity android:name=".test.WeixTestActivity">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".ui.activity.menu.CourseAskActivity" />
+        <activity android:name=".ui.activity.kzmessage.MyAskDetaiAcitivity" />
+        <activity android:name=".ui.activity.menu.ShopHistoryActivity" />
+        <activity android:name=".ui.activity.kzmessage.XiaoJListActivity" />
+        <activity android:name=".ui.activity.kzmessage.MsgCenterActivity" />
+        <activity android:name=".ui.activity.kzmessage.UpdateInvCodeActivity" />
+        <activity android:name=".ui.activity.kzmessage.MoneyPayActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="16"
+    android:background="@color/write"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/orginality_collect_title"
+        layout="@layout/e_title"
+        style="@style/TitleStyle"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/body_wigth">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <WebView
+                android:id="@+id/orginality_collect_webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <FrameLayout
+                android:id="@+id/orginality_collect_framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+            </FrameLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/hanv_meail_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/click_press" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="投稿邮箱" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/click_press" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/old_email_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/left_right_retract_small"
+                android:layout_marginTop="@dimen/left_right_retract_small"
+                android:text="我的投稿邮箱" />
+
+            <TextView
+                android:id="@+id/old_email_str"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

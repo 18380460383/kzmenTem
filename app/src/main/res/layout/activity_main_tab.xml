@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_drawerlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:weightSum="16">
+
+       <RelativeLayout
+           style="@style/TitleStyle">
+           <include
+               android:id="@+id/title"
+               layout="@layout/e_title" />
+
+               <ImageView
+                   android:id="@+id/main_headimage"
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="@dimen/left_right_retract_small"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/userhead"
+                   android:layout_alignParentLeft="true"/>
+
+           <RadioGroup
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerInParent="true"
+               android:background="@drawable/bac_radiogroup"
+               android:gravity="center_vertical"
+               android:orientation="horizontal">
+               <RadioButton
+                   android:id="@+id/rb_1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:button="@null"
+                   android:background="@drawable/select_radiobutton_left"
+                   android:text="个人"
+                   android:textSize="14dp"
+                   android:textColor="@color/write"
+               />
+               <RadioButton
+                   android:id="@+id/rb_2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:button="@null"
+                   android:background="@drawable/select_radiobutton_right"
+                   android:text="企业"
+                   android:textSize="14dp"
+                   android:textColor="@color/write"
+
+               />
+           </RadioGroup>
+
+
+           <!--消息图标带小红点-->
+           <RelativeLayout
+               android:id="@+id/main_ring"
+               android:layout_width="32dp"
+               android:layout_height="32dp"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="8dp">
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerInParent="true"
+                   />
+
+               <TextView
+                   android:id="@+id/main_msg_num"
+                   android:layout_width="14dp"
+                   android:layout_height="14dp"
+                   android:layout_alignParentRight="true"
+                   android:background="@drawable/shape_news"
+                   android:gravity="center"
+                   android:visibility="gone"
+                   android:textColor="#ffffff"
+                   android:textSize="8dp" />
+           </RelativeLayout>
+           <ImageView
+               android:id="@+id/more_c_news"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/icon_search"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="4dp"
+               android:layout_toLeftOf="@+id/main_ring"/>
+       </RelativeLayout>
+       <FrameLayout
+           android:id="@+id/framelayout"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           style="@style/body_wigth"
+           />
+   </LinearLayout>
+    <LinearLayout
+        android:id="@+id/id_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#E0EEE0"
+        android:orientation="vertical" >
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

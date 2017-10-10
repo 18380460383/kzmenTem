@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/pop_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:layout_alignParentBottom="true"
+        >
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="选择相机"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:id="@+id/btn_pick_photo"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="选择相册"
+            android:textStyle="bold"
+            />
+        <Button
+            android:id="@+id/btn_crop_photo"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="裁剪"
+            android:textStyle="bold"
+            />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.RulesAcitivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:padding="15dp"
+            android:text="保存" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收货人" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机" />
+
+            <TextView
+                android:id="@+id/tv_user_phone"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地址" />
+
+            <TextView
+                android:id="@+id/tv_user_address"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_street"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="街道" />
+
+            <TextView
+                android:id="@+id/tv_user_street"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_ybian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邮编" />
+
+            <TextView
+                android:id="@+id/tv_user_ybian"
+                style="@style/area_text_value"
+                android:text="" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

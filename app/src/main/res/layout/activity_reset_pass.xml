@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_top30">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="密码"
+                android:textColor="@color/seprate"
+                android:textStyle="bold" />
+
+
+            <com.kzmen.sczxjf.view.PasswordToggleEditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:background="@null"
+                android:hint=""
+                android:inputType="textPassword"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <View style="@style/bottom_line_gloom" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top30"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确认密码"
+                android:textColor="@color/seprate"
+                android:textStyle="bold" />
+
+
+            <com.kzmen.sczxjf.view.PasswordToggleEditText
+                android:id="@+id/et_pass_confim"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint=""
+                android:inputType="textPassword"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <View style="@style/bottom_line_gloom" />
+
+
+        <TextView
+            android:id="@+id/tv_complete"
+            style="@style/login_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="@dimen/margin_top30"
+            android:background="@drawable/kz_bg_yellow_line"
+            android:gravity="center"
+            android:text="完成" />
+    </LinearLayout>
+
+</LinearLayout>

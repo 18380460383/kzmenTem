@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title_with_history" />
+    </RelativeLayout>
+
+    <com.kzmen.sczxjf.view.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.kzmen.sczxjf.view.banner.BannerLayout
+                    android:id="@+id/bl_main_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    app:autoPlayDuration="3000"
+                    app:indicatorMargin="10dp"
+                    app:indicatorPosition="centerBottom"
+                    app:indicatorShape="oval"
+                    app:indicatorSpace="3dp"
+                    app:scrollDuration="900"
+                    app:selectedIndicatorColor="#99FF0000"
+                    app:selectedIndicatorHeight="6dp"
+                    app:selectedIndicatorWidth="6dp"
+                    app:unSelectedIndicatorColor="#f2f2f2"
+                    app:unSelectedIndicatorHeight="6dp"
+                    app:unSelectedIndicatorWidth="6dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top10"
+                    android:text="名称"
+                    android:textSize="18dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3000"
+                        android:textColor="@color/yellow"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="积分兑换"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/tv_leve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="剩余200"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <WebView
+                    android:id="@+id/wv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top20" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/my_empty_page"
+                layout="@layout/smartloadinglayout_view_on_empty" />
+
+            <include
+                android:id="@+id/my_error_page"
+                layout="@layout/smartloadinglayout_view_on_error" />
+
+            <include
+                android:id="@+id/my_loading_page"
+                layout="@layout/smartloadinglayout_view_on_loading" />
+        </LinearLayout>
+    </com.kzmen.sczxjf.view.MyScrollView>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_top20"
+            android:paddingTop="@dimen/margin_top20">
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/btn_collect" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tv_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/yellow"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_top20"
+            android:paddingTop="@dimen/margin_top20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即兑换"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="10"
+    android:padding="40dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="@drawable/dialog_binding_bg"
+        android:orientation="vertical"
+        android:layout_weight="4"
+        android:weightSum="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_weight="3.3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#000000"
+                android:id="@+id/dialog_phone_tv_text"
+                android:textSize="13dp"
+                android:text="此手机号已被绑定，请重新输入手机号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.7"
+            android:weightSum="2"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:id="@+id/binding_phone_no"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/dialog_binding_btn_bg"
+                android:text="取消"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:id="@+id/binding_phone_know"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/dialog_binding_btn_bg"
+                android:text="知道了"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+

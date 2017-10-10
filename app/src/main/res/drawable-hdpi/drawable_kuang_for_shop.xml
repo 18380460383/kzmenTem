@@ -1,0 +1,52 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--最外层-->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/halving_line" />
+            <stroke
+                android:width="1px"
+                android:color="#ffffff" />
+            <corners android:radius="6dp" />
+            <padding
+                android:bottom="1px"
+                android:left="1px"
+                android:right="1px"
+                android:top="1px" />
+
+        </shape>
+    </item>
+    <!--第二层-->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/halving_line" />
+            <stroke
+                android:width="1px"
+                android:color="#e0e0e0" />
+            <corners android:radius="6dp" />
+            <padding
+                android:bottom="2px"
+                android:left="2px"
+                android:right="2px"
+                android:top="1px" />
+
+        </shape>
+    </item>
+<!--第一层-->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/halving_line" />
+            <stroke
+                android:width="1px"
+                android:color="#d7d7d7" />
+            <corners android:radius="6dp" />
+            <padding
+                android:bottom="2px"
+                android:top="1px"/>
+
+        </shape>
+    </item>
+
+
+
+</layer-list>
+

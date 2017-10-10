@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        style="@style/TitleStyle">
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/title"/>
+        <ImageView
+            android:id="@+id/back_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cancel"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"/>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/yao_progressbar"
+      android:progressDrawable="@drawable/webprogressbarbg"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:max="100"
+        android:layout_height="4px"/>
+    <com.tencent.smtt.sdk.WebView
+        android:layerType="software"
+        android:hardwareAccelerated="true"
+        android:id="@+id/activity_yao_wb"
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+</LinearLayout>

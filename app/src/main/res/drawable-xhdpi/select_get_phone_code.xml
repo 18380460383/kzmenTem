@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/drawable_get_phone_code_press_kuang"></item>
+    <item android:drawable="@drawable/drawable_get_phone_code_up_button"></item>
+</selector>

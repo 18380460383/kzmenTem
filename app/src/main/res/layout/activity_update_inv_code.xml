@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.UpdateNickNameAcitivy">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:padding="8dp"
+            android:text="保存"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <com.kzmen.sczxjf.view.DJEditText
+        android:id="@+id/et_input"
+        style="?android:attr/textViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="请输入上级代理邀请码"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/tv_mess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="15dp"
+        android:text="4-16个字符，仅支持中文、英文大小写、数字、下划线、减号及其组合。"
+        android:visibility="gone" />
+</LinearLayout>

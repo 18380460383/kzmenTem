@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top20"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_day_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_user_name"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:textSize="16dp" />
+                <!--android:background="@drawable/cricle_background"-->
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="@dimen/margin_top20"
+                    android:gravity="center">
+
+                    <com.kzmen.sczxjf.view.CircleImageViewBorder
+                        android:id="@+id/iv_user_head"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerHorizontal="true"
+                        app:border_color="@color/yellow"
+                        app:border_width="2dp" />
+                    <!--<ImageView
+                        android:id="@+id/iv_user_head"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerHorizontal="true" />-->
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_nickname"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top20"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="昵称" />
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+            <LinearLayout
+                android:id="@+id/ll_realname"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="真实姓名" />
+
+                <TextView
+                    android:id="@+id/tv_realname"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_sex"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别" />
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+            <LinearLayout
+                android:id="@+id/ll_birth"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="生日" />
+
+
+                <TextView
+                    android:id="@+id/tv_birth"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_type"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份" />
+
+                <TextView
+                    android:id="@+id/tv_hangye"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+            <LinearLayout
+                android:id="@+id/ll_phone"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top30"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+            <LinearLayout
+                android:id="@+id/ll_wx"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信" />
+
+                <TextView
+                    android:id="@+id/tv_wx"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="未绑定" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/account_seperte"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_qq"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的邀请人" />
+
+                <TextView
+                    android:id="@+id/tv_qq"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="未绑定" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+            <LinearLayout
+                android:id="@+id/ll_mail"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="邮箱" />
+
+                <TextView
+                    android:id="@+id/tv_mail"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="未绑定" />
+
+                <ImageView
+                    style="@style/iamge_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+
+            </LinearLayout>
+
+            <View style="@style/account_seperte" />
+
+            <LinearLayout
+                android:id="@+id/ll_area"
+                style="@style/accuntsetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top30"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/account_seting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="填写地址" />
+
+                <TextView
+                    android:id="@+id/tv_area"
+                    style="@style/account_seting_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="成都" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_more" />
+            </LinearLayout>
+
+            <View
+                style="@style/account_seperte"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,136 @@
+﻿<resources>
+    <string name="app_name">卡掌门</string>
+    <string name="shareget">分享即得</string>
+    <string name="rationale_ask_again">当前app缺少以下权限可能导致无法工作，请开启以下权限。</string>
+    <string name="title_settings_dialog">Permissions Required</string>
+    <!-- Money -->
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unsupported">不支持错误</string>
+    <string name="errcode_unknown">发送返回</string>
+
+    <!-- 提现页面-->
+
+    <!-- 绑定支付宝页面 -->
+
+    <!-- 分享应用页面 -->
+    <string name="wechat_friends">微信好友</string>
+    <string name="wechat_moments">微信朋友圈</string>
+    <string name="wechat_favorites">微信收藏</string>
+
+    <!-- 个人纪录页面 -->
+
+    <!-- 个人信息页面 -->
+
+    <!-- 榜单详情页面 -->
+    <!--验证手机-->
+    <string name="withdraw_hint">如果提现失败，我们将电话联系您！</string>
+
+    <!--设置界面文字-->
+    <string name="set_account">账号信息</string>
+    <string name="set_new_message">新消息提醒</string>
+    <string name="set_check">检查新版本</string>
+    <string name="set_about">关于卡掌门</string>
+    <string name="set_exit">退出当前账号</string>
+    <!--账号信息界面文字-->
+    <string name="account_id">账号ID</string>
+    <string name="account_nickname">账号昵称</string>
+    <string name="account_phone">绑定手机</string>
+    <string name="account_withdraw">提取现金</string>
+    <string name="account_earn">累计收益</string>
+    <string name="account_count">转发量</string>
+    <string name="account_rate">转发率</string>
+    <!--财富界面-->
+
+
+    <!--卡掌门1.1版本大更新全部替换配置 name规范（。xml文件:控件id_vstr;.class使用：class名_功能名_cstr）
+    log信息，网络下载提示信息  不使用当前配置-->
+
+    <!--fragment_enterprise_home.xml-->
+    <!--fragment_menu_c.xml-->
+    <string name="c_menu_collect_vstr">我的收藏</string>
+    <string name="c_menu_withdraw_friend_vstr">我的好友</string>
+    <string name="c_menu_withdraw_activity_vstr">我的活动</string>
+    <string name="c_menu_withdraw_activity_power">我的特权</string>
+    <string name="c_menu_withdraw_credits_exchange_vstr">积分商城</string>
+    <string name="c_menu_setting_vstr">设置</string>
+    <string name="c_menu_feedback_vstr">帮助</string>
+    <!--C_Collect.class-->
+    <!--activity_withdra.xml-->
+    <!--WithdrawActivity.class-->
+    <!--UserSpoor.class-->
+    <!--AttestationActivity.class-->
+    <!--ActListActivity.class-->
+    <string name="actListactivity_title_cstr">活动</string>
+    <!--ShopActivity.class-->
+    <string name="shopactivity_title_cstr">积分兑换</string>
+    <!--activity_c_home_details.xml-->
+    <!--activity_shop.xml-->
+    <string name="activity_shop_record_vstr">兑换记录</string>
+    <!--企业端-->
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_main_tab">MainTabActivity</string>
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+    <string name="all_images">全部图片</string>
+    <string name="folder_image_count">共%1$d张</string>
+    <string name="select_limit">最多选择%1$s张图片</string>
+    <string name="complete">完成</string>
+    <string name="select_complete">完成(%1$s/%2$s)</string>
+    <string name="preview_count">预览(%1$s)</string>
+    <string name="photo_crop">图片裁剪</string>
+    <string name="origin">原图</string>
+    <string name="origin_size">原图(%1$s)</string>
+    <string name="rationale_camera">该功能需要打开相机权限。</string>
+    <string name="rationale_record">该功能需要打开麦克风权限。</string>
+    <string name="tst">比如同义理解的时候，我要听三国演义，我想听三国演义，听三国演义这本书，类似的说法有很多，olmai就可以为你解决这类的语义理解，olami语音识别引擎使用比较简单，只需要简单的初始化，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。</string>
+    <string name="loading_description">加载中</string>
+    <string name="empty_description">这里还没有内容!</string>
+    <string name="error_description">哎呀！内容出错了！点击重新获取！</string>
+    <string name="error_btn_title">重 试</string>
+    <string name="cp_select_city">选择城市</string>
+    <string name="cp_hot_city">热门城市</string>
+    <string name="cp_located_city">定位城市</string>
+    <string name="cp_hint_search_box">请输入城市名或拼音</string>
+    <string name="cp_nothing_found">没有搜索结果~</string>
+    <string name="cp_locating">正在定位…</string>
+    <string name="cp_located_failed">定位失败</string>
+
+
+    <string name="pingpp_title_activity_pay">支付</string>
+    <string name="pingpp_title_activity_pay_successed">支付成功</string>
+    <string name="pingpp_title_activity_pay_filed">支付失败</string>
+    <string name="pingpp_title_activity_success">支付成功</string>
+    <string name="pingpp_create_bill">成功下单</string>
+    <string name="pingpp_label_bill_name">订单号</string>
+    <string name="pingpp_label_amount">总金额</string>
+    <string name="pingpp_title_activity_pay_failed">支付失败</string>
+    <string name="pingpp_pay_failed">支付失败</string>
+    <string name="pingpp_back_activity_pay">再试一次</string>
+    <string name="pingpp_copyright">支付接入由 Ping++ 提供</string>
+    <string name="pingpp_alipay">支付宝</string>
+    <string name="pingpp_huabei">花呗分期</string>
+    <string name="pingpp_wechat">微信支付</string>
+    <string name="pingpp_bfb">百度钱包</string>
+    <string name="pingpp_bfb_wap">百度钱包</string>
+    <string name="pingpp_upacp">银联支付</string>
+    <string name="pingpp_cmbkb">招行一网通</string>
+    <string name="pingpp_yeepay_wap">易宝支付</string>
+    <string name="pingpp_jdpay_wap">京东支付</string>
+    <string name="pingpp_prompt_pay_falied">可能因为网络过于繁忙</string>
+    <string name="pingpp_continue_buy">继续购物</string>
+    <string name="pingpp_pay_complete">完成</string>
+    <string name="pingpp_add_new_card">添加新银行卡</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/msg_detail_ly_title"
+        style="@style/TitleStyle"
+        layout="@layout/e_title"
+        />
+    <WebView
+        android:id="@+id/msg_detail_ly_web"
+        android:visibility="gone"
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    </WebView>
+    <LinearLayout
+        android:id="@+id/msg_detail_ly_content"
+        android:orientation="vertical"
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_margin="15dp"
+            android:textColor="#555555"
+            android:text="标题"
+            android:textSize="18dp"
+            android:id="@+id/msg_detail_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="16dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="#BDBDBD"
+            android:id="@+id/msg_detail_tv_content"
+            android:text="内容"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/msg_detail_tv_time"
+                android:textSize="16dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:text="2015-11-20 17:00:23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

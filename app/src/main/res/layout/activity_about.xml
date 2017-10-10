@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/about_title"
+        style="@style/TitleStyle"
+        layout="@layout/kz_title" />
+    <ProgressBar
+        android:id="@+id/about_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <com.tencent.smtt.sdk.WebView
+        android:id="@+id/activity_about_wb"
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+</LinearLayout>

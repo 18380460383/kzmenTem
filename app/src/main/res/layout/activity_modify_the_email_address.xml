@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="16"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/modify_the_email_address_title"
+        layout="@layout/e_title"
+        style="@style/TitleStyle"/>
+    <FrameLayout
+        android:id="@+id/modify_the_email_addressbody"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/body_wigth">
+
+    </FrameLayout>
+
+</LinearLayout>

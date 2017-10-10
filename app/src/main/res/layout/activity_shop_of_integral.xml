@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title_with_history" />
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshStaggeredGridLayout
+        android:id="@+id/shop_list"
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
+        android:background="#ffffff"
+        android:divider="@android:color/transparent" />
+
+</LinearLayout>

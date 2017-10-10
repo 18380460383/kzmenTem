@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="16">
+<RelativeLayout
+    style="@style/TitleStyle">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shop_title"
+        layout="@layout/e_title" />
+    <TextView
+        android:id="@+id/activity_shop_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/write"
+        android:textSize="16dp"
+        android:text="@string/activity_shop_record_vstr"/>
+</RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshStaggeredGridLayout
+        android:id="@+id/shop_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/body_wigth"
+        android:background="#ffffff"
+        android:divider="@android:color/transparent"/>
+
+
+</LinearLayout>
