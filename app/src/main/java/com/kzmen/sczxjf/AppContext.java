@@ -66,7 +66,10 @@ public class AppContext extends MultiDexApplication {
     private UserInfo userInfo;
     public SharedPreferences sp;
     public static UserBean userBean;
-	//
+
+
+
+	
     // 七牛sdk
     private Configuration config7niu;
     private UploadManager uploadManager;
