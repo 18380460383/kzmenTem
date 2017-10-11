@@ -6,23 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
@@ -32,8 +27,6 @@ import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.cusinterface.ServerConnect;
 import com.kzmen.sczxjf.dialog.ShareDialog;
-import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
-import com.kzmen.sczxjf.easypermissions.EasyPermissions;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.interfaces.UserOperate;
@@ -53,7 +46,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -64,10 +56,9 @@ import butterknife.ButterKnife;
  * 时间：2016/4/6
  * 功能描述：超级Activity,本项目所有的Activity的父类
  */
-public abstract class SuperActivity extends FragmentActivity implements ServerConnect, EasyPermissions.PermissionCallbacks,
+public abstract class SuperActivity extends FragmentActivity implements ServerConnect,
         ScrollViewOnScroll, UserOperate {
     private static final String TAG = "BasicActivity";
-    private static final int RP_CAMERA_AND_STORAGE = 1;
     /**
      * 标题栏
      */
@@ -97,6 +88,8 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     protected RxDialogPayBack rxDialogPayBack;
 
+    public boolean isHasPemis = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,18 +110,6 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
         // setInnerAct();
         //  Utils.setStatusBar(this,false,false);
-    }
-
-    public void setInnerAct() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-                /*window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);*/
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        /*    int statusBarHeight = MyUtil.getStatusBarHeight(BaseActivity.this);
-            view.setPadding(0, statusBarHeight, 0, 0);*/
-        }
     }
 
     private void initActivity() {
@@ -315,7 +296,6 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
-
     }
 
     /**
@@ -439,36 +419,47 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     }
 
+   /* @AfterPermissionGranted(RP_CAMERA_AND_STORAGE)
+    public void recordTask(String[] perms) {
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            onHasPermision();
+        } else {
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_record),
+                    RP_CAMERA_AND_STORAGE, perms);
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //结果转发给EasyPermissions来处理
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        try {
+            EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        } catch (Exception e) {
+
+        }
     }
 
-    /**
+    *//**
      * 权限同意的回调
      *
      * @param requestCode
      * @param perms
-     */
+     *//*
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.e("tag", "授权了:" + requestCode + ":" + perms.size());
         if (requestCode == RP_CAMERA_AND_STORAGE) {
-            Toast.makeText(this, "用户已经同意些权限了,该干嘛干嘛吧", Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
+    *//**
      * 权限被拒绝的回调
      *
      * @param requestCode
      * @param perms       代表拒绝的权限
-     */
+     *//*
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        Log.e("tag", "拒绝了:" + requestCode + ":" + perms.size());
         if (requestCode == RP_CAMERA_AND_STORAGE) {
             Toast.makeText(this, "用户拒绝了某些权限了", Toast.LENGTH_SHORT).show();
             //检查是否有永久的权限列表中至少有一个权限是永久的被拒绝(用户点击“永不再问”)。
@@ -482,7 +473,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
                         .show();
             }
         }
-    }
+    }*/
 
     private LinearLayout ll_title;
 

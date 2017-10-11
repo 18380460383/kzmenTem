@@ -21,7 +21,6 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.test.bean.Music;
-import com.vondear.rxtools.RxLogUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -401,19 +400,18 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         @Override
         public void run() {
             if (isPlaying()) {//&& mListener != null
-                //  mListener.onPublish(mPlayer.getCurrentPosition());
-                RxLogUtils.e("debug", "" + mPlayer.getCurrentPosition());
                 int position = mPlayer.getCurrentPosition();
                 int duration = (int) mMusicList.get(mPlayingPosition).getDuration() * 1000;
-                RxLogUtils.e("debug", "duration::::::" + duration);
                 if (duration == 0) {
                     duration = mPlayer.getDuration();
                 }
-                RxLogUtils.e("debug", "durationnew::::::" + duration + "   " + mPlayingPosition);
                 if (duration > 0) {
                     // 计算进度（获取进度条最大刻度*当前音乐播放位置 / 当前音乐时长）
-                    int pos = 100 * position / duration;
-                    int musicTime = position / 1000;
+                    int pos = 100 * (position + 1000) / duration;
+                    int musicTime = (position / 1000);
+                    if ((position + 1000) < duration) {
+                        musicTime = musicTime + 1;
+                    }
                     int min = musicTime / 60;
                     int sec = musicTime % 60;
                     String show = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);

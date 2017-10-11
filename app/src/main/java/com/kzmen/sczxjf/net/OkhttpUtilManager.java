@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.Response;
 
 /**
@@ -40,6 +41,7 @@ public class OkhttpUtilManager {
     public static String URL_VIP_CNENTER = URL + "html/help";//会员中心 帮助
     public static String URL_ABOUT = URL + "html/about";//关于卡掌门
     public static String URL_ASK = URL + "html/disclaimer";//提问-》免责
+    public static String URL_USER_RULE = URL + "html/user_agreement\n";//提问-》免责
     private Context mContext;
     private OkhttpUtilManager manager;
 
@@ -90,6 +92,55 @@ public class OkhttpUtilManager {
                 });
     }
 
+    public static void postObjec(final Context mContext, String url, Map<String, String> param, File paramFile, final OkhttpUtilResult result) {
+        Gson gson = new Gson();
+        String data = gson.toJson(param);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
+        headers.put("token", AppContext.token);
+        headers.put("publicdeviceversion", AppContext.public_deviceVersion);    //所有的 header 都 不支持 中文
+        headers.put("publicdevicetype", AppContext.public_deviceType);
+        headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
+        OkHttpUtils.post(URL + url)
+                .tag(mContext)
+                .params(param)
+                //.params("mediafile", paramFile)
+                 .params("mediafile", paramFile, "recoder.mp3", MediaType.parse("application/octet-stream"))
+                .headers(headers)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        try {
+                            JSONObject object = new JSONObject(s);
+                            if (result == null) {
+                                return;
+                            }
+                            BaseBean bean = BaseBean.parseEntity(object);
+                            if (bean.getCode() == 200) {
+                                result.onSuccess(100, bean.getData());
+                            } else if (bean.getCode() == 998 || bean.getCode() == 997) {
+                                AppContext.getInstance().setPersonageOnLine(false);
+                                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                            } else {
+                                result.onErrorWrong(bean.getCode(), bean.getMessage());
+                            }
+                        } catch (JSONException e) {
+                            result.onErrorWrong(99, "测试" + e.toString());
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Response response, Exception e) {
+                        super.onError(call, response, e);
+                        if (result == null) {
+                            return;
+                        }
+                        result.onErrorWrong(99, e.toString());
+                    }
+                });
+    }
+
     public static void postObjec(final Context mContext, String url, Map<String, String> param, List<File> paramFile, final OkhttpUtilResult result) {
         Gson gson = new Gson();
         String data = gson.toJson(param);
@@ -102,7 +153,8 @@ public class OkhttpUtilManager {
         OkHttpUtils.post(URL + url)
                 .tag(mContext)
                 .params(param)
-                .addFileParams("data", paramFile)
+                .addFileParams("data[mediafile]", paramFile)
+                //.params("data[mediafile]", paramFile.get(0), "audio/mp3")
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override

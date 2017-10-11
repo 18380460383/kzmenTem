@@ -105,7 +105,7 @@ public class ForgetPassActivity extends SuperActivity {
                 Intent intent1 = new Intent(ForgetPassActivity.this, WebAcitivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("title", "用户协议");
-                bundle.putString("url", OkhttpUtilManager.URL_ASK);
+                bundle.putString("url", OkhttpUtilManager.URL_USER_RULE);
                 intent1.putExtras(bundle);
                 startActivity(intent1);
                 break;

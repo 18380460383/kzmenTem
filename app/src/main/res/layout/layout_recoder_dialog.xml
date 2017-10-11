@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:background="@drawable/shape_window_background"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_window_background"
         android:gravity="center"
-        android:padding="16dp" >
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageView
+            android:id="@android:id/progress"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:id="@android:id/progress"
             android:src="@drawable/layer_recording_animation" />
+
         <TextView
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:id="@android:id/text1"
             android:layout_width="114dp"
-            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:gravity="center"
-            android:textSize="16sp"
-            android:text="00:00" />
+            android:text="剩余录制时间:120s"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>

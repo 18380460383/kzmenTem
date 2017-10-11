@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,6 +42,7 @@ import com.kzmen.sczxjf.interfaces.PlayDetailOperate;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.util.TimeFormateUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.ExPandGridView;
@@ -139,6 +142,29 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
     private InputMethodManager mInputManager;
     private String aid = "";
     private int playPos = -1;
+    private int TimeCount = 0;
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            switch (message.what) {
+                case 1:
+                    TimeCount++;
+                    if (TimeCount >= 120) {
+                        recoderDialog.dismiss();
+                        recoderUtils.stopRecord();
+                    }
+                    if (isStartRecord) {
+                        handler.sendEmptyMessageDelayed(1, 1000);
+                    }
+                    break;
+                case 0:
+
+                    break;
+            }
+            return false;
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -351,8 +377,8 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
                 break;
             case R.id.iv_course_play:
                 playType = 1;
-                File file1 = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
-                setMusic(file1.getAbsolutePath(), 0);
+                /*File file1 = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
+                setMusic(file1.getAbsolutePath(), 0);*/
                 AppContext.getPlayService().playPause();
                 break;
             case R.id.iv_delete:
@@ -396,9 +422,9 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
         Map<String, String> params = new HashMap<>();
         params.put("data[qid]", qid);
         File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
-        List<File> fileList = new ArrayList<>();
-        fileList.add(file);
-        OkhttpUtilManager.postObjec(this, "Question/addAnswer", params, fileList, new OkhttpUtilResult() {
+       /* List<File> fileList = new ArrayList<>();
+        fileList.add(file);*/
+        OkhttpUtilManager.postObjec(this, "Question/addAnswer", params, file, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 try {
@@ -423,36 +449,60 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
     }
 
     private View view = null;
+    private boolean isStartRecord = false;
+    private int isFir = 0;
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 this.view = view;
+                TimeCount = 0;
+                isFir = 0;
                 recordTask();
                 return true;
             case MotionEvent.ACTION_UP:
-
-                try {
-                    File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
-                    if (file.exists()) {
-                        RxToast.normal("文件保存成功");
-                        llShow.setVisibility(View.VISIBLE);
-                        llRecoder.setVisibility(View.GONE);
+                if (isStartRecord) {
+                    try {
+                        File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
+                        if (file.exists()) {
+                            File file1 = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
+                            setMusic(file1.getAbsolutePath(), 0);
+                            RxToast.normal("文件保存成功");
+                            llShow.setVisibility(View.VISIBLE);
+                            llRecoder.setVisibility(View.GONE);
+                            sbPlay.setProgress(0);
+                            tvMediaStartTime.setText("00:00");
+                            tvMediaEndTime.setText(TimeFormateUtil.formateTime("" + TimeCount));
+                            //tvMediaEndTime.setText(TimeFormateUtil.formateTime("" + (AppContext.getPlayService().mPlayer.getDuration() / 1000)));
+                            tv_start.setBackgroundResource(R.drawable.shape_recoder_btn_normal);
+                            recoderDialog.dismiss();
+                            recoderUtils.stopRecord();
+                        } else {
+                            RxToast.normal("文件保存失败");
+                            llRecoder.setVisibility(View.VISIBLE);
+                            recoderDialog.dismiss();
+                            recoderUtils.stopRecord();
+                            tv_start.setBackgroundResource(R.drawable.shape_recoder_btn_normal);
+                        }
+                    } catch (Exception e) {
+                        llRecoder.setVisibility(View.VISIBLE);
                         recoderDialog.dismiss();
                         recoderUtils.stopRecord();
-                        sbPlay.setProgress(0);
-                        tvMediaStartTime.setText("00:00");
-                        tvMediaEndTime.setText("00:00");
                         tv_start.setBackgroundResource(R.drawable.shape_recoder_btn_normal);
-                    } else {
-                        RxToast.normal("文件保存失败");
                     }
-
-                } catch (Exception e) {
-                    RxLogUtils.e("tst", e.toString());
+                } else {
+                    try {
+                        llRecoder.setVisibility(View.VISIBLE);
+                        recoderDialog.dismiss();
+                        recoderUtils.stopRecord();
+                        tv_start.setBackgroundResource(R.drawable.shape_recoder_btn_normal);
+                    } catch (Exception e) {
+                        llRecoder.setVisibility(View.VISIBLE);
+                        tv_start.setBackgroundResource(R.drawable.shape_recoder_btn_normal);
+                    }
                 }
-
+                isStartRecord = false;
                 return true;
         }
         return false;
@@ -463,7 +513,8 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
         if (null != recoderDialog) {
             int level = (int) db;
             recoderDialog.setLevel((int) db);
-            recoderDialog.setTime(System.currentTimeMillis() - downT);
+            //recoderDialog.setTime(System.currentTimeMillis() - downT);
+            recoderDialog.setTime("剩余录制时间：" + ((downT + 120 * 1000 - System.currentTimeMillis()) / 1000) + "s");
         }
     }
 
@@ -478,7 +529,6 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
 
     @Override
     public void time(String start, String end, int pos) {
-        Log.e("tst", "" + start + "    " + end + "     " + pos);
         if (playType == 1) {
             tvMediaStartTime.setText(start);
             tvMediaEndTime.setText(end);
@@ -538,33 +588,56 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
 
     @AfterPermissionGranted(RC_RECORD_PERM)
     public void recordTask() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO)) {
-            recoderUtils.startRecord();
-            downT = System.currentTimeMillis();
-            recoderDialog.showAtLocation(view, Gravity.CENTER, 0, 0);
-            tv_start.setBackgroundResource(R.drawable.shape_recoder_btn_recoding);
-
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (isFir == 0) {
+                recoderUtils.startRecord();
+                downT = System.currentTimeMillis();
+                recoderDialog.showAtLocation(view, Gravity.CENTER, 0, 0);
+                TimeCount = 0;
+                handler.sendEmptyMessage(1);
+            }
+            isStartRecord = true;
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_record),
-                    RC_RECORD_PERM, Manifest.permission.RECORD_AUDIO);
+                    RC_RECORD_PERM, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
+        ++isFir;
+        try {
+            recoderDialog.dismiss();
+            recoderUtils.stopRecord();
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            try {
+                recoderDialog.dismiss();
+                recoderUtils.stopRecord();
+            } catch (Exception e) {
+
+            }
             new AppSettingsDialog.Builder(this).build().show();
         }
+        ++isFir;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // EasyPermissions handles the request result.
+        try {
+            recoderDialog.dismiss();
+            recoderUtils.stopRecord();
+        } catch (Exception e) {
+
+        }
+        ++isFir;
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 

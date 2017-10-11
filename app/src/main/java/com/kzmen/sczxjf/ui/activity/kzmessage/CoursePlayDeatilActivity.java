@@ -334,8 +334,6 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         }
         if (null != stageListBean.getXiaojiang_list() && stageListBean.getXiaojiang_list().size() > 0) {
             for (CourseDetailBean.StageListBean.XiaojiangListBean kejianBean : stageListBean.getXiaojiang_list()) {
-                KzCoursePlayBean kzCoursePlayBean1 = new KzCoursePlayBean(kejianBean.getId(), "00", kejianBean.getTitle(), 1, kejianBean.getMedia(), kejianBean.getMedia_time());
-                kjList.add(kzCoursePlayBean1);
                 Music music = new Music();
                 music.setType(Music.Type.ONLINE);
                 music.setPath(kejianBean.getMedia());

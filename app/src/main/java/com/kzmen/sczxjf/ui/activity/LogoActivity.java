@@ -1,8 +1,10 @@
 package com.kzmen.sczxjf.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import com.kzmen.sczxjf.AppManager;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.WeixinInfo;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
+import com.kzmen.sczxjf.easypermissions.AfterPermissionGranted;
 import com.kzmen.sczxjf.easypermissions.EasyPermissions;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
@@ -25,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -128,11 +132,47 @@ public class LogoActivity extends SuperActivity implements EasyPermissions.Permi
                 finish();
                 //OnLinelogin();
             }*/
-       // recordTask();
-        startActivity(new Intent(this, MainTabActivity.class));
-        finish();
+        // recordTask();
+        // recordTask();
+        recordTask();
         //}
     }
+
+    private static final int RC_RECORD_PERM = 123;
+
+    @AfterPermissionGranted(RC_RECORD_PERM)
+    public void recordTask() {
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            AppContext.getInstance().setDeviceId();
+            startActivity(new Intent(this, MainTabActivity.class));
+            finish();
+        } else {
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_record),
+                    RC_RECORD_PERM, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        AppContext.getInstance().setDeviceId();
+        startActivity(new Intent(this, MainTabActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        AppContext.getInstance().setDeviceId();
+        startActivity(new Intent(this, MainTabActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
 
     private void updataToken() {
         OkhttpUtilManager.postNoCacah(this, "Public/autoLogin", null, new OkhttpUtilResult() {
@@ -278,13 +318,14 @@ public class LogoActivity extends SuperActivity implements EasyPermissions.Permi
 
     @AfterPermissionGranted(RC_RECORD_PERM)
     public void recordTask() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission_group.PHONE)) {
+        String[] perms = {Manifest.permission.RECORD_AUDIO};
+        if (EasyPermissions.hasPermissions(this, perms)) {
             AppContext.getInstance().setDeviceId();
             startActivity(new Intent(this, MainTabActivity.class));
             finish();
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_record),
-                    RC_RECORD_PERM, Manifest.permission_group.PHONE);
+                    RC_RECORD_PERM, perms);
         }
     }
 

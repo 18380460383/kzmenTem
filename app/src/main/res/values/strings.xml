@@ -91,7 +91,7 @@
     <string name="origin">原图</string>
     <string name="origin_size">原图(%1$s)</string>
     <string name="rationale_camera">该功能需要打开相机权限。</string>
-    <string name="rationale_record">该功能需要打开麦克风权限。</string>
+    <string name="rationale_record">没有以下权限，此应用程序可能无法正常工作。打开应用设置屏幕以修改应用权限。</string>
     <string name="tst">比如同义理解的时候，我要听三国演义，我想听三国演义，听三国演义这本书，类似的说法有很多，olmai就可以为你解决这类的语义理解，olami语音识别引擎使用比较简单，只需要简单的初始化，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。</string>
     <string name="loading_description">加载中</string>
     <string name="empty_description">这里还没有内容!</string>

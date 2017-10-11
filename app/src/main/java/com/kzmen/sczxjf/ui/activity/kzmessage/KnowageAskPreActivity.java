@@ -298,14 +298,14 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
 
     @AfterPermissionGranted(RC_CAMERA_PERM)
     public void cameraTask() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) {
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
             Intent intent = new Intent(KnowageAskPreActivity.this, ImageGridActivity.class);
             intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
             startActivityForResult(intent, REQUEST_CODE_SELECT);
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera),
-                    RC_CAMERA_PERM, Manifest.permission.CAMERA);
+                    RC_CAMERA_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
 

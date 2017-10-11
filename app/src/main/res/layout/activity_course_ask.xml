@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="center"
-                android:padding="@dimen/margin_top30"
+                android:padding="@dimen/margin_top20"
                 android:text="按住 回答问题" />
         </LinearLayout>
 
