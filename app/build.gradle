@@ -10,8 +10,8 @@ android {
         applicationId "com.kzmen.sczxjf"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 8
-        versionName "1.8"
+        versionCode 9
+        versionName "1.9"
         ndk {
             moduleName "mupdf"
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"

@@ -95,7 +95,8 @@ public class Kz_MainAskAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (mainAskListClick != null) {
-                    playPosition = position;
+                   /* mainAskListClick.onPosClick(position);
+                    playPosition = position;*/
                     if (listData.get(position).getMedia_status().equals(KzConstanst.IS_FASLE)) {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("data[type]", "2");

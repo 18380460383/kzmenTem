@@ -117,7 +117,7 @@ public class XiaoJListActivity extends ListViewActivity {
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        page = 1;
+        page++;
         getList();
     }
 
@@ -128,6 +128,8 @@ public class XiaoJListActivity extends ListViewActivity {
         Map<String, String> params = new HashMap<>();
         params.put("data[cid]", "" + cid);
         params.put("data[sid]", "" + sid);
+        params.put("data[page]", "" + page);
+        params.put("data[limit]", "" + 20);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseXiaojiang/", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

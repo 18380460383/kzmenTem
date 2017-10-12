@@ -85,27 +85,7 @@ public class TestDetailActivity extends SuperActivity {
         mLayout.onLoading();
         initView();
         initData();
-      /*  back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(TestDetailActivity.this);
-                rxDialogSureCancel.setTitle("是否退出？");
-                rxDialogSureCancel.setContent("当前测评是否答完？确定退出？");
-                rxDialogSureCancel.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        rxDialogSureCancel.dismiss();
-                    }
-                });
-                rxDialogSureCancel.setSureListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        rxDialogSureCancel.dismiss();
-                        finish();
-                    }
-                });
-            }
-        });*/
+
     }
 
     private void initData() {
