@@ -227,7 +227,7 @@ public class CMenuFragment extends SuperFragment {
         cMenuUserLandingNumTv.setText(str.append(colorText));
         Glide.with(getActivity()).load(peUser.getAvatar()).placeholder(R.drawable.icon_user_normal).transform(new GlideCircleTransform(getActivity())).into(cMenuUserHeadIv);
         tvJifen.setText(peUser.getScore());
-        tvPackage.setText(peUser.getBalance() + "");
+        tvPackage.setText(Integer.valueOf(peUser.getBalance()) / 100 + "");
     }
 
 

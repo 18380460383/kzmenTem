@@ -161,11 +161,6 @@ public class PersonMessActivity extends SuperActivity {
         ageList = new ArrayList<>();
         sexList.add("男");
         sexList.add("女");
-
-        hangyeList.add("计算器");
-        hangyeList.add("hg5");
-        hangyeList.add("php");
-
         for (int i = 0; i < 10; i++) {
             ageList.add("" + (19 + i));
         }

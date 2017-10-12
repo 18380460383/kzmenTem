@@ -4,39 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/kz_title"
-            />
+        <include layout="@layout/kz_title" />
+
         <TextView
             android:id="@+id/tv_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="邀请"
-            android:layout_marginRight="@dimen/margin_top10"
+            android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_marginRight="@dimen/margin_top10"
+            android:text="邀请" />
     </RelativeLayout>
+
     <TextView
-        android:layout_marginTop="@dimen/margin_top10"
+        android:id="@+id/tv_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_count"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/margin_top10" />
+
     <RelativeLayout
-        android:layout_marginTop="@dimen/margin_top20"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_top20">
+
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/msg_center_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerHeight="0.5dp" />
-        <include layout="@layout/kz_empty_of_friend"/>
+
+        <include layout="@layout/kz_empty_of_friend" />
     </RelativeLayout>
 
 

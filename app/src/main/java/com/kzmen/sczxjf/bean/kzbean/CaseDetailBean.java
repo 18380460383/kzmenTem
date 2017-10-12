@@ -15,6 +15,24 @@ public class CaseDetailBean {
     private String sharepic;
     private String linkurl;
     private String content_url;
+    private String image;
+    private String type;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getId() {
         return id;

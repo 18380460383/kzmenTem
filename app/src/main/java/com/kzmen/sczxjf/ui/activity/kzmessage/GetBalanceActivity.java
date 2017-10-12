@@ -77,10 +77,13 @@ public class GetBalanceActivity extends SuperActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             money = bundle.getString("money");
+            if (!TextUtil.isEmpty(money)) {
+                money = "" + Integer.valueOf(money) / 100;
+            }
         }
     }
 
-    @OnClick({R.id.tv_rule, R.id.ll_weix, R.id.ll_ali, R.id.tv_allmoney, R.id.tv_sure,R.id.ll_rule})
+    @OnClick({R.id.tv_rule, R.id.ll_weix, R.id.ll_ali, R.id.tv_allmoney, R.id.tv_sure, R.id.ll_rule})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_rule:

@@ -1,12 +1,14 @@
 package com.kzmen.sczxjf.bean.kzbean;
 
+import com.kzmen.sczxjf.utils.TextUtil;
+
 import java.io.Serializable;
 
 /**
  * Created by pjj18 on 2017/9/1.
  */
 
-public class UserBean  implements Serializable{
+public class UserBean implements Serializable {
 
     /**
      * uid : 5001
@@ -123,7 +125,13 @@ public class UserBean  implements Serializable{
     }
 
     public void setBalance(String balance) {
-        this.balance = balance;
+        if (!TextUtil.isEmpty(balance)) {
+            int ba = Integer.valueOf(balance);
+            this.balance = "" + (ba / 100);
+        } else {
+            this.balance = balance;
+        }
+
     }
 
     public String getInvite_code() {

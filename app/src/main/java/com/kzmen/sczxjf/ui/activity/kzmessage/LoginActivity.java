@@ -118,7 +118,6 @@ public class LoginActivity extends SuperActivity {
         pass = etPass.getText().toString();
         if (isAllRight()) {
             showProgressDialog("登陆中");
-
             Map<String, String> params = new HashMap<>();
             params.put("data[phone]", phone);
             params.put("data[pwd]", pass);
@@ -253,9 +252,6 @@ public class LoginActivity extends SuperActivity {
         AppContext.getInstance().setPersonageOnLine(true);
         AppContext.getInstance().setFirst();
         dismissProgressDialog();
-        /*Intent intent = new Intent();
-        intent.putExtra("loginstate", 1);
-        setResult(RESULT_OK, intent);*/
         if (null != AppContext.maintabeactivity) {
             AppContext.maintabeactivity.setHeadImageNew(data);
         }

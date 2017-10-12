@@ -62,15 +62,15 @@ public class MyPackageAcitivity extends SuperActivity {
 
     private void initView() {
         if (moneyLogBean != null) {
-            tvMoney.setText("￥ " + moneyLogBean.getBalance());
-            tvMoneyEdu.setText("￥ " + moneyLogBean.getWithdraw());
+            tvMoney.setText("￥ " + Integer.valueOf(moneyLogBean.getBalance()) / 100);
+            tvMoneyEdu.setText("￥ " + Integer.valueOf(moneyLogBean.getWithdraw()) / 100);
 
             if (null != moneyLogBean.getData() && moneyLogBean.getData().size() > 0) {
                 listAdapter = new CommonAdapter<MoneyLogBean.data>(this, R.layout.kz_money_list_item, moneyLogBean.getData()) {
                     @Override
                     protected void convert(ViewHolder viewHolder, MoneyLogBean.data item, int position) {
                         viewHolder.setText(R.id.tv_name, item.getType_str())
-                                .setText(R.id.tv_price, item.getMoney())
+                                .setText(R.id.tv_price, "" + (Integer.valueOf(item.getMoney()) / 100))
                                 .setText(R.id.tv_date, item.getDatetime())
                                 .setText(R.id.tv_state, item.getStatus_str());
                         if (item.getState().equals("1")) {
@@ -125,7 +125,7 @@ public class MyPackageAcitivity extends SuperActivity {
         ButterKnife.inject(this);
     }
 
-    @OnClick({R.id.tv_get_money, R.id.tv_add_money,R.id.iv_know})
+    @OnClick({R.id.tv_get_money, R.id.tv_add_money, R.id.iv_know})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {

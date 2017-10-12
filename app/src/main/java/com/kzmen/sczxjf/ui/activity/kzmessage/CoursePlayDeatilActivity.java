@@ -226,6 +226,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
     public void connectSuccess() {
     }
 
+    private String isXiaojiang = "0";//0 不是 1是
     private String opType = "";
     private String title = "";
 
@@ -240,21 +241,39 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
             stageListBean = (CourseDetailBean.StageListBean) bundle.getSerializable("stage");
             title = bundle.getString("title");
             opType = bundle.getString("opType");
+            isXiaojiang = bundle.getString("isXiaojiang");
+            media = bundle.getString("media");
+            media_time = bundle.getString("media_time");
             position = bundle.getInt("position");
             cid = bundle.getString("cid");
             sid = bundle.getString("sid");
             zans = bundle.getString("zans");
             iszan = bundle.getString("iszan");
             collect = bundle.getString("collect");
+            if (null != isXiaojiang && isXiaojiang.equals("1")) {
+                ivPlayNext.setVisibility(View.INVISIBLE);
+                ivPlayList.setVisibility(View.INVISIBLE);
+                ivPlayPre.setVisibility(View.INVISIBLE);
+                Music music = new Music();
+                music.setType(Music.Type.ONLINE);
+                music.setPath(media);
+                music.setFileName(title);
+                music.setDuration(Long.valueOf(media_time));
+                mMusicList.add(music);
+                tempList.addAll(mMusicList);
+                AppContext.getPlayService().setMusicList(mMusicList);
+                AppContext.getPlayService().setPlayMessage(CoursePlayDeatilActivity.this);
+                AppContext.getPlayService().play(0);
+            }
             if (stageListBean != null) {
                 setKjList();
                 getCourseDetail();
             } else {
                 getCourseDetail();
             }
-            if (!TextUtil.isEmpty(opType) && opType.equals("1")) {
+            /*if (!TextUtil.isEmpty(opType) && opType.equals("1")) {
                 getXiaojiangList();
-            }
+            }*/
             if (!TextUtil.isEmpty(zans)) {
                 tv_zans.setText(zans);
             }
@@ -267,10 +286,15 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         }
     }
 
+    private String media;
+    private String media_time;
+
     private void getXiaojiangList() {
         Map<String, String> params = new HashMap<>();
         params.put("data[cid]", "" + cid);
         params.put("data[sid]", "" + sid);
+        params.put("data[page]", "1");
+        params.put("data[limit]", "100");
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseXiaojiang/", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -531,7 +555,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         if (TextUtil.isEmpty(opType)) {
             return;
         }
-        if (opType.equals("2")) {
+        if (opType.equals("2") && xiaojiangList.size() == 0) {
             xiaojiangList.addAll(stageListBean.getXiaojiang_list());
         }
         if (playPop == null) {
@@ -702,7 +726,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
             playPos = position;
             if (playPos == 0) {
                 ivPlayPre.setBackgroundResource(R.drawable.btn_player_prev_unclick);
-            } else if (playPos >= mMusicList.size() - 1) {
+            } else if (playPos >= tempList.size() - 1) {
                 ivPlayNext.setBackgroundResource(R.drawable.btn_player_next_unclick);
             } else {
                 ivPlayNext.setBackgroundResource(R.drawable.btn_player_next);

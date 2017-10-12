@@ -288,7 +288,10 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                                 Intent intent = new Intent(CourseDetailNewAcitivity.this, CoursePlayDeatilActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("cid", cid);
+                                bundle.putString("isXiaojiang", "1");
                                 bundle.putString("title", item.getTitle());
+                                bundle.putString("media", item.getMedia());
+                                bundle.putString("media_time", item.getMedia_time());
                                 bundle.putString("opType", "2");
                                 bundle.putSerializable("stage", stageListBean);
                                 bundle.putInt("position", position);

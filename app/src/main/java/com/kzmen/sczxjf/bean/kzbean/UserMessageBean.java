@@ -49,8 +49,8 @@ public class UserMessageBean {
     private String fannum;
     private String hotnum;
     private String alipay;
-    private String earn_money;
-    private String withdraw_ok;
+    private String earn_money = "0";
+    private String withdraw_ok = "0";
     private String isjpush;
     private String logindate;
     private String app_bate;

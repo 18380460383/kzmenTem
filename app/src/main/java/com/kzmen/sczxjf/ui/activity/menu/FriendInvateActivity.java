@@ -1,6 +1,5 @@
 package com.kzmen.sczxjf.ui.activity.menu;
 
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -79,9 +78,9 @@ public class FriendInvateActivity extends SuperActivity {
             public boolean onLongClick(View v) {
                 final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(FriendInvateActivity.this);
                 rxDialogSureCancel.setContent("是否保存？");
-                rxDialogSureCancel.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                rxDialogSureCancel.setCancelListener(new View.OnClickListener() {
                     @Override
-                    public void onCancel(DialogInterface dialog) {
+                    public void onClick(View view) {
                         rxDialogSureCancel.dismiss();
                     }
                 });

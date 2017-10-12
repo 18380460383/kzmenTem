@@ -392,7 +392,10 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                 Intent intent = new Intent(getActivity(), CoursePlayDeatilActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("opType", "2");
+                bundle.putString("isXiaojiang", "1");
                 bundle.putString("title", listCourse.get(position).getXiaojiang_arr().get(pos).getTitle());
+                bundle.putString("media", listCourse.get(position).getXiaojiang_arr().get(pos).getMedia());
+                bundle.putString("media_time", listCourse.get(position).getXiaojiang_arr().get(pos).getMedia_time());
                 bundle.putString("cid", listCourse.get(position).getCid());
                 bundle.putString("sid", listCourse.get(position).getSid());
                 intent.putExtras(bundle);

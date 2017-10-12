@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.CaseDetailBean;
@@ -22,6 +23,7 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
+import com.kzmen.sczxjf.utils.TextUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +59,8 @@ public class CaseDetailActivity extends AppCompatActivity {
     TextView tvSource;
     @InjectView(R.id.wv_content)
     WebView wvContent;
+    @InjectView(R.id.iv_img)
+    ImageView iv_img;
     private JCVideoPlayerStandard myJCVideoPlayerStandard;
     private String id;
     private CaseDetailBean bean;
@@ -82,7 +86,6 @@ public class CaseDetailActivity extends AppCompatActivity {
             }
         });
         setTitle(R.id.kz_tiltle, "案例");
-
 
         setOnloading(R.id.ll_content);
         Bundle bundle = getIntent().getExtras();
@@ -176,8 +179,15 @@ public class CaseDetailActivity extends AppCompatActivity {
 
     private void initView() {
         myJCVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.player_list_video);
-        myJCVideoPlayerStandard.setUp(bean.getVideo()
-                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, bean.getTitle());
+        if (!TextUtil.isEmpty(bean.getType()) && bean.getType().equals("1")) {
+            myJCVideoPlayerStandard.setUp(bean.getVideo()
+                    , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, bean.getTitle());
+            iv_img.setVisibility(View.GONE);
+        } else if (!TextUtil.isEmpty(bean.getType()) && bean.getType().equals("0")) {
+            myJCVideoPlayerStandard.setVisibility(View.GONE);
+            iv_img.setVisibility(View.VISIBLE);
+            Glide.with(this).load(bean.getImage()).into(iv_img);
+        }
         tvTitle.setText(bean.getTitle());
         tvSource.setText("资料来源：" + bean.getSource());
         tvPreTime.setText("发布时间：" + bean.getUpdate_time());

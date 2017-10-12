@@ -29,8 +29,8 @@
 
     <!--设置界面文字-->
     <string name="set_account">账号信息</string>
-    <string name="set_new_message">新消息提醒</string>
-    <string name="set_check">检查新版本</string>
+    <string name="set_new_message">消息提醒</string>
+    <string name="set_check">版本信息</string>
     <string name="set_about">关于卡掌门</string>
     <string name="set_exit">退出当前账号</string>
     <!--账号信息界面文字-->

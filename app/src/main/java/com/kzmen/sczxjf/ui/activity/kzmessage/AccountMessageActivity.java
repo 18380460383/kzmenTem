@@ -53,8 +53,8 @@ public class AccountMessageActivity extends SuperActivity {
             tvAcountid.setText(userMessageBean.getUid());
             tvRealname.setText(userMessageBean.getNickname());
             tvPhone.setText(userMessageBean.getPhone());
-            tvGetMoney.setText("￥" + userMessageBean.getWithdraw_ok());
-            tvSouy.setText("￥" + userMessageBean.getEarn_money());
+            tvGetMoney.setText("￥" + Integer.valueOf(userMessageBean.getWithdraw_ok()) / 100);
+            tvSouy.setText("￥" + Integer.valueOf(userMessageBean.getEarn_money()) / 100);
         }
     }
 

@@ -51,7 +51,6 @@ public class FriendOfmineAcitivty extends ListViewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -118,7 +117,7 @@ public class FriendOfmineAcitivty extends ListViewActivity {
                     if (datalist.size() == 0) {
                         mPullRefreshListView.setEmptyView(llMain);
                     } else {
-                        tv_count.setText("共"+datalist.size()+"位好友");
+                        tv_count.setText("共" + datalist.size() + "位好友");
                         data_list.addAll(datalist);
                     }
                 } catch (JSONException e) {

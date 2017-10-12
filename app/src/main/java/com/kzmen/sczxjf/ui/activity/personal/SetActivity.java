@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
@@ -35,7 +36,6 @@ import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.JsonUtils;
 import com.loopj.android.http.RequestParams;
-import com.vondear.rxtools.view.RxToast;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -132,7 +132,6 @@ public class SetActivity extends SuperActivity {
                     break;
                 case R.id.activity_set_ly_check:
                     //update();
-                    RxToast.normal("版本更新");
                     break;
                 case R.id.activity_set_tb_msg:
                     EshareLoger.logI("currentSet = " + currentSet);

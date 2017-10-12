@@ -84,7 +84,10 @@ public class XiaoJListActivity extends ListViewActivity {
                         } else {
                             Intent intent = new Intent(XiaoJListActivity.this, CoursePlayDeatilActivity.class);
                             Bundle bundle = new Bundle();
+                            bundle.putString("isXiaojiang", "1");
                             bundle.putString("title", item.getTitle());
+                            bundle.putString("media", item.getMedia());
+                            bundle.putString("media_time", item.getMedia_time());
                             bundle.putString("opType", "1");
                             bundle.putString("cid", cid);
                             bundle.putString("sid", sid);
