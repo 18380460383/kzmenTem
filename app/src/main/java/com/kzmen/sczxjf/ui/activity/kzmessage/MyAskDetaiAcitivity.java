@@ -24,6 +24,7 @@ import com.kzmen.sczxjf.view.ExPandGridView;
 import com.kzmen.sczxjf.view.MyListView;
 import com.vondear.rxtools.RxLogUtils;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -172,7 +173,6 @@ public class MyAskDetaiAcitivity extends SuperActivity {
                                 @Override
                                 public void onClick(View v) {
                                     setCollectAnswer(item.getAid());
-                                    //notifyDataSetChanged();
                                 }
                             });
                         }
@@ -251,23 +251,40 @@ public class MyAskDetaiAcitivity extends SuperActivity {
     private String Aid = "";
 
     private void setCollectAnswer(final String aid) {
-        Map<String, String> params = new HashMap<>();
-        showProgressDialog("采纳中");
-        params.put("data[aid]", aid);
-        OkhttpUtilManager.postNoCacah(this, "User/setInterlocutionOk", params, new OkhttpUtilResult() {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(this);
+        rxDialogSureCancel.setContent("确定采纳该答案?");
+        rxDialogSureCancel.setIsShow();
+        rxDialogSureCancel.setCancelListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(int type, String data) {
-                Aid = aid;
-                adapter.notifyDataSetChanged();
-                dismissProgressDialog();
-            }
-
-            @Override
-            public void onErrorWrong(int code, String msg) {
-                RxToast.normal(msg);
-                dismissProgressDialog();
+            public void onClick(View view) {
+                rxDialogSureCancel.dismiss();
             }
         });
+        rxDialogSureCancel.setSureListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rxDialogSureCancel.dismiss();
+                Map<String, String> params = new HashMap<>();
+                showProgressDialog("采纳中");
+                params.put("data[aid]", aid);
+                OkhttpUtilManager.postNoCacah(MyAskDetaiAcitivity.this, "User/setInterlocutionOk", params, new OkhttpUtilResult() {
+                    @Override
+                    public void onSuccess(int type, String data) {
+                        Aid = aid;
+                        adapter.notifyDataSetChanged();
+                        dismissProgressDialog();
+                    }
+
+                    @Override
+                    public void onErrorWrong(int code, String msg) {
+                        RxToast.normal(msg);
+                        dismissProgressDialog();
+                    }
+                });
+            }
+        });
+        rxDialogSureCancel.show();
+
     }
 
     @Override

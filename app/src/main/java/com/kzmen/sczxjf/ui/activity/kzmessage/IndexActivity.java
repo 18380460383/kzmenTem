@@ -26,7 +26,6 @@ import com.kzmen.sczxjf.utils.TextUtil;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.vondear.rxtools.RxLogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -104,10 +103,8 @@ public class IndexActivity extends SuperActivity {
         }
         if (intent != null) {
             startActivity(intent);
-            // finish();
         }
     }
-
 
     public void getToken() {
         setAccBroadcastReceiver();
@@ -128,7 +125,10 @@ public class IndexActivity extends SuperActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 try {
-                    loginForWeixin(intent);
+                    dismissProgressDialog();
+                    if (TextUtil.isEmpty(intent.getExtras().getString("wrong"))) {
+                        loginForWeixin(intent);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -141,13 +141,10 @@ public class IndexActivity extends SuperActivity {
 
     private void loginForWeixin(Intent data) throws JSONException {
         String json = data.getExtras().getString(Constants.WEIXIN_ACCREDIT_KEY);
-        RxLogUtils.e("tst", "用户数据" + json);
         final WeixinInfo info = WeixinInfo.parseJson(new JSONObject(json));
         if (info != null) {
             AppContext.getInstance().setWeixinInfo(json);
             AppContext.getInstance().setLoginType("1");
-
-            showProgressDialog("登陆中");
             Map<String, String> params = new HashMap<>();
             params.put("data[weixin]", info.unionid + "");
             params.put("data[openid]", info.openid + "");
@@ -160,7 +157,6 @@ public class IndexActivity extends SuperActivity {
             OkhttpUtilManager.postNoCacah(this, "public/weixinLogin", params, new OkhttpUtilResult() {
                 @Override
                 public void onSuccess(int type, String data) {
-                    RxLogUtils.e("tst", "用户数据:::::::" + data);
                     JSONObject object = null;
                     try {
                         object = new JSONObject(data);
@@ -185,7 +181,6 @@ public class IndexActivity extends SuperActivity {
 
                 @Override
                 public void onErrorWrong(int code, String msg) {
-                    dismissProgressDialog();
                     Toast.makeText(IndexActivity.this, "微信登录失败", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -205,6 +200,7 @@ public class IndexActivity extends SuperActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+
     private void getUserInfo() {
         OkhttpUtilManager.postNoCacah(this, "User/get_user_info", null, new OkhttpUtilResult() {
             @Override

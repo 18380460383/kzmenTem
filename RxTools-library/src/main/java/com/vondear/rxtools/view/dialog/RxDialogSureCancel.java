@@ -28,6 +28,10 @@ public class RxDialogSureCancel extends RxDialog {
         return mTvTitle;
     }
 
+    public void setIsShow() {
+        mTvTitle.setVisibility(View.GONE);
+    }
+
     public void setContent(String content) {
         this.mTvContent.setText(content);
     }

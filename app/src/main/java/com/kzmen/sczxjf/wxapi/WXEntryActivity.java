@@ -39,19 +39,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onCreate(savedInstanceState);
         ///setContentView(R.layout.entry);
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
-       // api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+        // api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //注意：
-        //第三方开发者如果使用透明界面来实现WXEntryActivity，需要判断handleIntent的返回值，如果返回值为false，则说明入参不合法未被SDK处理，应finish当前透明界面，避免外部通过传递非法参数的Intent导致停留在透明界面，引起用户的疑惑
         initWeixin();
     }
+
     private void initWeixin() {
-        if(api == null) {
+        if (api == null) {
             api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         }
         api.registerApp(Constants.APP_ID);
         api.handleIntent(getIntent(), this);
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -67,37 +68,40 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp baseResp) {
-        RxLogUtils.e("weixin","errCode  :::"+baseResp.errCode+"  errStr  :::"+baseResp.errStr+"  transaction  :::"+baseResp.transaction+"  openId  :::"+baseResp.openId+"  ");
-        if(baseResp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+        RxLogUtils.e("weixin", "errCode  :::" + baseResp.errCode + "  errStr  :::" + baseResp.errStr + "  transaction  :::" + baseResp.transaction + "  openId  :::" + baseResp.openId + "  ");
+        if (baseResp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
             // 认证登录
-            if(baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
+            if (baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
                 // 认证成功
                 TLog.log(" id " + ((SendAuth.Resp) baseResp).code
                         + ((SendAuth.Resp) baseResp).country + ((SendAuth.Resp) baseResp).lang);
-                AppContext.getInstance().weixinCode = ((SendAuth.Resp)baseResp).code;
+                AppContext.getInstance().weixinCode = ((SendAuth.Resp) baseResp).code;
                 getToken(AppContext.getInstance().weixinCode);
             } else {
-                // 认证失败
                 Toast.makeText(this, "认证失败", Toast.LENGTH_SHORT).show();
+                Intent weixinacc = new Intent();
+                weixinacc.setAction(Constants.WEIXIN_ACCREDIT);
+                weixinacc.putExtra("wrong", "1");
+                sendBroadcast(weixinacc);
                 this.finish();
             }
-        } else if(baseResp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX){
-            Intent weixinShare=new Intent();
+        } else if (baseResp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {
+            Intent weixinShare = new Intent();
 //            dismissProgressDialog();
             // 分享结果
-            if(baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
+            if (baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
                 // 分享成功
                 weixinShare.setAction(Constants.WEIXIN_SHARE);
-                weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_SUCCEED);
+                weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY, Constants.WEIXIN_SHARE_VALUE_SUCCEED);
                 sendBroadcast(weixinShare);
-                RxLogUtils.e("weixin",""+baseResp.errCode);
+                RxLogUtils.e("weixin", "" + baseResp.errCode);
             } else {
-                RxLogUtils.e("weixin","wrong:"+baseResp.errCode);
+                RxLogUtils.e("weixin", "wrong:" + baseResp.errCode);
                 weixinShare.setAction(Constants.WEIXIN_SHARE);
-                weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_FAILURE);
+                weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY, Constants.WEIXIN_SHARE_VALUE_FAILURE);
                 sendBroadcast(weixinShare);
                 // 认证失败
-                if(AppContext.getInstance().mBaseWebAct != null) {
+                if (AppContext.getInstance().mBaseWebAct != null) {
                     EshareLoger.logI("BaseWeb不为空fail");
                     AppContext.getInstance().mBaseWebAct.onShareCancel();
                 }
@@ -105,7 +109,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             this.finish();
         }
     }
-
 
     // 请求网络 获取微信token
     private void getToken(String code) {
@@ -131,10 +134,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onFailure() {
                 Toast.makeText(WXEntryActivity.this, "微信认证失败", Toast.LENGTH_SHORT).show();
+                Intent weixinacc = new Intent();
+                weixinacc.setAction(Constants.WEIXIN_ACCREDIT);
+                weixinacc.putExtra("wrong", "1");
+                sendBroadcast(weixinacc);
                 WXEntryActivity.this.finish();
             }
         });
     }
+
     // 获取微信信息
     private void getUserInfo() {
         TLog.error("idid" + AppContext.getInstance().openid);
@@ -145,15 +153,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
                 String json = new String(bytes);
-                Intent weixinacc=new Intent();
+                Intent weixinacc = new Intent();
                 weixinacc.setAction(Constants.WEIXIN_ACCREDIT);
-                weixinacc.putExtra(Constants.WEIXIN_ACCREDIT_KEY,json);
+                weixinacc.putExtra(Constants.WEIXIN_ACCREDIT_KEY, json);
                 sendBroadcast(weixinacc);
                 WXEntryActivity.this.finish();
             }
+
             @Override
             public void onFailure() {
                 Toast.makeText(WXEntryActivity.this, "微信认证失败", Toast.LENGTH_SHORT).show();
+                Intent weixinacc = new Intent();
+                weixinacc.setAction(Constants.WEIXIN_ACCREDIT);
+                weixinacc.putExtra("wrong", "1");
+                sendBroadcast(weixinacc);
                 WXEntryActivity.this.finish();
             }
         });

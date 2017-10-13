@@ -167,7 +167,6 @@ public class ForgetPassActivity extends SuperActivity {
                     e.printStackTrace();
                     yzenGet = "-9999";
                 }
-                //tvYz.setEnabled(true);
             }
 
             @Override
@@ -175,8 +174,10 @@ public class ForgetPassActivity extends SuperActivity {
                 if (timer != null) {
                     timer.cancel();
                 }
-                Log.e("tst", msg);
+                RxToast.normal(msg);
                 yzenGet = "-9999";
+                tvYz.setEnabled(true);
+                tvYz.setText("获取验证码");
                 // tvYz.setEnabled(true);
             }
         });

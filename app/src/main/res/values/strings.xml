@@ -95,7 +95,7 @@
     <string name="tst">比如同义理解的时候，我要听三国演义，我想听三国演义，听三国演义这本书，类似的说法有很多，olmai就可以为你解决这类的语义理解，olami语音识别引擎使用比较简单，只需要简单的初始化，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。，然后设置好回调listener，在回调的时候处理服务器返回的json字符串即可，当然语义还是要用户自己定义的。</string>
     <string name="loading_description">加载中</string>
     <string name="empty_description">这里还没有内容!</string>
-    <string name="error_description">哎呀！内容出错了！点击重新获取！</string>
+    <string name="error_description">哎呀！内容出错了！</string>
     <string name="error_btn_title">重 试</string>
     <string name="cp_select_city">选择城市</string>
     <string name="cp_hot_city">热门城市</string>

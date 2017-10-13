@@ -93,7 +93,6 @@ public class CaseDetailActivity extends AppCompatActivity {
             id = bundle.getString("id");
         }
         mLayout.onLoading();
-        mHandler.sendEmptyMessageDelayed(1, 5 * 1000);
         initData();
     }
 
@@ -108,8 +107,6 @@ public class CaseDetailActivity extends AppCompatActivity {
                 shareDialog.dismiss();
             }
         });
-
-
     }
 
     private void initData() {

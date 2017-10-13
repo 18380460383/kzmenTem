@@ -97,7 +97,6 @@ public class LoginActivity extends SuperActivity {
     @OnClick({R.id.tv_login, R.id.ll_login_weix, R.id.tv_forgetpass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-
             case R.id.tv_login:
                /* startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
                 finish();*/
@@ -117,7 +116,6 @@ public class LoginActivity extends SuperActivity {
         phone = etPhone.getText().toString();
         pass = etPass.getText().toString();
         if (isAllRight()) {
-            showProgressDialog("登陆中");
             Map<String, String> params = new HashMap<>();
             params.put("data[phone]", phone);
             params.put("data[pwd]", pass);
@@ -146,7 +144,9 @@ public class LoginActivity extends SuperActivity {
 
                 @Override
                 public void onErrorWrong(int code, String msg) {
-                    dismissProgressDialog();
+                    if (code == 1024) {
+                        finish();
+                    }
                     RxToast.normal(msg);
                 }
             });
@@ -184,7 +184,10 @@ public class LoginActivity extends SuperActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 try {
-                    loginForWeixin(intent);
+                    dismissProgressDialog();
+                    if (TextUtil.isEmpty(intent.getExtras().getString("wrong"))) {
+                        loginForWeixin(intent);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -201,7 +204,6 @@ public class LoginActivity extends SuperActivity {
         if (info != null) {
             AppContext.getInstance().setWeixinInfo(json);
             AppContext.getInstance().setLoginType("1");
-            showProgressDialog("登陆中");
             Map<String, String> params = new HashMap<>();
             params.put("data[weixin]", info.unionid + "");
             params.put("data[openid]", info.openid + "");
@@ -229,7 +231,6 @@ public class LoginActivity extends SuperActivity {
                             finish();
                         } else {
                             onLoginSuccess(bean);
-                            //startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
                             getUserInfo();
                         }
                     } catch (JSONException e) {
@@ -240,8 +241,11 @@ public class LoginActivity extends SuperActivity {
 
                 @Override
                 public void onErrorWrong(int code, String msg) {
-                    Toast.makeText(LoginActivity.this, "微信登录失败", Toast.LENGTH_SHORT).show();
                     dismissProgressDialog();
+                    Toast.makeText(LoginActivity.this, "微信登录失败", Toast.LENGTH_SHORT).show();
+                    if (code == 1024) {
+                        finish();
+                    }
                 }
             });
         }
@@ -267,7 +271,6 @@ public class LoginActivity extends SuperActivity {
                     JSONObject object = new JSONObject(data);
                     Gson gson = new Gson();
                     UserMessageBean bean = gson.fromJson(object.getString("data"), UserMessageBean.class);
-                    Log.e("tst", bean.toString());
                     AppContext.userMessageBean = bean;
                     AppContext.getInstance().setUserMessageBean(bean);
                     EventBus.getDefault().post(new EventBusBean());

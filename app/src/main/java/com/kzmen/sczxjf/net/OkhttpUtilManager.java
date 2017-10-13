@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
@@ -17,6 +18,7 @@ import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.lzy.okhttputils.model.HttpHeaders;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,8 +46,34 @@ public class OkhttpUtilManager {
     public static String URL_USER_RULE = URL + "html/user_agreement\n";//提问-》免责
     private Context mContext;
     private OkhttpUtilManager manager;
+    private static RxDialogSureCancel rxDialogSureCancel;
 
-    public static void postNoCacah(final Context mContext, String url, Map<String, String> param, final OkhttpUtilResult result) {
+    private static void setDialog(final Context mContext, final BaseBean bean, final OkhttpUtilResult result) {
+        rxDialogSureCancel = new RxDialogSureCancel(mContext);
+        rxDialogSureCancel.setContent(bean.getMessage());
+        rxDialogSureCancel.setIsShow();
+        rxDialogSureCancel.setSure("去登录");
+        rxDialogSureCancel.setSureListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result.onErrorWrong(1024, bean.getMessage());
+                AppContext.getInstance().setPersonageOnLine(false);
+                AppContext.getInstance().setUserLoginOut();
+                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                rxDismiss();
+            }
+        });
+        rxDialogSureCancel.setCancelListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result.onErrorWrong(bean.getCode(), bean.getMessage());
+                rxDismiss();
+            }
+        });
+        rxDialogSureCancel.show();
+    }
+
+    public static void postNoCacah(final Context mContext, final String url, Map<String, String> param, final OkhttpUtilResult result) {
         Gson gson = new Gson();
         HttpHeaders headers = new HttpHeaders();
         headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
@@ -65,13 +93,15 @@ public class OkhttpUtilManager {
                             if (result == null) {
                                 return;
                             }
-                            BaseBean bean = BaseBean.parseEntity(object);
+                            final BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 result.onSuccess(100, bean.getData());
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
-                                AppContext.getInstance().setPersonageOnLine(false);
-                                AppContext.getInstance().setUserLoginOut();
-                                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                if (url.equals("public/login") || url.equals("public/weixinLogin")) {
+                                    result.onErrorWrong(1023, bean.getMessage());
+                                } else {
+                                    setDialog(mContext, bean, result);
+                                }
                             } else {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
                             }
@@ -92,7 +122,7 @@ public class OkhttpUtilManager {
                 });
     }
 
-    public static void postObjec(final Context mContext, String url, Map<String, String> param, File paramFile, final OkhttpUtilResult result) {
+    public static void postObjec(final Context mContext, final String url, Map<String, String> param, File paramFile, final OkhttpUtilResult result) {
         Gson gson = new Gson();
         String data = gson.toJson(param);
         HttpHeaders headers = new HttpHeaders();
@@ -105,7 +135,7 @@ public class OkhttpUtilManager {
                 .tag(mContext)
                 .params(param)
                 //.params("mediafile", paramFile)
-                 .params("mediafile", paramFile, "recoder.mp3", MediaType.parse("application/octet-stream"))
+                .params("mediafile", paramFile, "recoder.mp3", MediaType.parse("application/octet-stream"))
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override
@@ -115,12 +145,17 @@ public class OkhttpUtilManager {
                             if (result == null) {
                                 return;
                             }
-                            BaseBean bean = BaseBean.parseEntity(object);
+                            final BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 result.onSuccess(100, bean.getData());
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
-                                AppContext.getInstance().setPersonageOnLine(false);
-                                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                if (url.equals("public/login") || url.equals("public/weixinLogin")) {
+                                    result.onErrorWrong(1023, bean.getMessage());
+                                } else {
+                                    setDialog(mContext, bean, result);
+                                }
+                               /* AppContext.getInstance().setPersonageOnLine(false);
+                                mContext.startActivity(new Intent(mContext, IndexActivity.class));*/
                             } else {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
                             }
@@ -141,7 +176,7 @@ public class OkhttpUtilManager {
                 });
     }
 
-    public static void postObjec(final Context mContext, String url, Map<String, String> param, List<File> paramFile, final OkhttpUtilResult result) {
+    public static void postObjec(final Context mContext, final String url, Map<String, String> param, List<File> paramFile, final OkhttpUtilResult result) {
         Gson gson = new Gson();
         String data = gson.toJson(param);
         HttpHeaders headers = new HttpHeaders();
@@ -164,12 +199,17 @@ public class OkhttpUtilManager {
                             if (result == null) {
                                 return;
                             }
-                            BaseBean bean = BaseBean.parseEntity(object);
+                            final BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 result.onSuccess(100, bean.getData());
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
-                                AppContext.getInstance().setPersonageOnLine(false);
-                                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                if (url.equals("public/login") || url.equals("public/weixinLogin")) {
+                                    result.onErrorWrong(1023, bean.getMessage());
+                                } else {
+                                    setDialog(mContext, bean, result);
+                                }
+                                /*AppContext.getInstance().setPersonageOnLine(false);
+                                mContext.startActivity(new Intent(mContext, IndexActivity.class));*/
                             } else {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
                             }
@@ -219,7 +259,7 @@ public class OkhttpUtilManager {
                         Log.e("order", s);
                         try {
                             JSONObject object = new JSONObject(s);
-                            BaseBean bean = BaseBean.parseEntity(object);
+                            final BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 Gson gson = new Gson();
                                 JSONObject object1 = new JSONObject(bean.getData());
@@ -230,8 +270,27 @@ public class OkhttpUtilManager {
                                 intent.putExtras(bundle);
                                 mContext.startActivity(intent);
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
-                                AppContext.getInstance().setPersonageOnLine(false);
-                                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                rxDialogSureCancel = new RxDialogSureCancel(mContext);
+                                rxDialogSureCancel.setTitle(bean.getMessage());
+                                rxDialogSureCancel.setSure("去登录");
+                                rxDialogSureCancel.setSureListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        AppContext.getInstance().setPersonageOnLine(false);
+                                        mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                        rxDismiss();
+                                    }
+                                });
+                                rxDialogSureCancel.setCancelListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        //result.onErrorWrong(bean.getCode(),bean.getMessage());
+                                        rxDismiss();
+                                    }
+                                });
+                                rxDialogSureCancel.show();
+                                /*AppContext.getInstance().setPersonageOnLine(false);
+                                mContext.startActivity(new Intent(mContext, IndexActivity.class));*/
                             } else {
                                 RxToast.normal("" + bean.getMessage());
                             }
@@ -243,12 +302,17 @@ public class OkhttpUtilManager {
 
                     @Override
                     public void onError(Call call, Response response, Exception e) {
-
                         super.onError(call, response, e);
                         RxToast.normal("订单生成失败");
                         progressDialog.dismiss();
                     }
                 });
+    }
+
+    private static void rxDismiss() {
+        if (null != rxDialogSureCancel) {
+            rxDialogSureCancel.dismiss();
+        }
     }
 
     public static void setUserOrder(final Context mContext, Map<String, String> param, final OkhttpUtilResult result) {
@@ -275,7 +339,7 @@ public class OkhttpUtilManager {
                         try {
                             JSONObject object = new JSONObject(s);
                             int code = object.getInt("code");
-                            BaseBean bean = BaseBean.parseEntity(object);
+                            final BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 JSONObject object1 = new JSONObject(bean.getData());
                                 JSONObject jsonObject = new JSONObject(object1.getString("data"));
@@ -283,8 +347,28 @@ public class OkhttpUtilManager {
                                     result.onSuccess(code, jsonObject.getString("charge"));
                                 }
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
-                                AppContext.getInstance().setPersonageOnLine(false);
-                                mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                rxDialogSureCancel = new RxDialogSureCancel(mContext);
+                                rxDialogSureCancel.setTitle(bean.getMessage());
+                                rxDialogSureCancel.setSure("去登录");
+                                rxDialogSureCancel.setSureListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        result.onErrorWrong(1024, bean.getMessage());
+                                        AppContext.getInstance().setPersonageOnLine(false);
+                                        mContext.startActivity(new Intent(mContext, IndexActivity.class));
+                                        rxDismiss();
+                                    }
+                                });
+                                rxDialogSureCancel.setCancelListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        result.onErrorWrong(bean.getCode(), bean.getMessage());
+                                        rxDismiss();
+                                    }
+                                });
+                                rxDialogSureCancel.show();
+                                /*AppContext.getInstance().setPersonageOnLine(false);
+                                mContext.startActivity(new Intent(mContext, IndexActivity.class));*/
                             } else {
                                 result.onErrorWrong(code, bean.getMessage());
                                 RxToast.normal("" + bean.getMessage());

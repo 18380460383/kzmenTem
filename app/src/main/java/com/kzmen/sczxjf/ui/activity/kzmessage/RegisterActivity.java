@@ -37,7 +37,7 @@ import butterknife.OnClick;
 
 
 public class RegisterActivity extends SuperActivity {
-    
+
     @InjectView(R.id.back)
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
@@ -202,7 +202,6 @@ public class RegisterActivity extends SuperActivity {
                /* if (timer != null) {
                     timer.cancel();
                 }*/
-                Log.e("tst", data);
                 try {
                     JSONObject object = new JSONObject(data);
                     JSONObject object1 = new JSONObject(object.getString("data"));
@@ -221,9 +220,10 @@ public class RegisterActivity extends SuperActivity {
                 if (timer != null) {
                     timer.cancel();
                 }
-                Log.e("tst", msg);
+                RxToast.normal(msg);
                 yzGet = "-9999";
-                //tvYz.setEnabled(true);
+                tvYz.setEnabled(true);
+                tvYz.setText("获取验证码");
             }
         });
     }

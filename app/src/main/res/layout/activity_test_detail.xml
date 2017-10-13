@@ -15,16 +15,17 @@
         <include layout="@layout/kz_title" />
     </RelativeLayout>
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/ll_content"
@@ -53,7 +54,6 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-
                 <com.kzmen.sczxjf.view.MyListView
                     android:id="@+id/lv_question"
                     android:layout_width="match_parent"
@@ -62,6 +62,13 @@
                     android:divider="@color/transparent"
                     android:dividerHeight="0dp" />
             </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center">
 
             <include
                 android:id="@+id/my_empty_page"
@@ -74,10 +81,9 @@
             <include
                 android:id="@+id/my_loading_page"
                 layout="@layout/smartloadinglayout_view_on_loading" />
-        </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 
-
-    </ScrollView>
 
     <!--切换题目-->
     <LinearLayout
