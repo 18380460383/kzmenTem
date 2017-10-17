@@ -48,7 +48,6 @@ import com.kzmen.sczxjf.view.ExPandGridView;
 import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 import com.vondear.rxtools.RxLogUtils;
-import com.vondear.rxtools.view.RxToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -415,7 +414,6 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
         kz_mainAskAdapter = new Kz_MainAskAdapter(getActivity(), listAsk, new MainAskListClick() {
             @Override
             public void onPosClick(int position) {
-                RxToast.error("" + position);
                 isCourseClick = false;
                 setMusic(listAsk.get(position).getAnswer_media(), Integer.valueOf(listAsk.get(position).getAnswer_media_time()));
                 if (position == kz_mainAskAdapter.getPlayPosition()) {

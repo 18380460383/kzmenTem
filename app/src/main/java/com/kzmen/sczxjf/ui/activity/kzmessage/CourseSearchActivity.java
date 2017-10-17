@@ -70,7 +70,7 @@ public class CourseSearchActivity extends ListViewActivity {
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "课程搜索");
+        setTitle(R.id.kz_tiltle, "");
         initData();
     }
 

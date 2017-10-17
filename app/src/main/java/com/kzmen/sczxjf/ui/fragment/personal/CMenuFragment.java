@@ -28,6 +28,9 @@ import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
+import com.kzmen.sczxjf.ui.activity.agency.AllyIndexActivity;
+import com.kzmen.sczxjf.ui.activity.agency.ChampionsIndexActivity;
+import com.kzmen.sczxjf.ui.activity.agency.PartnerIndexAcitivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.WebAcitivity;
@@ -72,15 +75,15 @@ public class CMenuFragment extends SuperFragment {
     @InjectView(R.id.c_menu_caifu)
     LinearLayout cMenuCaifu;
     @InjectView(R.id.c_menu_collect_onc)
-    RelativeLayout cMenuCollect;
+    RelativeLayout cMenuCollectonc;
     @InjectView(R.id.c_menu_friend_onc)
-    RelativeLayout cMenuFriend;
+    RelativeLayout cMenuFriendonc;
     @InjectView(R.id.c_menu_activity_onc)
     RelativeLayout cMenuActivity;
     @InjectView(R.id.c_menu_credits_exchange_onc)
-    RelativeLayout cMenuCreditsExchange;
+    RelativeLayout cMenuCreditsExchangeonc;
     @InjectView(R.id.c_menu_creative_collection_rl)
-    RelativeLayout cMenuCreativeCollection;
+    RelativeLayout cMenuCreativeCollectionrl;
     @InjectView(R.id.ll_setting)
     LinearLayout cMenuSetting;
     @InjectView(R.id.c_menu_feedback_onc)
@@ -101,6 +104,28 @@ public class CMenuFragment extends SuperFragment {
     TextView tvPackage;
     @InjectView(R.id.tv_ask_count)
     TextView tv_ask_count;
+    @InjectView(R.id.c_menu_collect)
+    TextView cMenuCollect;
+    @InjectView(R.id.c_menu_friend)
+    TextView cMenuFriend;
+    @InjectView(R.id.c_menu_creative_collection)
+    TextView cMenuCreativeCollection;
+    @InjectView(R.id.c_menu_credits_exchange)
+    TextView cMenuCreditsExchange;
+    @InjectView(R.id.imageView6)
+    ImageView imageView6;
+    @InjectView(R.id.c_menu_ally)
+    TextView cMenuAlly;
+    @InjectView(R.id.c_menu_activity_ally)
+    RelativeLayout cMenuActivityAlly;
+    @InjectView(R.id.c_menu_champ)
+    TextView cMenuChamp;
+    @InjectView(R.id.c_menu_activity_champ)
+    RelativeLayout cMenuActivityChamp;
+    @InjectView(R.id.c_menu_par)
+    TextView cMenuPar;
+    @InjectView(R.id.c_menu_activity_par)
+    RelativeLayout cMenuActivityPar;
 
     private boolean DOINGGETBALANCE;
     private MenuBack menuBack;
@@ -142,10 +167,22 @@ public class CMenuFragment extends SuperFragment {
     @OnClick({R.id.c_menu_user_head_iv, R.id.c_menu_collect_onc,
             /*R.id.c_menu_order_onc,*/ R.id.c_menu_friend_onc, R.id.c_menu_activity_onc, R.id.c_menu_balance,
             R.id.c_menu_credits_exchange_onc, R.id.ll_setting, R.id.c_menu_feedback_onc, R.id.c_menu_creative_collection_rl
-            , R.id.iv_close, R.id.ll_package, R.id.ll_jifen})
+            , R.id.iv_close, R.id.ll_package, R.id.ll_jifen, R.id.c_menu_activity_ally, R.id.c_menu_activity_champ, R.id.c_menu_activity_par})
     public void Listener(View view) {
         Intent intent = null;
         switch (view.getId()) {
+            case R.id.c_menu_activity_ally:
+                intent = new Intent(getContext(), AllyIndexActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.c_menu_activity_champ:
+                intent = new Intent(getContext(), ChampionsIndexActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.c_menu_activity_par:
+                intent = new Intent(getContext(), PartnerIndexAcitivity.class);
+                startActivity(intent);
+                break;
             case R.id.c_menu_user_head_iv:
                 intent = new Intent(getContext(), PersonMessActivity.class);
                 startActivity(intent);

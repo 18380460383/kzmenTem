@@ -92,7 +92,9 @@
                     <com.kzmen.sczxjf.view.MyListView
                         android:id="@+id/lv_course"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:divider="@color/title"
+                        android:dividerHeight="5dp" />
                 </LinearLayout>
 
                 <LinearLayout

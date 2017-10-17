@@ -4,31 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
-     <RelativeLayout
-         android:background="@color/white"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
-         <include layout="@layout/kz_title"
-            />
-     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-     <include
-         layout="@layout/kz_course_list_head"
-         />
+        <include layout="@layout/kz_title" />
+
+        <LinearLayout
+            android:id="@+id/ll_search_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/cornor_radius_large_black"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingTop="8dp">
+
+            <EditText
+                android:id="@+id/et_keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="搜索你感兴趣的课程"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/ll_search_lay"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingLeft="@dimen/margin_top30"
+            android:paddingRight="@dimen/margin_top10"
+            android:paddingTop="8dp"
+            android:text="搜索" />
+        <!-- <include
+             layout="@layout/kz_course_list_head"
+             />-->
+    </RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/msg_center_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="10dp"
             android:divider="@color/title"
-            />
-        <include layout="@layout/kz_empty_view"/>
+            android:dividerHeight="10dp" />
+
+        <include layout="@layout/kz_empty_view" />
     </RelativeLayout>
 </LinearLayout>

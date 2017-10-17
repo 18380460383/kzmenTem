@@ -384,8 +384,7 @@
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:text=""
-                        android:textColor="@color/white"
-                        />
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
 
@@ -409,16 +408,15 @@
                         android:textSize="16dp" />
 
                     <TextView
-                        android:layout_marginLeft="4dp"
-                        android:layout_centerInParent="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="4dp"
                         android:layout_toRightOf="@+id/c_menu_credits_exchange"
-                        android:text="正在装修中"
                         android:background="@drawable/conor_background_gloom"
-                         />
+                        android:text="正在装修中" />
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -454,6 +452,87 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:text="@string/c_menu_withdraw_activity_power"
+                        android:textColor="#A3A3A3"
+                        android:textSize="16dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/c_menu_activity_ally"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_c_menu">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/c_menu_ally"
+                        android:background="@drawable/icon_member_vip"
+                        android:scaleType="centerInside" />
+
+                    <TextView
+                        android:id="@+id/c_menu_ally"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="盟友"
+                        android:textColor="#A3A3A3"
+                        android:textSize="16dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/c_menu_activity_champ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_c_menu">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/c_menu_champ"
+                        android:background="@drawable/icon_member_vip"
+                        android:scaleType="centerInside" />
+
+                    <TextView
+                        android:id="@+id/c_menu_champ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="盟主"
+                        android:textColor="#A3A3A3"
+                        android:textSize="16dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/c_menu_activity_par"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_c_menu">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/c_menu_par"
+                        android:background="@drawable/icon_member_vip"
+                        android:scaleType="centerInside" />
+
+                    <TextView
+                        android:id="@+id/c_menu_par"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="合伙人"
                         android:textColor="#A3A3A3"
                         android:textSize="16dp" />
                 </RelativeLayout>

@@ -16,7 +16,9 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.AppContext;
@@ -32,6 +34,7 @@ import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.interfaces.UserOperate;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
+import com.kzmen.sczxjf.popuwidow.InfoPopuwindow;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
 import com.kzmen.sczxjf.test.server.PlayService;
@@ -601,4 +604,22 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         });
     }
 
+    private InfoPopuwindow infoPopuwindow;
+    private WindowManager.LayoutParams params;
+
+    public void showInfoPopu(View view) {
+        infoPopuwindow = new InfoPopuwindow(this);
+        infoPopuwindow.showAsDropDown(view);
+        params = getWindow().getAttributes();
+        params.alpha = 0.7f;
+        getWindow().setAttributes(params);
+        infoPopuwindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+    }
 }

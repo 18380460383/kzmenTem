@@ -117,5 +117,6 @@
     <color name="cp_alpha_gray">#CC646464</color>
     <color name="cp_theme_gray">#646464</color>
 
-
+    <color name="ally_text_color">#656565</color>
+    <color name="ally_money_color">#ffca3f</color>
 </resources>

@@ -72,6 +72,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -182,14 +183,14 @@
             android:screenOrientation="behind" />
 
         <!-- </>值来自开发者平台取得的AppKey -->
-        <service
+       <!-- <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />
+            android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />-->
 
         <!-- 企业修改密码界面 -->
         <activity
@@ -511,14 +512,11 @@
         <activity android:name=".ui.activity.kzmessage.WebAcitivity" />
         <activity android:name=".ui.activity.menu.AddMoneyActivity" />
         <activity android:name=".test.WeixTestActivity">
-
-            <!--
-            <intent-filter>
+         <!--   <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+            </intent-filter>-->
         </activity>
         <activity android:name=".ui.activity.menu.CourseAskActivity" />
         <activity android:name=".ui.activity.kzmessage.MyAskDetaiAcitivity" />
@@ -526,7 +524,16 @@
         <activity android:name=".ui.activity.kzmessage.XiaoJListActivity" />
         <activity android:name=".ui.activity.kzmessage.MsgCenterActivity" />
         <activity android:name=".ui.activity.kzmessage.UpdateInvCodeActivity" />
-        <activity android:name=".ui.activity.kzmessage.MoneyPayActivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.MoneyPayActivity" />
+        <activity android:name=".ui.activity.agency.ChampionsIndexActivity" />
+        <activity android:name=".ui.activity.agency.AllyIndexActivity" />
+        <activity android:name=".ui.activity.agency.PartnerIndexAcitivity" />
+        <activity android:name=".ui.activity.agency.MyAllyListActivity" />
+        <activity android:name=".ui.activity.agency.MsgListActivity" />
+        <activity android:name=".ui.activity.agency.MsgDetailActivity" />
+        <activity android:name=".ui.activity.agency.MsgJoinActivity" />
+        <activity android:name=".ui.activity.agency.CreateNewProActivity" />
+        <activity android:name=".ui.activity.agency.MyMoneyDetailActivity"></activity>
     </application>
 
 </manifest>
