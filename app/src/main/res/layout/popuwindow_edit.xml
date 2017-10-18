@@ -56,7 +56,7 @@
             android:background="@null"
             android:gravity="center"
             android:hint="请设置分成比例"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:textColor="@color/ally_text_color"

@@ -290,6 +290,7 @@ public class Constants {
      * 1.1版本PDF下载管理
      */
     public static final String DB_PDF = "eshare_pdf";
+    public final static String discodeEx = "DiscountCodeExplain";//优惠码说明
     public final static String champEx = "LeaderShareScaleExplain";//盟主分润比例说明
     public final static String parEx = "PartnerCostExplain";//合伙人费用说明
     public final static String allyEx = "MemberImcomeExplain";//盟友收益计算规则说明

@@ -26,10 +26,16 @@ public class InfoPopuwindow extends PopupWindow {
     @InjectView(R.id.ll_rule)
     LinearLayout llRule;
     private View view;
+    private infoClick infoClick;
 
-    public InfoPopuwindow(Context context) {
+    public interface infoClick {
+        void doclick(int pos);
+    }
+
+    public InfoPopuwindow(Context context, infoClick infoClick) {
         this.view = LayoutInflater.from(context).inflate(R.layout.info_popu_lay, null);
         ButterKnife.inject(this, view);
+        this.infoClick = infoClick;
         // 设置外部可点击
         this.setOutsideTouchable(false);
         // mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
@@ -53,13 +59,19 @@ public class InfoPopuwindow extends PopupWindow {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_share:
+                if (null != infoClick) {
+                    infoClick.doclick(1);
+                }
                 RxToast.normal("分享");
                 this.dismiss();
                 break;
             case R.id.ll_rule:
-                RxToast.normal("规则");
+                if (null != infoClick) {
+                    infoClick.doclick(2);
+                }
                 this.dismiss();
                 break;
         }
     }
+
 }

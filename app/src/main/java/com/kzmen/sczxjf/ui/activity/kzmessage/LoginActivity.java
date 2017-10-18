@@ -116,6 +116,7 @@ public class LoginActivity extends SuperActivity {
         phone = etPhone.getText().toString();
         pass = etPass.getText().toString();
         if (isAllRight()) {
+            showProgressDialog("登录中");
             Map<String, String> params = new HashMap<>();
             params.put("data[phone]", phone);
             params.put("data[pwd]", pass);
@@ -148,6 +149,7 @@ public class LoginActivity extends SuperActivity {
                         finish();
                     }
                     RxToast.normal(msg);
+                    dismissProgressDialog();
                 }
             });
         }

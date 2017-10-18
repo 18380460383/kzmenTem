@@ -2,6 +2,7 @@ package com.kzmen.sczxjf.ui.activity.agency;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.percent.PercentRelativeLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,13 +14,19 @@ import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.agent.AllyIndexBean;
+import com.kzmen.sczxjf.bean.kzbean.FriendInvitedBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.StringUtils;
 import com.kzmen.sczxjf.view.CircleImageViewBorder;
+import com.vondear.rxtools.RxLogUtils;
 import com.vondear.rxtools.view.RxToast;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,6 +118,7 @@ public class AllyIndexActivity extends SuperActivity {
                 dismissProgressDialog();
             }
         });
+        initData();
     }
 
     @Override
@@ -133,10 +141,47 @@ public class AllyIndexActivity extends SuperActivity {
         }
     }
 
+    private FriendInvitedBean friendInvitedBean;
+
+    private void initData() {
+        Map<String, String> params = new HashMap<>();
+        try {
+            File file1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile() + File.separator + "kzmen" + File.separator + "qr.png");
+            if (!file1.exists()) {
+                //params.put("data[make]", "1");
+                OkhttpUtilManager.postNoCacah(this, "User/getUserInviteCode", params, new OkhttpUtilResult() {
+                    @Override
+                    public void onSuccess(int type, String data) {
+                        RxLogUtils.e("tst", data);
+                        JSONObject object = null;
+                        try {
+                            object = new JSONObject(data);
+                            Gson gson = new Gson();
+                            friendInvitedBean = gson.fromJson(object.getString("data"), FriendInvitedBean.class);
+                            if (null != friendInvitedBean) {
+                                Glide.with(AllyIndexActivity.this).load(friendInvitedBean.getImage()).into(ivQr);
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onErrorWrong(int code, String msg) {
+                        RxLogUtils.e("tst", msg);
+                    }
+                });
+            } else {
+                Glide.with(this).load(file1).into(ivQr);
+            }
+        } catch (Exception e) {
+        }
+
+    }
+
     @OnClick({R.id.iv_add, R.id.ll_msg, R.id.ll_all_count, R.id.ll_today_count, R.id.ll_green, R.id.ll_blue, R.id.ll_yellow, R.id.ll_friend_count})
     public void onViewClicked(View view) {
         Intent intent = null;
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.iv_add:
                 showInfoPopu(view);
@@ -146,28 +191,32 @@ public class AllyIndexActivity extends SuperActivity {
                 break;
             case R.id.ll_all_count:
                 intent = new Intent(AllyIndexActivity.this, MyMoneyDetailActivity.class);
+                bundle.putString("distrubution_type", "10");
+                intent.putExtras(bundle);
                 break;
             case R.id.ll_today_count:
                 intent = new Intent(AllyIndexActivity.this, MyMoneyDetailActivity.class);
+                bundle.putString("distrubution_type", "10");
+                intent.putExtras(bundle);
                 break;
             case R.id.ll_green://add
                 intent = new Intent(AllyIndexActivity.this, MyAllyListActivity.class);
-                bundle.putInt("pos",0);
+                bundle.putInt("pos", 0);
                 intent.putExtras(bundle);
                 break;
             case R.id.ll_blue://付款
                 intent = new Intent(AllyIndexActivity.this, MyAllyListActivity.class);
-                bundle.putInt("pos",1);
+                bundle.putInt("pos", 1);
                 intent.putExtras(bundle);
                 break;
             case R.id.ll_yellow://未付款
                 intent = new Intent(AllyIndexActivity.this, MyAllyListActivity.class);
-                bundle.putInt("pos",2);
+                bundle.putInt("pos", 2);
                 intent.putExtras(bundle);
                 break;
             case R.id.ll_friend_count:
                 intent = new Intent(AllyIndexActivity.this, MyAllyListActivity.class);
-                bundle.putInt("pos",0);
+                bundle.putInt("pos", 0);
                 intent.putExtras(bundle);
                 break;
         }

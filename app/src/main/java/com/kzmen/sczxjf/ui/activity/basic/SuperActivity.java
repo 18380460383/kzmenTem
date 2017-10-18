@@ -15,6 +15,7 @@ import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.AppContext;
+import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.EventBusBean;
 import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
@@ -32,9 +34,11 @@ import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.interfaces.UserOperate;
+import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.popuwidow.InfoPopuwindow;
+import com.kzmen.sczxjf.popuwidow.MsgShowPopuwindow;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
 import com.kzmen.sczxjf.test.server.PlayService;
@@ -43,10 +47,12 @@ import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.Utils;
 import com.kzmen.sczxjf.view.MyScrollView;
 import com.vondear.rxtools.RxLogUtils;
+import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogPayBack;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -455,7 +461,8 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
     }
 
-    *//**
+    */
+    /**
      * 权限被拒绝的回调
      *
      * @param requestCode
@@ -606,9 +613,22 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     private InfoPopuwindow infoPopuwindow;
     private WindowManager.LayoutParams params;
+    private View infoView;
 
     public void showInfoPopu(View view) {
-        infoPopuwindow = new InfoPopuwindow(this);
+        infoView = view;
+        infoPopuwindow = new InfoPopuwindow(this, new InfoPopuwindow.infoClick() {
+            @Override
+            public void doclick(int pos) {
+                switch (pos) {
+                    case 1:
+                        break;
+                    case 2:
+                        getRule(Constants.allyEx);
+                        break;
+                }
+            }
+        });
         infoPopuwindow.showAsDropDown(view);
         params = getWindow().getAttributes();
         params.alpha = 0.7f;
@@ -619,6 +639,46 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
                 params = getWindow().getAttributes();
                 params.alpha = 1f;
                 getWindow().setAttributes(params);
+            }
+        });
+    }
+
+    private MsgShowPopuwindow msgShowPopuwindows;
+
+    public void showMsgPopuS(View view, String msg) {
+        msgShowPopuwindows = new MsgShowPopuwindow(this, msg);
+        msgShowPopuwindows.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_VERTICAL, 0, 0);
+        params = getWindow().getAttributes();
+        params.alpha = 0.7f;
+        getWindow().setAttributes(params);
+        msgShowPopuwindows.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+    }
+
+    private void getRule(String name) {
+        Map<String, String> params = new HashMap<>();
+        params.put("name", name);
+        AgOkhttpUtilManager.postNoCacah(this, "bases/get_config_explain", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject jsonObject = new JSONObject(data);
+                    if (null != jsonObject.getString("value")) {
+                        showMsgPopuS(infoView, jsonObject.getString("value"));
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxToast.normal(msg);
             }
         });
     }

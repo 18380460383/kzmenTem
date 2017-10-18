@@ -3,9 +3,12 @@ package com.kzmen.sczxjf.ui.activity.agency;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.percent.PercentRelativeLayout;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +18,9 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.agent.MsgDetailBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
+import com.kzmen.sczxjf.popuwidow.EditPopuwindow;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.vondear.rxtools.view.RxToast;
 
 import java.util.HashMap;
@@ -106,6 +111,12 @@ public class MsgDetailActivity extends SuperActivity {
             tvProPrice.setText(msgDetailBean.getTotal_fee());
             tvProCount.setText(msgDetailBean.getJoin_count());
             tvContent.setText(msgDetailBean.getContents());
+            if (!TextUtil.isEmpty(msgDetailBean.getIs_join()) && msgDetailBean.getIs_join().equals("1")) {
+                llIsjoin.setVisibility(View.GONE);
+            } else {
+                tvJoin.setVisibility(View.GONE);
+                llIsjoin.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -122,10 +133,30 @@ public class MsgDetailActivity extends SuperActivity {
             case R.id.tv_show_par:
                 break;
             case R.id.tv_invi_par:
+                showEditPopu(view, 1, "", "", "");
                 break;
         }
         if (null != intent) {
             startActivity(intent);
         }
+    }
+
+    private EditPopuwindow editPopuwindow;
+    private WindowManager.LayoutParams params;
+
+    public void showEditPopu(View view, int opType, String id, String name, String percent) {
+        editPopuwindow = new EditPopuwindow(this, opType, id, name, percent);
+        editPopuwindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_VERTICAL, 0, 0);
+        params = getWindow().getAttributes();
+        params.alpha = 0.7f;
+        getWindow().setAttributes(params);
+        editPopuwindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ package com.kzmen.sczxjf.popuwidow;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.vondear.rxtools.RxDeviceUtils;
-import com.vondear.rxtools.view.RxToast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,12 +46,11 @@ public class MsgShowPopuwindow extends PopupWindow {
         this.setBackgroundDrawable(dw);
         // 设置弹出窗体显示时的动画，从底部向上弹出
         this.setAnimationStyle(R.style.playlist);
-        tvContent.setText(msg);
+        tvContent.setText(Html.fromHtml(msg.toString()));
     }
 
     @OnClick(R.id.tv_sure)
     public void onViewClicked() {
-        RxToast.normal("确定");
         this.dismiss();
     }
 }

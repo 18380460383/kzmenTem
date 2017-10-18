@@ -91,6 +91,10 @@ public class ChampionsIndexActivity extends SuperActivity {
     TextView tvMsg;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
+    @InjectView(R.id.ll_all_earing)
+    LinearLayout llAllEaring;
+    @InjectView(R.id.ll_today_earing)
+    LinearLayout llTodayEaring;
 
     private InfoPopuwindow infoPopuwindow;
     private MsgShowPopuwindow msgShowPopuwindow;
@@ -146,7 +150,7 @@ public class ChampionsIndexActivity extends SuperActivity {
                 viewHolder.getView(R.id.ll_edit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showMsgPopu(view, 0, item.getMember_name(), item.getLeader_share_scale());
+                        showMsgPopu(view, 0, item.getMember_id(), item.getMember_name(), item.getLeader_share_scale());
                     }
                 });
 
@@ -169,6 +173,7 @@ public class ChampionsIndexActivity extends SuperActivity {
             }
         });
         getChampList();
+        getShopCount();
     }
 
     @Override
@@ -223,43 +228,79 @@ public class ChampionsIndexActivity extends SuperActivity {
         });
     }
 
+    private int discount_code_count = 0;
+
+    private void getShopCount() {
+        Map<String, String> params = new HashMap<>();
+        params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
+        AgOkhttpUtilManager.postNoCacah(this, "users/top_leader_discount_code_count", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                getFoucus();
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(data);
+                    discount_code_count = jsonObject.getInt("discount_code_count");
+                    initCount();
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+
+            }
+        });
+    }
+
+    private void initCount() {
+        tvCount.setText("" + discount_code_count);
+        if (discount_code_count == 0) {
+            tvBuy.setVisibility(View.GONE);
+        }
+    }
+
     private void initView() {
         if (null != champIndexBean) {
             tvAllEaring.setText(StringUtils.addComma("" + champIndexBean.getTotal_income()));
             tvTodayEaring.setText(StringUtils.addComma("" + champIndexBean.getToday_income()));
-            tvPeopleAll.setText(champIndexBean.getLeader_count());
-            tvTodayAdd.setText(champIndexBean.getToday_new_leader());
+            tvPeopleAll.setText(StringUtils.addComma(champIndexBean.getLeader_count()));
+            tvTodayAdd.setText(StringUtils.addComma(champIndexBean.getToday_new_leader()));
         }
     }
 
-    @OnClick({R.id.iv_add, R.id.iv_ann, R.id.tv_buy, R.id.tv_all_earing, R.id.tv_today_earing, R.id.tv_people_all, R.id.tv_today_add, R.id.tv_add_part, R.id.iv_percent, R.id.ll_add_new_pro})
+    @OnClick({R.id.iv_add, R.id.iv_ann, R.id.tv_buy, R.id.ll_all_earing, R.id.ll_today_earing, R.id.tv_people_all, R.id.tv_today_add, R.id.tv_add_part, R.id.iv_percent, R.id.ll_add_new_pro})
     public void onViewClicked(View view) {
         Intent intent = null;
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.iv_add:
                 showInfoPopu(view);
                 break;
             case R.id.iv_ann:
                 viewShow = view;
-                getRule(Constants.champEx);
+                getRule(Constants.discodeEx);
                 break;
             case R.id.tv_buy:
                 viewShow = view;
                 getShopList();
-
                 break;
-            case R.id.tv_all_earing:
+            case R.id.ll_all_earing:
                 intent = new Intent(ChampionsIndexActivity.this, MyMoneyDetailActivity.class);
+                bundle.putString("distrubution_type", "20");
+                intent.putExtras(bundle);
                 break;
-            case R.id.tv_today_earing:
+            case R.id.ll_today_earing:
                 intent = new Intent(ChampionsIndexActivity.this, MyMoneyDetailActivity.class);
+                bundle.putString("distrubution_type", "20");
+                intent.putExtras(bundle);
                 break;
             case R.id.tv_people_all:
                 break;
             case R.id.tv_today_add:
                 break;
             case R.id.tv_add_part:
-                showMsgPopu(view, 1, "", "");
+                showMsgPopu(view, 1, "", "", "");
                 break;
             case R.id.iv_percent:
                 viewShow = view;
@@ -290,8 +331,8 @@ public class ChampionsIndexActivity extends SuperActivity {
         });
     }
 
-    public void showMsgPopu(View view, int opType, String name, String percent) {
-        editPopuwindow = new EditPopuwindow(this, opType, name, percent);
+    public void showMsgPopu(View view, int opType, String id, String name, String percent) {
+        editPopuwindow = new EditPopuwindow(this, opType, id, name, percent);
         editPopuwindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_VERTICAL, 0, 0);
         params = getWindow().getAttributes();
         params.alpha = 0.7f;
@@ -341,7 +382,7 @@ public class ChampionsIndexActivity extends SuperActivity {
         });
     }
 
-    public void showInfoPopu(View view) {
+   /* public void showInfoPopu(View view) {
         infoPopuwindow = new InfoPopuwindow(this);
         infoPopuwindow.showAsDropDown(view);
         params = getWindow().getAttributes();
@@ -355,7 +396,7 @@ public class ChampionsIndexActivity extends SuperActivity {
                 getWindow().setAttributes(params);
             }
         });
-    }
+    }*/
 
     private void getRule(String name) {
         Map<String, String> params = new HashMap<>();
@@ -365,9 +406,11 @@ public class ChampionsIndexActivity extends SuperActivity {
             public void onSuccess(int type, String data) {
                 try {
                     JSONObject jsonObject = new JSONObject(data);
+                    if (null != jsonObject.getString("value")) {
+                        showMsgPopu(viewShow, jsonObject.getString("value"));
+                    }
                 } catch (Exception e) {
                 }
-                showMsgPopu(viewShow, "内容");
             }
 
             @Override

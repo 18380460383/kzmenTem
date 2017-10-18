@@ -342,7 +342,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

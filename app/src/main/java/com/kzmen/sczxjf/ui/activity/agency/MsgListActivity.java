@@ -75,7 +75,7 @@ public class MsgListActivity extends ListViewActivity {
                 viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!TextUtil.isEmpty(item.getPartner_project_id()) && Integer.valueOf(item.getPartner_project_id()) > 0) {
+                        if (!TextUtil.isEmpty(item.getPartner_project_id()) && Integer.valueOf(item.getPartner_project_id()) != 0) {
                             Intent intent = new Intent(MsgListActivity.this, MsgDetailActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("id", item.getMember_message_no());

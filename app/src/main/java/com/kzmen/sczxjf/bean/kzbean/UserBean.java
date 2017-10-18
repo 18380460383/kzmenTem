@@ -39,6 +39,33 @@ public class UserBean implements Serializable {
     private String balance;
     private String invite_code;
     private String sign;
+    private String leader;//是否盟主
+    private String partner;//是否合伙人
+    private String leaderid;//所属盟主的ID
+
+    public String getLeader() {
+        return leader;
+    }
+
+    public void setLeader(String leader) {
+        this.leader = leader;
+    }
+
+    public String getPartner() {
+        return partner;
+    }
+
+    public void setPartner(String partner) {
+        this.partner = partner;
+    }
+
+    public String getLeaderid() {
+        return leaderid;
+    }
+
+    public void setLeaderid(String leaderid) {
+        this.leaderid = leaderid;
+    }
 
     public String getUid() {
         return uid;

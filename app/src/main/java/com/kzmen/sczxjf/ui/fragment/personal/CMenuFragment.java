@@ -147,6 +147,8 @@ public class CMenuFragment extends SuperFragment {
             setUserInfo();
             // getUserInfo();
             setDatauser();
+            //R.id.c_menu_activity_ally, R.id.c_menu_activity_champ, R.id.c_menu_activity_par
+
         }
         return view;
     }
@@ -310,7 +312,6 @@ public class CMenuFragment extends SuperFragment {
     }
 
     public void getUserInfo() {
-
         OkhttpUtilManager.postNoCacah(getActivity(), "User/get_user_info", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -324,6 +325,7 @@ public class CMenuFragment extends SuperFragment {
                     if (null != bean.getWenda_num() && Integer.valueOf(bean.getWenda_num()) > 0) {
                         tv_ask_count.setVisibility(View.VISIBLE);
                         tv_ask_count.setText(bean.getWenda_num());
+                        setProxy();
                     } else {
                         tv_ask_count.setVisibility(View.GONE);
                     }
@@ -337,5 +339,20 @@ public class CMenuFragment extends SuperFragment {
                 Log.e("tst", "获取用户信息：" + msg);
             }
         });
+    }
+    private void setProxy(){
+        cMenuActivityAlly.setVisibility(View.VISIBLE);
+        cMenuActivityChamp.setVisibility(View.GONE);
+        cMenuActivityPar.setVisibility(View.GONE);
+        String leader = AppContext.getInstance().getUserLogin().getLeader();
+        String par = AppContext.getInstance().getUserLogin().getPartner();
+        if (!TextUtils.isEmpty(leader) && leader.equals("1")) {
+            cMenuActivityAlly.setVisibility(View.GONE);
+            cMenuActivityChamp.setVisibility(View.VISIBLE);
+        }
+        if (!TextUtils.isEmpty(leader) && par.equals("1")) {
+            cMenuActivityAlly.setVisibility(View.GONE);
+            cMenuActivityPar.setVisibility(View.VISIBLE);
+        }
     }
 }
