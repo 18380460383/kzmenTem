@@ -183,14 +183,14 @@
             android:screenOrientation="behind" />
 
         <!-- </>值来自开发者平台取得的AppKey -->
-       <!-- <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
+        <!-- <service
+             android:name="com.baidu.location.f"
+             android:enabled="true"
+             android:process=":remote" />
 
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />-->
+         <meta-data
+             android:name="com.baidu.lbsapi.API_KEY"
+             android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />-->
 
         <!-- 企业修改密码界面 -->
         <activity
@@ -506,34 +506,101 @@
             android:name=".ui.activity.menu.ShopCountryDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.menu.FriendInvateActivity" />
-        <activity android:name=".ui.activity.kzmessage.KnowageAskSheqActivity" />
-        <activity android:name=".ui.activity.menu.PayTypeAcitivity" />
-        <activity android:name=".ui.activity.kzmessage.WebAcitivity" />
-        <activity android:name=".ui.activity.menu.AddMoneyActivity" />
-        <activity android:name=".test.WeixTestActivity">
-         <!--   <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".ui.activity.menu.FriendInvateActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.KnowageAskSheqActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.PayTypeAcitivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.WebAcitivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.AddMoneyActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".test.WeixTestActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
+            <!--   <intent-filter>
+                   <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+                   <category android:name="android.intent.category.LAUNCHER" />
+               </intent-filter>-->
         </activity>
-        <activity android:name=".ui.activity.menu.CourseAskActivity" />
-        <activity android:name=".ui.activity.kzmessage.MyAskDetaiAcitivity" />
-        <activity android:name=".ui.activity.menu.ShopHistoryActivity" />
-        <activity android:name=".ui.activity.kzmessage.XiaoJListActivity" />
-        <activity android:name=".ui.activity.kzmessage.MsgCenterActivity" />
-        <activity android:name=".ui.activity.kzmessage.UpdateInvCodeActivity" />
-        <activity android:name=".ui.activity.kzmessage.MoneyPayActivity" />
-        <activity android:name=".ui.activity.agency.ChampionsIndexActivity" />
-        <activity android:name=".ui.activity.agency.AllyIndexActivity" />
-        <activity android:name=".ui.activity.agency.PartnerIndexAcitivity" />
-        <activity android:name=".ui.activity.agency.MyAllyListActivity" />
-        <activity android:name=".ui.activity.agency.MsgListActivity" />
-        <activity android:name=".ui.activity.agency.MsgDetailActivity" />
-        <activity android:name=".ui.activity.agency.MsgJoinActivity" />
+        <activity
+            android:name=".ui.activity.menu.CourseAskActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.MyAskDetaiAcitivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopHistoryActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.XiaoJListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.MsgCenterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.UpdateInvCodeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.MoneyPayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.ChampionsIndexActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.AllyIndexActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.PartnerIndexAcitivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.MyAllyListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.MsgListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.MsgDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.agency.MsgJoinActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.agency.CreateNewProActivity" />
-        <activity android:name=".ui.activity.agency.MyMoneyDetailActivity"></activity>
+        <activity
+            android:name=".ui.activity.agency.MyMoneyDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.activity.agency.PartnerListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

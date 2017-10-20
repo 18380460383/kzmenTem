@@ -1,6 +1,5 @@
 package com.kzmen.sczxjf.ui.activity.agency;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,13 +12,13 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.agent.MsgListBean;
+import com.kzmen.sczxjf.bean.agent.PartnerListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
-import com.kzmen.sczxjf.utils.TextUtil;
+import com.kzmen.sczxjf.util.TimeFormateUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,14 +30,15 @@ import java.util.Map;
 
 import butterknife.InjectView;
 
-public class MsgListActivity extends ListViewActivity {
+public class PartnerListActivity extends ListViewActivity {
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
-    private CommonAdapter<MsgListBean> adapter;
-    private List<MsgListBean> data_list;
+    private CommonAdapter<PartnerListBean> adapter;
+    private List<PartnerListBean> data_list;
     private int page;
+    private String partner_project_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,44 +47,29 @@ public class MsgListActivity extends ListViewActivity {
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "我的邮件");
+        setTitle(R.id.kz_tiltle, "项目合伙人");
         initData();
     }
 
     @Override
     public void setThisContentView() {
-        setContentView(R.layout.activity_msg_list);
+        setContentView(R.layout.acitivity_partner_list);
+        Bundle bundle = getIntent().getExtras();
+        if (null != bundle) {
+            partner_project_id = bundle.getString("partner_project_id");
+        }
     }
 
 
     private void initData() {
         data_list = new ArrayList<>();
         page = 1;
-        adapter = new CommonAdapter<MsgListBean>(this, R.layout.ally_msg_list_item, data_list) {
+        adapter = new CommonAdapter<PartnerListBean>(this, R.layout.ally_list_item, data_list) {
             @Override
-            protected void convert(ViewHolder viewHolder, final MsgListBean item, int position) {
-                viewHolder.setText(R.id.tv_title, item.getTitle())
-                        .setText(R.id.tv_content, item.getContents())
-                        .setText(R.id.tv_datetime, item.getCreate_time())
-                ;
-                if (item.getIs_read().equals("1")) {
-                    viewHolder.getView(R.id.iv_state).setBackgroundResource(R.drawable.conor_background_gloom);
-                } else {
-                    viewHolder.getView(R.id.iv_state).setBackgroundResource(R.drawable.cornor_backgroud_yellow);
-                }
-                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!TextUtil.isEmpty(item.getPartner_project_id()) && Integer.valueOf(item.getPartner_project_id()) != 0) {
-                            Intent intent = new Intent(MsgListActivity.this, MsgDetailActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("type","msg");
-                            bundle.putString("id", item.getMember_message_no());
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        }
-                    }
-                });
+            protected void convert(ViewHolder viewHolder, final PartnerListBean item, int position) {
+                viewHolder.setText(R.id.tv_name, item.getMember_user_name())
+                        .setText(R.id.tv_datetime, TimeFormateUtil.stampToDate(item.getCreate_time()));
+                viewHolder.getView(R.id.iv_state).setVisibility(View.INVISIBLE);
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);
@@ -118,8 +103,9 @@ public class MsgListActivity extends ListViewActivity {
             data_list.clear();
         }
         Map<String, String> params = new HashMap<>();
-        params.put("limit", "" + 20);
-        params.put("page", "" + page);
+        params.put("partner_project_id", "" + partner_project_id);
+       /* params.put("limit", "" + 20);
+        params.put("page", "" + page);*/
         params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
         AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
             @Override
@@ -128,7 +114,7 @@ public class MsgListActivity extends ListViewActivity {
                 try {
                     object = new JSONObject(data);
                     Gson gson = new Gson();
-                    List<MsgListBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<MsgListBean>>() {
+                    List<PartnerListBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<PartnerListBean>>() {
                     }.getType());
                     if (datalist.size() == 0) {
                         mPullRefreshListView.setEmptyView(llMain);

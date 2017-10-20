@@ -69,6 +69,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:text="我的邮件"
                         android:id="@+id/tv_msg_count"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

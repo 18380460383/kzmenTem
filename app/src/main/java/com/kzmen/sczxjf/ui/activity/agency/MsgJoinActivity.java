@@ -42,6 +42,9 @@ public class MsgJoinActivity extends SuperActivity {
     TextView tvPay;
     @InjectView(R.id.activity_msg_join)
     LinearLayout activityMsgJoin;
+    @InjectView(R.id.iv_state)
+    ImageView ivState;
+    private boolean isCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +62,9 @@ public class MsgJoinActivity extends SuperActivity {
         setText();
     }
 
-    private String pro_usr = "发起人";
-    private String pro_name = "项目名称";
-    private String pro_price = "2000";
+    private String pro_usr = "";
+    private String pro_name = "";
+    private String pro_price = "";
 
     private void setText() {
         String originText = "您正在参与  " + pro_usr + "  邀请的  " + pro_name + "  项目合伙人计划，您需要支付人民币<font color='#ffca3f'>" + pro_price + "</font>成为该项目合伙人。";
@@ -71,7 +74,7 @@ public class MsgJoinActivity extends SuperActivity {
         tvPrice.setText(pro_price);
     }
 
-    @OnClick({R.id.iv_add, R.id.tv_rule, R.id.tv_pay})
+    @OnClick({R.id.iv_add, R.id.tv_rule, R.id.tv_pay, R.id.iv_state})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -87,7 +90,19 @@ public class MsgJoinActivity extends SuperActivity {
                 startActivity(intent);
                 break;
             case R.id.tv_pay:
-                RxToast.normal("支付");
+                if (isCheck) {
+                    RxToast.normal("支付");
+                }
+                break;
+            case R.id.iv_state:
+                isCheck = !isCheck;
+                if (isCheck) {
+                    ivState.setBackgroundResource(R.drawable.icon_checkbox2);
+                    tvPay.setBackgroundColor(getResources().getColor(R.color.yellow));
+                } else {
+                    tvPay.setBackgroundColor(getResources().getColor(R.color.gloomy));
+                    ivState.setBackgroundResource(R.drawable.icon_checkbox1);
+                }
                 break;
         }
         if (null != intent) {

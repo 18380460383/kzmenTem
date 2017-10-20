@@ -99,6 +99,8 @@ public class OkhttpUtilManager {
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
                                 if (url.equals("public/login") || url.equals("public/weixinLogin")) {
                                     result.onErrorWrong(1023, bean.getMessage());
+                                } else if (url.equals("Public/autoLogin")) {
+                                    AppContext.getInstance().setPersonageOnLine(false);
                                 } else {
                                     setDialog(mContext, bean, result);
                                 }
@@ -106,7 +108,7 @@ public class OkhttpUtilManager {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
                             }
                         } catch (JSONException e) {
-                            result.onErrorWrong(99, "测试" + e.toString());
+                            result.onErrorWrong(99, "" + e.toString());
                             e.printStackTrace();
                         }
                     }

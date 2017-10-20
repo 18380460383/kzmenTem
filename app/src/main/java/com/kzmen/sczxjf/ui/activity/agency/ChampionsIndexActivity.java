@@ -22,6 +22,7 @@ import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.agent.ChampIndexBean;
 import com.kzmen.sczxjf.bean.agent.ChampListBean;
+import com.kzmen.sczxjf.bean.agent.CodeListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
@@ -145,7 +146,7 @@ public class ChampionsIndexActivity extends SuperActivity {
             protected void convert(ViewHolder viewHolder, final ChampListBean item, int position) {
                 viewHolder.setText(R.id.tv_name, item.getMember_name())
                         .setText(R.id.tv_count, item.getLeader_count())
-                        .setText(R.id.tv_percent, item.getLeader_share_scale());
+                        .setText(R.id.tv_percent, "" + (Double.valueOf(item.getLeader_share_scale()) * 100) + "%");
                 //ll_edit  iv_edit
                 viewHolder.getView(R.id.ll_edit).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -347,11 +348,27 @@ public class ChampionsIndexActivity extends SuperActivity {
         });
     }
 
+    private List<CodeListBean> codeListList = new ArrayList<>();
+
     private void getShopList() {
         AgOkhttpUtilManager.postNoCacah(this, "bases/discount_code_config_list", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                showListPopu(viewShow);
+                JSONObject object = null;
+                try {
+                    Gson gson = new Gson();
+                    object = new JSONObject(data);
+                    List<CodeListBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<CodeListBean>>() {
+                    }.getType());
+                    if (datalist.size() == 0) {
+                        RxToast.normal("优惠码获取错误");
+                    } else {
+                        codeListList.addAll(datalist);
+                        showListPopu(viewShow);
+                    }
+                } catch (Exception e) {
+                    RxToast.normal("优惠码获取错误");
+                }
             }
 
             @Override
@@ -364,10 +381,7 @@ public class ChampionsIndexActivity extends SuperActivity {
     private List<String> dataList = new ArrayList<>();
 
     public void showListPopu(View view) {
-        for (int i = 0; i < 4; i++) {
-            dataList.add(((i + 1) * 1000) + "元购买" + ((i + 1) * 1000) + "个优惠码");
-        }
-        listPopuwindow = new ListPopuwindow(this, dataList);
+        listPopuwindow = new ListPopuwindow(this, codeListList);
         listPopuwindow.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_VERTICAL, 0, 0);
         params = getWindow().getAttributes();
         params.alpha = 0.7f;

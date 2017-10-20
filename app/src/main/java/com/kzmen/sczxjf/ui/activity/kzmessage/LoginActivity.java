@@ -128,7 +128,6 @@ public class LoginActivity extends SuperActivity {
                         JSONObject object = new JSONObject(data);
                         Gson gson = new Gson();
                         UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
-                        Log.e("tst", bean.toString());
                         AppContext.getInstance().setUserLogin(bean);
                         AppContext.getInstance().setPersonageOnLine(true);
                         AppContext.getInstance().setCpassword(pass);
@@ -268,7 +267,6 @@ public class LoginActivity extends SuperActivity {
         OkhttpUtilManager.postNoCacah(this, "User/get_user_info", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Log.e("tst", "获取用户信息：" + data);
                 try {
                     JSONObject object = new JSONObject(data);
                     Gson gson = new Gson();

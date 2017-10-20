@@ -141,11 +141,14 @@ public class CreateNewProActivity extends SuperActivity {
                     JSONObject jsonObject = new JSONObject(data);
                 } catch (Exception e) {
                 }
+                dismissProgressDialog();
+                finish();
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
                 RxToast.normal(msg);
+                dismissProgressDialog();
             }
         });
     }

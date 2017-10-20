@@ -52,7 +52,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="3,222"
                         android:textColor="@color/ally_money_color"
                         android:textSize="24dp" />
                 </LinearLayout>
@@ -81,7 +80,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="3,222"
                         android:textColor="@color/ally_money_color"
                         android:textSize="24dp" />
                 </LinearLayout>
@@ -118,7 +116,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="3,222"
                         android:textColor="@color/black"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -142,7 +139,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="3,222"
                         android:textColor="@color/black"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -166,7 +162,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="3,222"
                         android:textColor="@color/black"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -212,20 +207,12 @@
                 <com.kzmen.sczxjf.view.MyListView
                     android:id="@+id/lv_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:divider="@color/title"
+                    android:dividerHeight="1dp" />
 
                 <include layout="@layout/kz_empty_view" />
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_more"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="加载更多"
-                android:visibility="gone" />
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 </RelativeLayout>

@@ -78,6 +78,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="right"
+                        android:text="我的邮件"
                         android:textColor="#e60012"
                         android:textSize="12dp" />
 
@@ -280,17 +281,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/title" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <com.kzmen.sczxjf.view.MyListView
                     android:id="@+id/lv_leader_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@color/title"
                     android:dividerHeight="1dp" />
-                <include layout="@layout/kz_empty_view"/>
+
+                <include layout="@layout/kz_empty_view" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="60dp" />

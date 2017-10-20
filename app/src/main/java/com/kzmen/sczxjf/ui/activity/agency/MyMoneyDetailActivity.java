@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 public class MyMoneyDetailActivity extends SuperActivity {
     @InjectView(R.id.sv_main)
@@ -58,8 +57,6 @@ public class MyMoneyDetailActivity extends SuperActivity {
     TextView tvParPay;
     @InjectView(R.id.lv_detail)
     MyListView lvDetail;
-    @InjectView(R.id.tv_more)
-    TextView tvMore;
     @InjectView(R.id.activity_my_money_detail)
     RelativeLayout activityMyMoneyDetail;
     @InjectView(R.id.tv_month)
@@ -180,9 +177,6 @@ public class MyMoneyDetailActivity extends SuperActivity {
         tvParPay.setText(StringUtils.addComma(myMoneyIndexBean.getPartner_money()));
     }
 
-    @OnClick(R.id.tv_more)
-    public void onViewClicked() {
-    }
 
     private void getFoucus() {
         if (tvAllEaring == null) {

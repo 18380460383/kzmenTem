@@ -150,10 +150,21 @@ public class PartnerIndexAcitivity extends SuperActivity {
         });
         commAdapter = new CommonAdapter<ParProListBean>(this, R.layout.par_project_list_item, proList) {
             @Override
-            protected void convert(ViewHolder viewHolder, ParProListBean item, int position) {
+            protected void convert(ViewHolder viewHolder, final ParProListBean item, int position) {
                 viewHolder.setText(R.id.tv_title, item.getName())
                         .setText(R.id.tv_count, item.getJoin_count())
                         .setText(R.id.tv_price, item.getTotal_fee());
+                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PartnerIndexAcitivity.this, MsgDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("type", "pro");
+                        bundle.putString("proId", "" + item.getPartner_project_id());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }
         };
         lvLeaderList.setAdapter(commAdapter);

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -75,15 +74,15 @@ public class CMenuFragment extends SuperFragment {
     @InjectView(R.id.c_menu_caifu)
     LinearLayout cMenuCaifu;
     @InjectView(R.id.c_menu_collect_onc)
-    RelativeLayout cMenuCollectonc;
+    LinearLayout cMenuCollectonc;
     @InjectView(R.id.c_menu_friend_onc)
-    RelativeLayout cMenuFriendonc;
+    LinearLayout cMenuFriendonc;
     @InjectView(R.id.c_menu_activity_onc)
-    RelativeLayout cMenuActivity;
+    LinearLayout cMenuActivity;
     @InjectView(R.id.c_menu_credits_exchange_onc)
-    RelativeLayout cMenuCreditsExchangeonc;
+    LinearLayout cMenuCreditsExchangeonc;
     @InjectView(R.id.c_menu_creative_collection_rl)
-    RelativeLayout cMenuCreativeCollectionrl;
+    LinearLayout cMenuCreativeCollectionrl;
     @InjectView(R.id.ll_setting)
     LinearLayout cMenuSetting;
     @InjectView(R.id.c_menu_feedback_onc)
@@ -117,16 +116,15 @@ public class CMenuFragment extends SuperFragment {
     @InjectView(R.id.c_menu_ally)
     TextView cMenuAlly;
     @InjectView(R.id.c_menu_activity_ally)
-    RelativeLayout cMenuActivityAlly;
+    LinearLayout cMenuActivityAlly;
     @InjectView(R.id.c_menu_champ)
     TextView cMenuChamp;
     @InjectView(R.id.c_menu_activity_champ)
-    RelativeLayout cMenuActivityChamp;
+    LinearLayout cMenuActivityChamp;
     @InjectView(R.id.c_menu_par)
     TextView cMenuPar;
     @InjectView(R.id.c_menu_activity_par)
-    RelativeLayout cMenuActivityPar;
-
+    LinearLayout cMenuActivityPar;
     private boolean DOINGGETBALANCE;
     private MenuBack menuBack;
     private View view;
@@ -253,7 +251,6 @@ public class CMenuFragment extends SuperFragment {
     public void setDatauser() {
         //getBanner();
         peUser = AppContext.getInstance().getUserLogin();
-        Log.e("tstmenu", peUser.toString());
         if (!TextUtils.isEmpty(peUser.getUsername())) {
             cMenuUserNameTv.setText(peUser.getUsername());
         } else if (!TextUtils.isEmpty(peUser.getPhone())) {
@@ -298,7 +295,6 @@ public class CMenuFragment extends SuperFragment {
 
     @Override
     protected void lazyLoad() {
-
     }
 
     @Override
@@ -340,18 +336,17 @@ public class CMenuFragment extends SuperFragment {
             }
         });
     }
-    private void setProxy(){
+
+    private void setProxy() {
         cMenuActivityAlly.setVisibility(View.VISIBLE);
         cMenuActivityChamp.setVisibility(View.GONE);
         cMenuActivityPar.setVisibility(View.GONE);
         String leader = AppContext.getInstance().getUserLogin().getLeader();
         String par = AppContext.getInstance().getUserLogin().getPartner();
         if (!TextUtils.isEmpty(leader) && leader.equals("1")) {
-            cMenuActivityAlly.setVisibility(View.GONE);
             cMenuActivityChamp.setVisibility(View.VISIBLE);
         }
-        if (!TextUtils.isEmpty(leader) && par.equals("1")) {
-            cMenuActivityAlly.setVisibility(View.GONE);
+        if (!TextUtils.isEmpty(par) && par.equals("1")) {
             cMenuActivityPar.setVisibility(View.VISIBLE);
         }
     }

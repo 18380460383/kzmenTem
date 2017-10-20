@@ -45,7 +45,16 @@ public class EditPopuwindow extends PopupWindow {
     private String name = "";
     private String percent = "";
     private String id = "";
+    private String proid = "";
     private Context context;
+
+    public String getProid() {
+        return proid;
+    }
+
+    public void setProid(String proid) {
+        this.proid = proid;
+    }
 
     public EditPopuwindow(Context context, int opType, String id, String name, String percent) {
         this.view = LayoutInflater.from(context).inflate(R.layout.popuwindow_edit, null);
@@ -76,10 +85,16 @@ public class EditPopuwindow extends PopupWindow {
                 edName.setVisibility(View.GONE);
                 edName.setText(name);
                 tvName.setText(name);
-                edPercent.setText(percent);
+                edPercent.setText("" + (Double.valueOf(percent) * 100) + "%");
+                tvSure.setText("确定修改");
                 break;
             case 1:
                 tvName.setVisibility(View.GONE);
+                break;
+            case 2:
+                edName.setHint("请输入合伙人ID");
+                edPercent.setVisibility(View.GONE);
+                tvSure.setText("确定邀请");
                 break;
         }
     }
@@ -95,6 +110,9 @@ public class EditPopuwindow extends PopupWindow {
                 isAllRight();
                 addChamp();
                 break;
+            case 2:
+                invitePar();
+                break;
         }
         this.dismiss();
     }
@@ -109,6 +127,32 @@ public class EditPopuwindow extends PopupWindow {
             return false;
         }
         return true;
+    }
+
+    private void invitePar() {
+        if (TextUtil.isEmpty(edName.getText().toString())) {
+            RxToast.normal("请输入邀请的合伙人ID");
+            return;
+        }
+        if (TextUtil.isEmpty(proid)) {
+            return;
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("member_id", AppContext.getInstance().getUserMessageBean().getUid());
+        params.put("send_member_id", edName.getText().toString());
+        params.put("title", "项目邀请");
+        params.put("partner_project_id", id);
+        AgOkhttpUtilManager.postNoCacah(context, "users/member_message_add", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                RxToast.normal("邀请成功");
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxToast.normal(msg);
+            }
+        });
     }
 
     private void addChamp() {

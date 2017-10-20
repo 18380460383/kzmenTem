@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,12 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.control.ScreenControl;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
@@ -35,6 +39,8 @@ import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.vondear.rxtools.RxLogUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -110,6 +116,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
         Glide.with(this).load(AppContext.getInstance().getUserLogin().getAvatar()).placeholder(R.drawable.icon_user_normal).transform(new GlideCircleTransform(this)).into(headImage);
+        updataToken();
     }
 
     private void initUserMessage() {
@@ -354,4 +361,27 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         }
     }
 
+    private void updataToken() {
+        OkhttpUtilManager.postNoCacah(this, "Public/autoLogin", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
+                    Log.e("tst", bean.toString());
+                    AppContext.getInstance().setUserLogin(bean);
+                    AppContext.getInstance().setPersonageOnLine(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("tst", e.toString());
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+            }
+        });
+    }
 }
