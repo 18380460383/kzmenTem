@@ -2,8 +2,6 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
@@ -11,12 +9,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.kzbean.XiaoListItemBean;
+import com.kzmen.sczxjf.bean.agent.MsgListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
-import com.kzmen.sczxjf.net.OkhttpUtilManager;
+import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 import com.kzmen.sczxjf.util.TimeFormateUtil;
 
@@ -35,8 +34,8 @@ public class MsgCenterActivity extends ListViewActivity {
     PullToRefreshListView mPullRefreshListView;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
-    private CommonAdapter<XiaoListItemBean> adapter;
-    private List<XiaoListItemBean> data_list;
+    private CommonAdapter<MsgListBean> adapter;
+    private List<MsgListBean> data_list;
     private int page;
     private String cid = "";
     private String sid = "";
@@ -61,18 +60,17 @@ public class MsgCenterActivity extends ListViewActivity {
     private void initData() {
         data_list = new ArrayList<>();
         page = 1;
-        adapter = new CommonAdapter<XiaoListItemBean>(this, R.layout.kz_msg_listitem, data_list) {
+        adapter = new CommonAdapter<MsgListBean>(this, R.layout.kz_msg_listitem, data_list) {
             @Override
-            protected void convert(ViewHolder viewHolder, final XiaoListItemBean item, int position) {
+            protected void convert(ViewHolder viewHolder, final MsgListBean item, int position) {
                 viewHolder
-                        .setText(R.id.tv_date, item.getTitle())
+                        .setText(R.id.tv_date, TimeFormateUtil.formateTime(item.getCreate_time()))
                         .setText(R.id.tv_title, item.getTitle())
-                        .setText(R.id.tv_content, TimeFormateUtil.formateTime(item.getMedia_time()));
-                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
+                        .setText(R.id.tv_content, item.getContents());
+                viewHolder.getView(R.id.tv_state).setBackgroundResource(R.drawable.conor_background_gloom);
+                if(item.getIs_read().equals("0")){
+                    viewHolder.getView(R.id.tv_state).setBackgroundResource(R.drawable.cornor_backgroud_yellow);
+                }
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);
@@ -87,7 +85,8 @@ public class MsgCenterActivity extends ListViewActivity {
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
         page = 1;
-        getList();
+        data_list.clear();
+        getMsgCount();
     }
 
     /**
@@ -96,33 +95,30 @@ public class MsgCenterActivity extends ListViewActivity {
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        page = 1;
-        getList();
+        page++;
+        getMsgCount();
     }
-
-    public void getList() {
-        if (page == 1) {
-            data_list.clear();
-        }
+    private void getMsgCount(){
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", "" + cid);
-        params.put("data[sid]", "" + sid);
-        OkhttpUtilManager.postNoCacah(this, "", params, new OkhttpUtilResult() {
+        params.put("page", ""+page);
+        params.put("limit", "20" );
+        params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
+        params.put("message_type", "10" );
+        AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Log.e("tst", data);
                 JSONObject object = null;
                 try {
                     object = new JSONObject(data);
                     Gson gson = new Gson();
-                    List<XiaoListItemBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<XiaoListItemBean>>() {
+                    List<MsgListBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<MsgListBean>>() {
                     }.getType());
                     if (datalist.size() == 0) {
                         mPullRefreshListView.setEmptyView(llMain);
                     } else {
                         data_list.addAll(datalist);
                     }
-                } catch (JSONException e) {
+                }  catch (JSONException e) {
                     mPullRefreshListView.setEmptyView(llMain);
                     e.printStackTrace();
                 }
@@ -138,7 +134,6 @@ public class MsgCenterActivity extends ListViewActivity {
             }
         });
     }
-
     /**
      * 设置PullToRefreshListView自动加载
      */

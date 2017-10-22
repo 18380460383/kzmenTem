@@ -144,7 +144,7 @@ public class MyMoneyDetailActivity extends SuperActivity {
     private void getMonthIncome() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);//获取年份
-        int month = cal.get(Calendar.MONTH);//获取月份
+        int month = cal.get(Calendar.MONTH)+1;//获取月份
         Map<String, String> params = new HashMap<>();
         params.put("year", "" + year);
         params.put("month", "" + month);

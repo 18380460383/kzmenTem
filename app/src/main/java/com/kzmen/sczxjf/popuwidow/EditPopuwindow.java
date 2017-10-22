@@ -103,11 +103,15 @@ public class EditPopuwindow extends PopupWindow {
     public void onViewClicked() {
         switch (opType) {
             case 0:
-                isAllRight();
+                if (!isAllRightEd()) {
+                    return;
+                }
                 editChamp();
                 break;
             case 1:
-                isAllRight();
+                if (!isAllRight()) {
+                    return;
+                }
                 addChamp();
                 break;
             case 2:
@@ -122,6 +126,13 @@ public class EditPopuwindow extends PopupWindow {
             RxToast.normal("请输入需要升级的盟主ID");
             return false;
         }
+        if (TextUtil.isEmpty(edPercent.getText().toString())) {
+            RxToast.normal("请输入分润比例");
+            return false;
+        }
+        return true;
+    }
+    private boolean isAllRightEd() {
         if (TextUtil.isEmpty(edPercent.getText().toString())) {
             RxToast.normal("请输入分润比例");
             return false;

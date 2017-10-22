@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,19 +29,23 @@ import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.control.ScreenControl;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
-import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.vondear.rxtools.RxLogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -69,10 +74,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
     TextView titleName;
+    @InjectView(R.id.tv_state)
+    TextView tv_state;
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
     @InjectView(R.id.ll_msg)
-    LinearLayout ll_msg;
+    RelativeLayout ll_msg;
     @InjectView(R.id.ll_search)
     LinearLayout ll_search;
     private ServiceConnection mPlayServiceConnection;
@@ -117,6 +124,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         mLayout.onLoading();
         Glide.with(this).load(AppContext.getInstance().getUserLogin().getAvatar()).placeholder(R.drawable.icon_user_normal).transform(new GlideCircleTransform(this)).into(headImage);
         updataToken();
+
     }
 
     private void initUserMessage() {
@@ -147,7 +155,35 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         EventBus.getDefault().register(this);
         ButterKnife.inject(this);
     }
+    private void getMsgCount(){
+        Map<String, String> params = new HashMap<>();
+        params.put("page", "1");
+        params.put("limit", "50" );
+        params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
+        params.put("message_type", "20" );
+        params.put("is_read", "0");
+        AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject jsonObject=new JSONObject(data);
+                    String count=jsonObject.getString("total");
+                    if(!TextUtil.isEmpty(count) && Integer.valueOf(count)>0){
+                        tv_state.setVisibility(View.VISIBLE);
+                    }else{
+                        tv_state.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
+                    tv_state.setVisibility(View.GONE);
+                }
+            }
 
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                tv_state.setVisibility(View.GONE);
+            }
+        });
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -241,7 +277,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             isDialogShowing = false;
             returnLogin();
         } else if (resultCode == RESULT_OK && requestCode == REDPOINT) {
-            int anInt = data.getExtras().getInt(MsgCenterActivity.MSGNUM);
         } else if (resultCode == RESULT_OK && requestCode == LOGIN) {
             if (data.getIntExtra("loginstate", 0) == 1) {
                 setHeadImageAndMenu(AppContext.getInstance().getUserLogin());
@@ -372,6 +407,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                     Log.e("tst", bean.toString());
                     AppContext.getInstance().setUserLogin(bean);
                     AppContext.getInstance().setPersonageOnLine(true);
+                    getMsgCount();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tst", e.toString());

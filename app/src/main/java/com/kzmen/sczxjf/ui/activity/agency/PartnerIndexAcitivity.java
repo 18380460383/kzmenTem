@@ -30,6 +30,7 @@ import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.popuwidow.MsgShowPopuwindow;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.StringUtils;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.CircleImageViewBorder;
 import com.kzmen.sczxjf.view.MyListView;
 import com.vondear.rxtools.view.RxToast;
@@ -151,7 +152,7 @@ public class PartnerIndexAcitivity extends SuperActivity {
         commAdapter = new CommonAdapter<ParProListBean>(this, R.layout.par_project_list_item, proList) {
             @Override
             protected void convert(ViewHolder viewHolder, final ParProListBean item, int position) {
-                viewHolder.setText(R.id.tv_title, item.getName())
+                viewHolder.setText(R.id.tv_title, "("+item.getStatus_name()+")"+item.getName())
                         .setText(R.id.tv_count, item.getJoin_count())
                         .setText(R.id.tv_price, item.getTotal_fee());
                 viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
@@ -169,13 +170,41 @@ public class PartnerIndexAcitivity extends SuperActivity {
         };
         lvLeaderList.setAdapter(commAdapter);
         getProList();
+        getMsgCount();
     }
 
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_partner_index_acitivity);
     }
+    private void getMsgCount(){
+        Map<String, String> params = new HashMap<>();
+        params.put("page", "1");
+        params.put("limit", "50" );
+        params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
+        params.put("message_type", "20" );
+        params.put("is_read", "0");
+        AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject jsonObject=new JSONObject(data);
+                    String count=jsonObject.getString("total");
+                    if(!TextUtil.isEmpty(count) && Integer.valueOf(count)>0){
+                        tvMsgCount.setText("您有"+count+"封邮件");
+                    }else{
+                        tvMsgCount.setText("我的邮件");
+                    }
+                } catch (Exception e) {
+                }
+            }
 
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxToast.normal(msg);
+            }
+        });
+    }
     private void initView() {
         if (null != parIndexBean) {
             tvAllEaring.setText(StringUtils.addComma(parIndexBean.getTotal_income()));

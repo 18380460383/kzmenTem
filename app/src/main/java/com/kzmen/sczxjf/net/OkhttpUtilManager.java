@@ -97,6 +97,7 @@ public class OkhttpUtilManager {
                             if (bean.getCode() == 200) {
                                 result.onSuccess(100, bean.getData());
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
+                                AppContext.getInstance().setPersonageOnLine(false);
                                 if (url.equals("public/login") || url.equals("public/weixinLogin")) {
                                     result.onErrorWrong(1023, bean.getMessage());
                                 } else if (url.equals("Public/autoLogin")) {

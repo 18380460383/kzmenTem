@@ -9,6 +9,24 @@ public class ParProListBean {
     private String name;
     private String join_count;
     private String total_fee;
+    private String status_name;
+    private String status_e;
+
+    public String getStatus_name() {
+        return status_name;
+    }
+
+    public void setStatus_name(String status_name) {
+        this.status_name = status_name;
+    }
+
+    public String getStatus_e() {
+        return status_e;
+    }
+
+    public void setStatus_e(String status_e) {
+        this.status_e = status_e;
+    }
 
     public String getPartner_project_id() {
         return partner_project_id;

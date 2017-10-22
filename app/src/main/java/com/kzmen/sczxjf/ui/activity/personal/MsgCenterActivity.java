@@ -33,6 +33,8 @@ import java.util.List;
 
 import butterknife.InjectView;
 
+import static com.kzmen.sczxjf.R.id.count;
+
 /**
  * Created by Group
  * on 2015/11/18.
@@ -163,6 +165,7 @@ public class MsgCenterActivity extends ListViewActivity implements PullToRefresh
             }
         });
     }
+
 
     /**
      * 下拉刷新

@@ -20,6 +20,7 @@ import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.StringUtils;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.CircleImageViewBorder;
 import com.vondear.rxtools.RxLogUtils;
 import com.vondear.rxtools.view.RxToast;
@@ -119,6 +120,7 @@ public class AllyIndexActivity extends SuperActivity {
             }
         });
         initData();
+        getMsgCount();
     }
 
     @Override
@@ -177,7 +179,34 @@ public class AllyIndexActivity extends SuperActivity {
         }
 
     }
+    private void getMsgCount(){
+        Map<String, String> params = new HashMap<>();
+        params.put("page", "1");
+        params.put("limit", "50" );
+        params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
+        params.put("message_type", "20" );
+        params.put("is_read", "0");
+        AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject jsonObject=new JSONObject(data);
+                    String count=jsonObject.getString("total");
+                    if(!TextUtil.isEmpty(count) && Integer.valueOf(count)>0){
+                        tvMsgCount.setText("您有"+count+"封邮件");
+                    }else{
+                        tvMsgCount.setText("我的邮件");
+                    }
+                } catch (Exception e) {
+                }
+            }
 
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxToast.normal(msg);
+            }
+        });
+    }
     @OnClick({R.id.iv_add, R.id.ll_msg, R.id.ll_all_count, R.id.ll_today_count, R.id.ll_green, R.id.ll_blue, R.id.ll_yellow, R.id.ll_friend_count})
     public void onViewClicked(View view) {
         Intent intent = null;

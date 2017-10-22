@@ -601,6 +601,9 @@
             android:name=".ui.activity.agency.PartnerListActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+       <!-- <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />-->
     </application>
 
 </manifest>

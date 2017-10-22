@@ -5,8 +5,9 @@
     android:id="@+id/activity_partner_index_acitivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.kzmen.sczxjf.ui.activity.agency.PartnerIndexAcitivity">
+    android:background="@color/white"
+
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -69,13 +70,13 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:text="我的邮件"
                         android:id="@+id/tv_msg_count"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:gravity="right"
+                        android:text="我的邮件"
                         android:textColor="#e60012"
                         android:textSize="12dp" />
 

@@ -19,6 +19,7 @@ import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
+import com.kzmen.sczxjf.util.TimeFormateUtil;
 import com.kzmen.sczxjf.utils.TextUtil;
 
 import org.json.JSONException;
@@ -65,7 +66,7 @@ public class MsgListActivity extends ListViewActivity {
             protected void convert(ViewHolder viewHolder, final MsgListBean item, int position) {
                 viewHolder.setText(R.id.tv_title, item.getTitle())
                         .setText(R.id.tv_content, item.getContents())
-                        .setText(R.id.tv_datetime, item.getCreate_time())
+                        .setText(R.id.tv_datetime, TimeFormateUtil.stampToDate(item.getCreate_time()))
                 ;
                 if (item.getIs_read().equals("1")) {
                     viewHolder.getView(R.id.iv_state).setBackgroundResource(R.drawable.conor_background_gloom);

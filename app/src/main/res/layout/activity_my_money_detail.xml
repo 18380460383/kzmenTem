@@ -4,7 +4,7 @@
     android:id="@+id/activity_my_money_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kzmen.sczxjf.ui.activity.agency.MyMoneyDetailActivity">
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/rl_top"

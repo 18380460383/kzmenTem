@@ -353,10 +353,8 @@ public class RxToast {
         }
         mToast.show();
     }
-
     /**
      * Toast 替代方法 ：立即显示无需等待
-     *
      * @param context  实体
      * @param resId    String资源ID
      * @param duration 显示时长
