@@ -121,9 +121,11 @@ public class MyMoneyDetailActivity extends SuperActivity {
             @Override
             public void onSuccess(int type, String data) {
                 dismissProgressDialog();
+                JSONObject jsonObject = null;
                 try {
+                    jsonObject = new JSONObject(data);
                     Gson gson = new Gson();
-                    myMoneyIndexBean = gson.fromJson(data, MyMoneyIndexBean.class);
+                    myMoneyIndexBean = gson.fromJson(jsonObject.getString("data"), MyMoneyIndexBean.class);
                     if (null != myMoneyIndexBean) {
                         initView();
                     }
@@ -144,7 +146,7 @@ public class MyMoneyDetailActivity extends SuperActivity {
     private void getMonthIncome() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);//获取年份
-        int month = cal.get(Calendar.MONTH)+1;//获取月份
+        int month = cal.get(Calendar.MONTH) + 1;//获取月份
         Map<String, String> params = new HashMap<>();
         params.put("year", "" + year);
         params.put("month", "" + month);
@@ -154,8 +156,10 @@ public class MyMoneyDetailActivity extends SuperActivity {
             public void onSuccess(int type, String data) {
                 dismissProgressDialog();
                 JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
-                    jsonObject = new JSONObject(data);
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
                     monthIncome = jsonObject.getInt("month_income");
                     tvMonth.setText("" + monthIncome);
                 } catch (Exception e) {

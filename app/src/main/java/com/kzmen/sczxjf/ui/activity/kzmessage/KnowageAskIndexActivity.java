@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.KnowageAskItemBean;
 import com.kzmen.sczxjf.bean.kzbean.KnowageIndexItem;
@@ -172,7 +173,7 @@ public class KnowageAskIndexActivity extends SuperActivity {
                     } else {
                         asksList.addAll(datalist);
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 getFoucus();
@@ -267,6 +268,7 @@ public class KnowageAskIndexActivity extends SuperActivity {
                     List<KnowageIndexItem> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<KnowageIndexItem>>() {
                     }.getType());
                     shareBean = gson.fromJson(object.getString("share"), ShareBean.class);
+                    AppContext.getInstance().knowPrice = object.getString("money");
                     if (datalist.size() == 0) {
                     } else {
                         indexList.addAll(datalist);

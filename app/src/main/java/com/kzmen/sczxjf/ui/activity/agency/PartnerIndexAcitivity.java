@@ -116,9 +116,15 @@ public class PartnerIndexAcitivity extends SuperActivity {
         AgOkhttpUtilManager.postNoCacah(this, "users/partner_statistics", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
+                JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
+               // try {
                     Gson gson = new Gson();
-                    parIndexBean = gson.fromJson(data, ParIndexBean.class);
+                    //parIndexBean = gson.fromJson(data, ParIndexBean.class);
+                    parIndexBean = gson.fromJson(jsonObject1.getString("data"), ParIndexBean.class);
                     if (null != parIndexBean) {
                         initView();
                     }
@@ -187,8 +193,11 @@ public class PartnerIndexAcitivity extends SuperActivity {
         AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
+                JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
-                    JSONObject jsonObject=new JSONObject(data);
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
                     String count=jsonObject.getString("total");
                     if(!TextUtil.isEmpty(count) && Integer.valueOf(count)>0){
                         tvMsgCount.setText("您有"+count+"封邮件");
@@ -290,8 +299,11 @@ public class PartnerIndexAcitivity extends SuperActivity {
         AgOkhttpUtilManager.postNoCacah(this, "bases/get_config_explain", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
+                JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
-                    JSONObject jsonObject = new JSONObject(data);
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
                     if (null != jsonObject.getString("value")) {
                         showMsgPopu(viewShow, jsonObject.getString("value"));
                     }

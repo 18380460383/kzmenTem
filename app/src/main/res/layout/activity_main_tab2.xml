@@ -43,27 +43,69 @@
             </RelativeLayout>
 
 
+            <LinearLayout
+                android:id="@+id/ll_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/cornor_radius_large_black"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:paddingTop="4dp"
+                android:visibility="gone">
 
-                <LinearLayout
-                    android:id="@+id/ll_search"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/cornor_radius_large_black"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
-                    android:paddingTop="4dp">
+                    android:background="@null"
+                    android:hint="搜索你感兴趣的课程"
+                    android:textSize="12dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:hint="搜索你感兴趣的课程"
-                        android:textSize="12dp" />
-                </LinearLayout>
-           <!-- </LinearLayout>-->
+            <RadioGroup
+                android:id="@+id/rb_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/kz_main_top_rb"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_radiobutton_left"
+                    android:button="@null"
+                    android:text="掌信"
+                    android:textColor="@color/write"
+                    android:textSize="14dp" />
+
+                <RadioButton
+                    android:id="@+id/rb_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_radiobutton_right"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:text="掌门"
+                    android:textColor="@color/yellow"
+                    android:textSize="14dp"
+
+                    />
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="18dp"
+                android:layout_toRightOf="@+id/rb_main"
+                android:background="@drawable/icon_search" />
+            <!-- </LinearLayout>-->
 
             <RelativeLayout
                 android:id="@+id/ll_msg"
@@ -73,14 +115,16 @@
                 android:layout_centerInParent="true"
                 android:gravity="bottom"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:visibility="gone"
-                    android:layout_marginRight="8dp"
-                    android:layout_alignParentRight="true"
                     android:id="@+id/tv_state"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:background="@drawable/cornor_backgroud_yellow" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/cornor_backgroud_yellow"
+                    android:visibility="gone" />
+
                 <ImageView
                     android:id="@+id/iv_history"
                     android:layout_width="20dp"

@@ -382,6 +382,11 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
                 AppContext.getPlayService().playPause();
                 break;
             case R.id.iv_delete:
+                try {
+                    AppContext.getPlayService().stop();
+                } catch (Exception e) {
+
+                }
                 File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
                 if (file.exists()) {
                     file.delete();

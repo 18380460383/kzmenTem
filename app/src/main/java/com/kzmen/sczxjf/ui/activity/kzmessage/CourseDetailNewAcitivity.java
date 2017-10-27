@@ -53,7 +53,6 @@ import com.vondear.rxtools.RxLogUtils;
 import com.vondear.rxtools.view.RxToast;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -427,7 +426,7 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                         llBuy.setVisibility(View.GONE);
                     }
                     Log.e("tst", courseDetailBean.toString());
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 initView();
@@ -498,7 +497,7 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                         beanlist.addAll(datalist);
                     }
                     Log.e("tst", beanlist.toString());
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 getFoucus();
@@ -611,7 +610,7 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                     bundle.putSerializable("orderBean", orderBean);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 dismissProgressDialog();

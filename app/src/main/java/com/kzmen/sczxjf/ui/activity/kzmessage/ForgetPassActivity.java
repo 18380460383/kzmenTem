@@ -97,8 +97,7 @@ public class ForgetPassActivity extends SuperActivity {
             case R.id.tv_next:
                 yzen = evYz.getText().toString();
                 if (isAllRight()) {
-                    startActivity(new Intent(ForgetPassActivity.this, ResetPassActivity.class));
-                    finish();
+                    yzYzm();
                 }
                 break;
             case R.id.ll_xieyi:
@@ -153,9 +152,6 @@ public class ForgetPassActivity extends SuperActivity {
         OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                /*if (timer != null) {
-                    timer.cancel();
-                }*/
                 Log.e("tst", data);
                 try {
                     JSONObject object = new JSONObject(data);
@@ -178,10 +174,47 @@ public class ForgetPassActivity extends SuperActivity {
                 yzenGet = "-9999";
                 tvYz.setEnabled(true);
                 tvYz.setText("获取验证码");
-                // tvYz.setEnabled(true);
             }
         });
     }
 
+    private void yzYzm() {
+        showProgressDialog("验证中");
+        Map<String, String> params = new HashMap<>();
+        params.put("data[phone]", phone);
+        params.put("data[code]", "" + yzen);
+        params.put("data[type]", "2");
+        OkhttpUtilManager.postNoCacah(this, "public/checkPhoneCode", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    JSONObject object1 = new JSONObject(object.getString("data"));
+                    String phone = object1.getString("phone");
+                    String code = object1.getString("code");
+                    String key = object1.getString("key");
+                    dismissProgressDialog();
+                    if (!TextUtil.isEmpty(phone) && !TextUtil.isEmpty(code) && !TextUtil.isEmpty(key)) {
+                        Intent intent = new Intent(ForgetPassActivity.this, ResetPassActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("phone", phone);
+                        bundle.putString("code", code);
+                        bundle.putString("key", key);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    dismissProgressDialog();
+                }
+            }
 
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxToast.normal(msg);
+                dismissProgressDialog();
+            }
+        });
+    }
 }

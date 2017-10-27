@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
+import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.control.ScreenControl;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
@@ -62,6 +64,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     ImageView headImage;
     @InjectView(R.id.iv_sign)
     ImageView iv_sign;
+    @InjectView(R.id.iv_search)
+    ImageView iv_search;
     @InjectView(R.id.framelayout)
     FrameLayout framelayout;
     @InjectView(R.id.id_drawerlayout)
@@ -82,6 +86,10 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     RelativeLayout ll_msg;
     @InjectView(R.id.ll_search)
     LinearLayout ll_search;
+    @InjectView(R.id.rb_1)
+    RadioButton rb1;
+    @InjectView(R.id.rb_2)
+    RadioButton rb2;
     private ServiceConnection mPlayServiceConnection;
     // protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
@@ -155,22 +163,23 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         EventBus.getDefault().register(this);
         ButterKnife.inject(this);
     }
-    private void getMsgCount(){
+
+    private void getMsgCount() {
         Map<String, String> params = new HashMap<>();
         params.put("page", "1");
-        params.put("limit", "50" );
+        params.put("limit", "50");
         params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
-        params.put("message_type", "20" );
+        params.put("message_type", "20");
         params.put("is_read", "0");
         AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 try {
-                    JSONObject jsonObject=new JSONObject(data);
-                    String count=jsonObject.getString("total");
-                    if(!TextUtil.isEmpty(count) && Integer.valueOf(count)>0){
+                    JSONObject jsonObject = new JSONObject(data);
+                    String count = jsonObject.getString("total");
+                    if (!TextUtil.isEmpty(count) && Integer.valueOf(count) > 0) {
                         tv_state.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         tv_state.setVisibility(View.GONE);
                     }
                 } catch (Exception e) {
@@ -184,21 +193,26 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             }
         });
     }
+
     @Override
     protected void onResume() {
         super.onResume();
+        if (!rb1.isChecked() && !rb2.isChecked()) {
+            rb1.setChecked(true);
+            rb1.setTextColor(getResources().getColor(R.color.white));
+        }
     }
 
-    @OnClick({R.id.main_headimage, R.id.ll_msg, R.id.ll_search})
+    @OnClick({R.id.main_headimage, R.id.ll_msg, R.id.ll_search, R.id.rb_1, R.id.iv_search})
     public void onclick(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.main_headimage:
                 //TODO 左侧打开菜单
                 if (AppContext.getInstance().getPersonageOnLine()) {
-                    if (null != fragmentcmenu) {
+                   /* if (null != fragmentcmenu) {
                         fragmentcmenu.getUserInfo();
-                    }
+                    }*/
                     idDrawerlayout.openDrawer(GravityCompat.START);
                 } else {
                     intent = new Intent(this, IndexActivity.class);
@@ -210,6 +224,14 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 startActivity(intent);
                 break;
             case R.id.ll_search:
+                intent = new Intent(this, CourseSearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rb_1:
+                rb1.setTextColor(getResources().getColor(R.color.white));
+                rb2.setTextColor(getResources().getColor(R.color.yellow));
+                break;
+            case R.id.iv_search:
                 intent = new Intent(this, CourseSearchActivity.class);
                 startActivity(intent);
                 break;
@@ -408,6 +430,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                     AppContext.getInstance().setUserLogin(bean);
                     AppContext.getInstance().setPersonageOnLine(true);
                     getMsgCount();
+                    getUserInfo();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("tst", e.toString());
@@ -417,6 +440,27 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             @Override
             public void onErrorWrong(int code, String msg) {
                 Log.e("tst", msg);
+            }
+        });
+    }
+
+    public void getUserInfo() {
+        OkhttpUtilManager.postNoCacah(this, "User/get_user_info", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    UserMessageBean bean = gson.fromJson(object.getString("data"), UserMessageBean.class);
+                    AppContext.userMessageBean = bean;
+                    AppContext.getInstance().setUserMessageBean(bean);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
             }
         });
     }

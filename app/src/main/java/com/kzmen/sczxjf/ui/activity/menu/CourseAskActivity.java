@@ -40,8 +40,10 @@ import com.kzmen.sczxjf.util.TimeFormateUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.view.CircleImageView;
 import com.vondear.rxtools.view.RxToast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,8 +113,21 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
     private String qid = "1";
     private MyCourseDetailBean myCourseBean;
     private int TimeCount = 0;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            TimeCount++;
+            if (TimeCount >= 120) {
+                recoderDialog.dismiss();
+                recoderUtils.stopRecord();
+                handler.removeCallbacks(runnable);           //停止Timer
+            } else {
+                handler.postDelayed(this, 1000);     //postDelayed(this,1000)方法安排一个Runnable对象到主线程队列中
+            }
+        }
+    };
 
-    private Handler handler = new Handler(new Handler.Callback() {
+    private Handler handler1 = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
             switch (message.what) {
@@ -141,6 +156,7 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
         setTitle(R.id.kz_tiltle, "课程提问");
         initData();
         animationDrawable = (AnimationDrawable) ivAnim.getBackground();
+
     }
 
     private void initData() {
@@ -226,6 +242,11 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
                 AppContext.getPlayService().playPause();
                 break;
             case R.id.iv_delete:
+                try {
+                    AppContext.getPlayService().stop();
+                } catch (Exception e) {
+
+                }
                 File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
                 if (file.exists()) {
                     file.delete();
@@ -312,6 +333,7 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
             case MotionEvent.ACTION_UP:
                 if (isStartRecord) {
                     try {
+                        handler.removeCallbacks(runnable);
                         File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
                         if (file.exists()) {
                             RxToast.normal("文件保存成功");
@@ -392,8 +414,6 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
 
     private AnimationDrawable animationDrawable;//kz_play_anim
 
-
-
     private static final int RC_RECORD_PERM = 123;
 
     @AfterPermissionGranted(RC_RECORD_PERM)
@@ -404,7 +424,8 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
                 downT = System.currentTimeMillis();
                 recoderDialog.showAtLocation(view, Gravity.CENTER, 0, 0);
                 TimeCount = 0;
-                handler.sendEmptyMessage(1);
+                //handler.sendEmptyMessage(1);
+                handler.postDelayed(runnable, 100);         // 开始Timer
             }
             isStartRecord = true;
         } else {
@@ -419,6 +440,7 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
         try {
             recoderDialog.dismiss();
             recoderUtils.stopRecord();
+            handler.removeCallbacks(runnable);
         } catch (Exception e) {
 
         }
@@ -430,6 +452,7 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
             try {
                 recoderDialog.dismiss();
                 recoderUtils.stopRecord();
+                handler.removeCallbacks(runnable);
             } catch (Exception e) {
 
             }
@@ -444,6 +467,7 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
         try {
             recoderDialog.dismiss();
             recoderUtils.stopRecord();
+            handler.removeCallbacks(runnable);
         } catch (Exception e) {
 
         }

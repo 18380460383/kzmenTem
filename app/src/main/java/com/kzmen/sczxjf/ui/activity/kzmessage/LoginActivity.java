@@ -108,6 +108,7 @@ public class LoginActivity extends SuperActivity {
                 break;
             case R.id.tv_forgetpass:
                 startActivity(new Intent(LoginActivity.this, ForgetPassActivity.class));
+                finish();
                 break;
         }
     }
@@ -135,7 +136,6 @@ public class LoginActivity extends SuperActivity {
                             AppContext.maintabeactivity.setHeadImageNew(bean);
                         }
                         getUserInfo();
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -268,6 +268,15 @@ public class LoginActivity extends SuperActivity {
             @Override
             public void onSuccess(int type, String data) {
                 try {
+                    if (null != AppContext.indexActivity) {
+                        AppContext.indexActivity.finish();
+                    }
+                    AppContext.resetIndex();
+                } catch (Exception e) {
+
+                }
+                try {
+
                     JSONObject object = new JSONObject(data);
                     Gson gson = new Gson();
                     UserMessageBean bean = gson.fromJson(object.getString("data"), UserMessageBean.class);

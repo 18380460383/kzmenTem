@@ -4,8 +4,8 @@
     android:id="@+id/activity_course_ask"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.kzmen.sczxjf.ui.activity.menu.CourseAskActivity">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_ti"

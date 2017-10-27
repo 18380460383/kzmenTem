@@ -14,6 +14,7 @@ import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.ui.activity.kzmessage.IndexActivity;
 import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.lzy.okhttputils.model.HttpHeaders;
@@ -100,7 +101,7 @@ public class OkhttpUtilManager {
                                 AppContext.getInstance().setPersonageOnLine(false);
                                 if (url.equals("public/login") || url.equals("public/weixinLogin")) {
                                     result.onErrorWrong(1023, bean.getMessage());
-                                } else if (url.equals("Public/autoLogin")) {
+                                } else if (url.equals("Public/autoLogin") || url.equals("User/get_user_info")) {
                                     AppContext.getInstance().setPersonageOnLine(false);
                                 } else {
                                     setDialog(mContext, bean, result);
@@ -347,7 +348,11 @@ public class OkhttpUtilManager {
                                 JSONObject object1 = new JSONObject(bean.getData());
                                 JSONObject jsonObject = new JSONObject(object1.getString("data"));
                                 if (result != null) {
-                                    result.onSuccess(code, jsonObject.getString("charge"));
+                                    if (!TextUtil.isEmpty(jsonObject.getString("type")) && jsonObject.getString("type").equals("1")) {
+                                        result.onSuccess(1011, jsonObject.getString("charge"));
+                                    } else {
+                                        result.onSuccess(code, jsonObject.getString("charge"));
+                                    }
                                 }
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
                                 rxDialogSureCancel = new RxDialogSureCancel(mContext);
@@ -391,5 +396,4 @@ public class OkhttpUtilManager {
                     }
                 });
     }
-
 }

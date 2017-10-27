@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.ImagePickerAdapter;
 import com.kzmen.sczxjf.bean.kzbean.OrderBean;
@@ -69,6 +70,8 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
     ImageView ivChoicePic;
     @InjectView(R.id.tv_limite)
     TextView tvLimite;
+    @InjectView(R.id.tv_price)
+    TextView tvprice;
     @InjectView(R.id.tv_dialog_text)
     TextView tvDialogText;
     @InjectView(R.id.ll_show_dialog)
@@ -108,6 +111,7 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        tvprice.setText("￥  " + AppContext.getInstance().knowPrice);
     }
 
     private void initView() {

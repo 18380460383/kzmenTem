@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="名称"
-            android:textSize="20dp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <View
@@ -34,14 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥"
-            android:textSize="14dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="300"
-            android:textSize="18dp" />
+            android:textSize="14dp" />
     </LinearLayout>
 
     <LinearLayout

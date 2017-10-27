@@ -125,8 +125,9 @@ public class MyIntegralActivity extends SuperActivity {
         if (page == 1) {
             data_list.clear();
         }
+        showProgressDialog("加载中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[limit]", "" + 10);
+       // params.put("data[limit]", "" + 50);
         params.put("data[page]", "" + page);
         OkhttpUtilManager.postNoCacah(this, "User/getScoreLogList", params, new OkhttpUtilResult() {
             @Override
@@ -138,7 +139,6 @@ public class MyIntegralActivity extends SuperActivity {
                     Gson gson = new Gson();
                     List<IntegralListItemBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<IntegralListItemBean>>() {
                     }.getType());
-                    tvJif.setText(object.getString("score"));
                     if (datalist.size() == 0) {
                         tv_more.setVisibility(View.GONE);
                     } else {
@@ -148,6 +148,7 @@ public class MyIntegralActivity extends SuperActivity {
                     e.printStackTrace();
                     tv_more.setVisibility(View.GONE);
                 }
+                dismissProgressDialog();
                 getFoucus();
                 adapter.notifyDataSetChanged();
             }
@@ -157,6 +158,7 @@ public class MyIntegralActivity extends SuperActivity {
                 getFoucus();
                 tv_more.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
+                dismissProgressDialog();
             }
         });
     }

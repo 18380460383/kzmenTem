@@ -123,6 +123,7 @@ public class MyAskDetaiAcitivity extends SuperActivity {
         tvMsg.setText(myAskDetailBean.getState_right());
         if (uid.equals(myAskDetailBean.getUid())) {
             tvStateMsg.setText(TextUtil.isEmpty(myAskDetailBean.getOk_status_str()) ? "" : myAskDetailBean.getOk_status_str());
+            llOnly.setVisibility(TextUtil.isEmpty(myAskDetailBean.getOk_status_str()) ? View.GONE : View.VISIBLE);
         }
 
         adapter = new CommonAdapter<MyAskDetailBean.AnswerBean>(this, R.layout.my_ask_detail_list_item, myAskDetailBean.getAnswer()) {

@@ -63,6 +63,12 @@ public class IndexActivity extends SuperActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        AppContext.setIndexActivity(this);
+    }
+
+    @Override
     protected boolean isShareActivity() {
         return true;
     }
@@ -77,7 +83,7 @@ public class IndexActivity extends SuperActivity {
     @Override
     public void funFinish(EventBusBean bean) {
         super.funFinish(bean);
-        this.finish();
+        // this.finish();
     }
 
     @Override

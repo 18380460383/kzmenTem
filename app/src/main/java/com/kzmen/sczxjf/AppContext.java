@@ -25,6 +25,7 @@ import com.kzmen.sczxjf.multidex.MultiDexApplication;
 import com.kzmen.sczxjf.server.PlayServiceNew;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.IndexActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.util.DeviceUuidFactory;
 import com.kzmen.sczxjf.util.PreferenceUtil;
@@ -57,6 +58,7 @@ public class AppContext extends MultiDexApplication {
     private Activity oldinstance;
     private Activity oneActivity;
     public static MainTabActivity maintabeactivity;
+    public static IndexActivity indexActivity;
     private static Context _context;
     private static Resources _resource;
     public String weixinCode;
@@ -66,7 +68,7 @@ public class AppContext extends MultiDexApplication {
     private UserInfo userInfo;
     public SharedPreferences sp;
     public static UserBean userBean;
-	
+
     // 七牛sdk
     private Configuration config7niu;
     private UploadManager uploadManager;
@@ -83,7 +85,7 @@ public class AppContext extends MultiDexApplication {
     public static String public_deviceVersion = "";
     public static String public_deviceType = "2";
     public static String public_deviceId = "";
-
+    public static String knowPrice = "";
     private PlayServiceNew playServiceNew;
 
     public int getNetState() {
@@ -642,5 +644,13 @@ public class AppContext extends MultiDexApplication {
         } else {
             return this.peuser;
         }
+    }
+
+    public static void resetIndex() {
+        indexActivity = null;
+    }
+
+    public static void setIndexActivity(IndexActivity indexActivity) {
+        AppContext.indexActivity = indexActivity;
     }
 }

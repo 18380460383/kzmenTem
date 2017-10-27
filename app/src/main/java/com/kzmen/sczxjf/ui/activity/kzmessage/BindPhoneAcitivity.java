@@ -156,8 +156,14 @@ public class BindPhoneAcitivity extends SuperActivity {
         OkhttpUtilManager.postNoCacah(this, "public/blind_phone", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                //注册成功
                 Log.e("tst", data);
+                try {
+                    if (null != AppContext.indexActivity) {
+                        AppContext.indexActivity.finish();
+                    }
+                    AppContext.resetIndex();
+                } catch (Exception e) {
+                }
                 try {
                     JSONObject object = new JSONObject(data);
                     Gson gson = new Gson();

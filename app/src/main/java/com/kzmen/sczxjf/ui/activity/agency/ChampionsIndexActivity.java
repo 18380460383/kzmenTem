@@ -23,6 +23,7 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.agent.ChampIndexBean;
 import com.kzmen.sczxjf.bean.agent.ChampListBean;
 import com.kzmen.sczxjf.bean.agent.CodeListBean;
+import com.kzmen.sczxjf.bean.agent.ProxyOrderBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
@@ -33,6 +34,7 @@ import com.kzmen.sczxjf.popuwidow.ListPopuwindow;
 import com.kzmen.sczxjf.popuwidow.MsgShowPopuwindow;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.StringUtils;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.MyListView;
 import com.vondear.rxtools.view.RxToast;
 
@@ -123,9 +125,14 @@ public class ChampionsIndexActivity extends SuperActivity {
             @Override
             public void onSuccess(int type, String data) {
                 getFoucus();
+                JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
+               // try {
                     Gson gson = new Gson();
-                    champIndexBean = gson.fromJson(data, ChampIndexBean.class);
+                    champIndexBean = gson.fromJson(jsonObject1.getString("data"), ChampIndexBean.class);
                     if (null != champIndexBean) {
                         initView();
                     }
@@ -144,7 +151,7 @@ public class ChampionsIndexActivity extends SuperActivity {
         commAdapter = new CommonAdapter<ChampListBean>(this, R.layout.ally_leader_list_item, leaderList) {
             @Override
             protected void convert(ViewHolder viewHolder, final ChampListBean item, int position) {
-                viewHolder.setText(R.id.tv_name, item.getMember_name())
+                viewHolder.setText(R.id.tv_name, TextUtil.isEmpty(item.getMember_name()) ? "未设置昵称" : item.getMember_name())
                         .setText(R.id.tv_count, item.getLeader_count())
                         .setText(R.id.tv_percent, "" + (Double.valueOf(item.getLeader_share_scale()) * 100) + "%");
                 //ll_edit  iv_edit
@@ -173,6 +180,10 @@ public class ChampionsIndexActivity extends SuperActivity {
                 getChampList();
             }
         });
+        tvBuy.setVisibility(View.GONE);
+        if (null != AppContext.getInstance().getUserLogin() && null != AppContext.getInstance().getUserLogin().getLeaderid() && AppContext.getInstance().getUserLogin().getLeaderid().equals("0")) {
+            tvBuy.setVisibility(View.VISIBLE);
+        }
         getChampList();
         getShopCount();
     }
@@ -239,8 +250,10 @@ public class ChampionsIndexActivity extends SuperActivity {
             public void onSuccess(int type, String data) {
                 getFoucus();
                 JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
-                    jsonObject = new JSONObject(data);
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
                     discount_code_count = jsonObject.getInt("discount_code_count");
                     initCount();
                 } catch (Exception e) {
@@ -256,9 +269,7 @@ public class ChampionsIndexActivity extends SuperActivity {
 
     private void initCount() {
         tvCount.setText("" + discount_code_count);
-        if (discount_code_count == 0) {
-            tvBuy.setVisibility(View.GONE);
-        }
+
     }
 
     private void initView() {
@@ -394,6 +405,16 @@ public class ChampionsIndexActivity extends SuperActivity {
                 getWindow().setAttributes(params);
             }
         });
+        listPopuwindow.setOnOrderSuccess(new ListPopuwindow.onOrderSuccess() {
+            @Override
+            public void onSuccess(ProxyOrderBean proxyOrderBean) {
+                Intent intent = new Intent(ChampionsIndexActivity.this, ProxyPayTypeAcitivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orderBean", proxyOrderBean);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
    /* public void showInfoPopu(View view) {
@@ -418,8 +439,13 @@ public class ChampionsIndexActivity extends SuperActivity {
         AgOkhttpUtilManager.postNoCacah(this, "bases/get_config_explain", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
+                JSONObject jsonObject = null;
+                JSONObject jsonObject1 = null;
                 try {
-                    JSONObject jsonObject = new JSONObject(data);
+                    jsonObject1 = new JSONObject(data);
+                    jsonObject = new JSONObject(jsonObject1.getString("data"));
+              /*  try {
+                    JSONObject jsonObject = new JSONObject(data);*/
                     if (null != jsonObject.getString("value")) {
                         showMsgPopu(viewShow, jsonObject.getString("value"));
                     }

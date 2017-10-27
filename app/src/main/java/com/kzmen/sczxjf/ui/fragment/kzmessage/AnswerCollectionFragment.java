@@ -15,13 +15,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.KzCollectionAnswerAdapter;
 import com.kzmen.sczxjf.bean.kzbean.CollectionAnswerBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
+import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.interfaces.PlayDetailOperate;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
+import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.vondear.rxtools.RxLogUtils;
 
@@ -40,7 +43,7 @@ import butterknife.InjectView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AnswerCollectionFragment extends SuperFragment implements PullToRefreshBase.OnRefreshListener2, Serializable {
+public class AnswerCollectionFragment extends SuperFragment implements PullToRefreshBase.OnRefreshListener2, Serializable, PlayMessage {
     @InjectView(R.id.fragment_listview)
     PullToRefreshListView mlistview;
     @InjectView(R.id.ll_main)
@@ -50,6 +53,7 @@ public class AnswerCollectionFragment extends SuperFragment implements PullToRef
     private KzCollectionAnswerAdapter kzCollectionAnswerAdapter;
     private List<CollectionAnswerBean> data_list;
     private CustomProgressDialog dialog;
+    //private CommonAdapter<CollectionAnswerBean> kzCollectionAnswerAdapter;
 
     /**
      * 标志位，标志已经初始化完成
@@ -95,10 +99,18 @@ public class AnswerCollectionFragment extends SuperFragment implements PullToRef
     private void initDate() {
         data_list = new ArrayList<>();
         page = 1;
+
         kzCollectionAnswerAdapter = new KzCollectionAnswerAdapter(getActivity(), data_list, new PlayDetailOperate() {
             @Override
             public void doPlay(String id, String url) {
-
+                setMusic(url, 0);
+                if (id.equals(kzCollectionAnswerAdapter.getMediaName())) {
+                    AppContext.getPlayService().playPause();
+                } else {
+                    AppContext.getPlayService().stop();
+                    AppContext.getPlayService().playStart();
+                }
+                kzCollectionAnswerAdapter.setMediaName(id);
             }
 
             @Override
@@ -137,6 +149,17 @@ public class AnswerCollectionFragment extends SuperFragment implements PullToRef
         mlistview.getLoadingLayoutProxy().setReleaseLabel("释放开始加载");
         mlistview.setAdapter(kzCollectionAnswerAdapter);
 
+    }
+
+    private void setMusic(String url, long druation) {
+        List<Music> mMusicList = new ArrayList<>();
+        Music music = new Music();
+        music.setType(Music.Type.ONLINE);
+        music.setPath(url);
+        music.setDuration(druation);
+        mMusicList.add(music);
+        AppContext.getPlayService().setMusicList(mMusicList);
+        AppContext.getPlayService().setPlayMessage(this);
     }
 
     public void setADD() {
@@ -210,5 +233,25 @@ public class AnswerCollectionFragment extends SuperFragment implements PullToRef
                 mlistview.onRefreshComplete();
             }
         });
+    }
+
+    @Override
+    public void prePercent(int percent) {
+
+    }
+
+    @Override
+    public void time(String start, String end, int pos) {
+
+    }
+
+    @Override
+    public void playposition(int position) {
+
+    }
+
+    @Override
+    public void state(int state) {
+        kzCollectionAnswerAdapter.state(state);
     }
 }

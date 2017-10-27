@@ -54,12 +54,18 @@ public class MsgJoinActivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "我的邮件");
+        setText();
     }
 
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_msg_join);
-        setText();
+        Bundle bundle = getIntent().getExtras();
+        if (null != bundle) {
+            pro_usr = bundle.getString("pro_usr");
+            pro_name = bundle.getString("pro_name");
+            pro_price = bundle.getString("pro_price");
+        }
     }
 
     private String pro_usr = "";

@@ -24,6 +24,7 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
+import com.kzmen.sczxjf.utils.TextUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,14 +98,13 @@ public class MyListenFragment extends SuperFragment implements PullToRefreshBase
                         .setText(R.id.tv_title, item.getContent())
                         .setText(R.id.tv_time, item.getDatetime())
                         .setText(R.id.tv_ask_listen_state2, "点击播放")
-                        .setText(R.id.iv_user_head, item.getAvatar());
+                        .glideImageCircle(R.id.iv_user_head, item.getAvatar());
                 Glide.with(getActivity()).load(item.getAnswer_avatar()).placeholder(R.drawable.icon_user_normal).into((ImageView) viewHolder.getView(R.id.iv_answer_img));
                 viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_blue);
                 viewHolder.getView(R.id.iv_zans).setVisibility(View.GONE);
                 viewHolder.getView(R.id.tv_zans).setVisibility(View.GONE);
                 viewHolder.getView(R.id.imageView4).setVisibility(View.GONE);
-
-                viewHolder.getView(R.id.ll_listen).setOnClickListener(new View.OnClickListener() {
+                viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         setMusic(item.getAnswer_media());
@@ -118,7 +118,10 @@ public class MyListenFragment extends SuperFragment implements PullToRefreshBase
                         mediaName = item.getAid();
                     }
                 });
-
+                viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
+                if (TextUtil.isEmpty(item.getAnswer_media())) {
+                    viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
+                }
             }
         };
         mlistview.setMode(PullToRefreshListView.Mode.BOTH);
@@ -141,7 +144,6 @@ public class MyListenFragment extends SuperFragment implements PullToRefreshBase
         mlistview.getLoadingLayoutProxy().setPullLabel("数据更新");
         mlistview.getLoadingLayoutProxy().setReleaseLabel("释放开始加载");
         mlistview.setAdapter(adapter);
-
     }
 
     public void setMusic(String url) {

@@ -5,8 +5,8 @@
     android:id="@+id/activity_partner_index_acitivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -304,16 +304,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/title" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <com.kzmen.sczxjf.view.MyListView
                     android:id="@+id/lv_leader_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@color/title"
                     android:dividerHeight="1dp" />
-                <include layout="@layout/kz_empty_view"/>
+
+                <include layout="@layout/kz_empty_view" />
             </RelativeLayout>
 
             <View
@@ -331,7 +334,8 @@
         android:background="@color/yellow"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="16dp"

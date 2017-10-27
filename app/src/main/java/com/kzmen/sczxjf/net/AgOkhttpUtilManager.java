@@ -14,6 +14,7 @@ import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.ui.activity.kzmessage.IndexActivity;
 import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.lzy.okhttputils.model.HttpHeaders;
@@ -315,7 +316,7 @@ public class AgOkhttpUtilManager {
     public static void setUserOrder(final Context mContext, Map<String, String> param, final OkhttpUtilResult result) {
         progressDialog = new CustomProgressDialog(mContext);
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setText("生成订单中");
+        progressDialog.setText("跳转支付中");
         progressDialog.show();
         Gson gson = new Gson();
         String data = gson.toJson(param);
@@ -325,7 +326,7 @@ public class AgOkhttpUtilManager {
         headers.put("publicdeviceversion", AppContext.public_deviceVersion);    //所有的 header 都 不支持 中文
         headers.put("publicdevicetype", AppContext.public_deviceType);
         headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
-        OkHttpUtils.post(URL + "Order/UserOrderPay")
+        OkHttpUtils.post(URL + "users/pay")
                 .tag(mContext)
                 .params(param)
                 .headers(headers)
@@ -341,7 +342,11 @@ public class AgOkhttpUtilManager {
                                 JSONObject object1 = new JSONObject(bean.getData());
                                 JSONObject jsonObject = new JSONObject(object1.getString("data"));
                                 if (result != null) {
-                                    result.onSuccess(code, jsonObject.getString("charge"));
+                                    if (!TextUtil.isEmpty(jsonObject.getString("type")) && jsonObject.getString("type").equals("1")) {
+                                        result.onSuccess(1011, jsonObject.getString("charge"));
+                                    } else {
+                                        result.onSuccess(code, jsonObject.getString("charge"));
+                                    }
                                 }
                             } else if (bean.getCode() == 998 || bean.getCode() == 997) {
                                 rxDialogSureCancel = new RxDialogSureCancel(mContext);

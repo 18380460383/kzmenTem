@@ -17,14 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.UIManager;
-import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
-import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.agency.AllyIndexActivity;
 import com.kzmen.sczxjf.ui.activity.agency.ChampionsIndexActivity;
@@ -43,9 +40,7 @@ import com.kzmen.sczxjf.util.TextViewUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.BitmapUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kzmen.sczxjf.utils.TextUtil;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -144,6 +139,7 @@ public class CMenuFragment extends SuperFragment {
             setUserInfo();
             // getUserInfo();
             setDatauser();
+            setProxy();
             //R.id.c_menu_activity_ally, R.id.c_menu_activity_champ, R.id.c_menu_activity_par
 
         }
@@ -245,11 +241,11 @@ public class CMenuFragment extends SuperFragment {
         setDatauser();
     }
 
-    private UserBean peUser;
+    private UserMessageBean peUser;
 
     public void setDatauser() {
         //getBanner();
-        peUser = AppContext.getInstance().getUserLogin();
+        peUser = AppContext.getInstance().getUserMessageBean();
         if (!TextUtils.isEmpty(peUser.getUsername())) {
             cMenuUserNameTv.setText(peUser.getUsername());
         } else if (!TextUtils.isEmpty(peUser.getPhone())) {
@@ -262,7 +258,20 @@ public class CMenuFragment extends SuperFragment {
         cMenuUserLandingNumTv.setText(str.append(colorText));
         Glide.with(getActivity()).load(peUser.getAvatar()).placeholder(R.drawable.icon_user_normal).transform(new GlideCircleTransform(getActivity())).into(cMenuUserHeadIv);
         tvJifen.setText(peUser.getScore());
-        tvPackage.setText(Integer.valueOf(peUser.getBalance()) / 100 + "");
+        tvPackage.setText(TextUtil.isEmpty(peUser.getBalance()) ? "0" : (Integer.valueOf(peUser.getBalance()) / 100 + ""));
+        try {
+            tv_ask_count.setVisibility(View.GONE);
+            if (null != peUser.getWenda_num() && Integer.valueOf(peUser.getWenda_num()) > 0) {
+                tv_ask_count.setVisibility(View.VISIBLE);
+                tv_ask_count.setText(peUser.getWenda_num());
+                setProxy();
+            } else {
+                tv_ask_count.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+
+        }
+
     }
 
 
@@ -306,7 +315,7 @@ public class CMenuFragment extends SuperFragment {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
-    public void getUserInfo() {
+    /*public void getUserInfo() {
         OkhttpUtilManager.postNoCacah(getActivity(), "User/get_user_info", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -333,7 +342,7 @@ public class CMenuFragment extends SuperFragment {
             public void onErrorWrong(int code, String msg) {
             }
         });
-    }
+    }*/
 
     private void setProxy() {
         cMenuActivityAlly.setVisibility(View.VISIBLE);

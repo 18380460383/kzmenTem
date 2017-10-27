@@ -72,6 +72,7 @@ public class PayTypeAcitivity extends SuperActivity {
     private String price = "";
     private double priceDouble;
     private int chargeYear = 1;
+    private String payType = "";//100为代理过来的数据
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,12 +123,10 @@ public class PayTypeAcitivity extends SuperActivity {
             orderBean = (OrderBean) bundle.getSerializable("orderBean");
             title = bundle.getString("title");
             price = bundle.getString("price");
-
-
+            payType = bundle.getString("payType");
             if (orderBean != null) {
                 Log.e("order", orderBean.toString());
             }
-
         }
     }
 
@@ -177,9 +176,38 @@ public class PayTypeAcitivity extends SuperActivity {
                 break;
         }
     }
+    private void doPayProxy(String payment) {
+        if (orderBean == null) {
+            Log.e("order", "orderbean is null");
+            return;
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("member_id", payment);
+        params.put("order_no", orderBean.getOrder());
+        params.put("order_type", orderBean.getOrder());
+        params.put("pay_type",payment);
+        OkhttpUtilManager.setUserOrder(this, params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                if (type == 1011) {
+                    ReturnOrderBean bean = new ReturnOrderBean(1, "支付成功");
+                    bean.setPrice("" + tvPrice.getText());
+                    bean.setErrType("支付成功");
+                    EventBus.getDefault().post(bean);
+                    finish();
+                } else {
+                    Pingpp.createPayment(PayTypeAcitivity.this, data);
+                }
+            }
 
+            @Override
+            public void onErrorWrong(int code, String msg) {
+
+            }
+        });
+    }
     private void setOrder() {
-        showProgressDialog("支付中。。。");
+        showProgressDialog("支付中");
         Map<String, String> params = new HashMap<>();
         params.put("data[year]", "" + chargeYear);
         params.put("data[payment]", payment);
@@ -218,7 +246,15 @@ public class PayTypeAcitivity extends SuperActivity {
         OkhttpUtilManager.setUserOrder(this, params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Pingpp.createPayment(PayTypeAcitivity.this, data);
+                if (type == 1011) {
+                    ReturnOrderBean bean = new ReturnOrderBean(1, "支付成功");
+                    bean.setPrice("" + tvPrice.getText());
+                    bean.setErrType("支付成功");
+                    EventBus.getDefault().post(bean);
+                    finish();
+                } else {
+                    Pingpp.createPayment(PayTypeAcitivity.this, data);
+                }
             }
 
             @Override

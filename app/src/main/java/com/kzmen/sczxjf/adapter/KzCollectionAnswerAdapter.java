@@ -20,6 +20,7 @@ import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.interfaces.PlayDetailOperate;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskDetailActivity;
+import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.utils.TextUtil;
 
 import java.util.HashMap;
@@ -41,11 +42,19 @@ public class KzCollectionAnswerAdapter extends BaseAdapter {
     private PlayDetailOperate playDetailOperate;
     private int playPosition = -1;
     private CollectionAnswerBean bean;
-
+    private String mediaName = "";
     public KzCollectionAnswerAdapter(Context mContext, List<CollectionAnswerBean> listData, PlayDetailOperate playDetailOperate) {
         this.mContext = mContext;
         this.listData = listData;
         this.playDetailOperate = playDetailOperate;
+    }
+
+    public String getMediaName() {
+        return mediaName;
+    }
+
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
     }
 
     @Override
@@ -75,8 +84,10 @@ public class KzCollectionAnswerAdapter extends BaseAdapter {
         }
         bean = listData.get(position);
         viewHolder.tvContent.setText(TextUtil.isEmpty(listData.get(position).getContent()) ? "" : listData.get(position).getContent());
-        Glide.with(mContext).load(TextUtil.isEmpty(bean.getAvatar()) ? "" : bean.getAvatar()).placeholder(R.drawable.icon_user_normal).dontAnimate().into(viewHolder.ivAnswerImg);
-        viewHolder.tvAnswerName.setText(bean.getUsername());
+        Glide.with(mContext).load(TextUtil.isEmpty(bean.getAvatar()) ? "" : bean.getAvatar()).placeholder(R.drawable.icon_user_normal)
+                .transform(new GlideCircleTransform(mContext))
+                .dontAnimate().into(viewHolder.ivAnswerImg);
+        viewHolder.tvAnswerName.setText(TextUtil.isEmpty(bean.getUsername()) ? "匿名" : bean.getUsername());
         viewHolder.tvAskState.setText(bean.getMedia_button());
         if (!TextUtil.isEmpty(bean.getTeacher()) && bean.getTeacher().equals("1")) {
             viewHolder.tvAnswerDes.setText(bean.getTid_title());

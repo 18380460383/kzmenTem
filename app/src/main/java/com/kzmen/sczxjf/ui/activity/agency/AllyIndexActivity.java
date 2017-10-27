@@ -101,9 +101,11 @@ public class AllyIndexActivity extends SuperActivity {
         AgOkhttpUtilManager.postNoCacah(this, "users/member_statistics", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
+                JSONObject jsonObject = null;
                 try {
+                    jsonObject = new JSONObject(data);
                     Gson gson = new Gson();
-                    allyIndexBean = gson.fromJson(data, AllyIndexBean.class);
+                    allyIndexBean = gson.fromJson(jsonObject.getString("data"), AllyIndexBean.class);
                     if (null != allyIndexBean) {
                         initView();
                     }
@@ -179,22 +181,23 @@ public class AllyIndexActivity extends SuperActivity {
         }
 
     }
-    private void getMsgCount(){
+
+    private void getMsgCount() {
         Map<String, String> params = new HashMap<>();
         params.put("page", "1");
-        params.put("limit", "50" );
+        params.put("limit", "50");
         params.put("member_id", "" + AppContext.getInstance().getUserMessageBean().getUid());
-        params.put("message_type", "20" );
+        params.put("message_type", "20");
         params.put("is_read", "0");
         AgOkhttpUtilManager.postNoCacah(this, "users/member_message_list", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 try {
-                    JSONObject jsonObject=new JSONObject(data);
-                    String count=jsonObject.getString("total");
-                    if(!TextUtil.isEmpty(count) && Integer.valueOf(count)>0){
-                        tvMsgCount.setText("您有"+count+"封邮件");
-                    }else{
+                    JSONObject jsonObject = new JSONObject(data);
+                    String count = jsonObject.getString("total");
+                    if (!TextUtil.isEmpty(count) && Integer.valueOf(count) > 0) {
+                        tvMsgCount.setText("您有" + count + "封邮件");
+                    } else {
                         tvMsgCount.setText("我的邮件");
                     }
                 } catch (Exception e) {
@@ -207,6 +210,7 @@ public class AllyIndexActivity extends SuperActivity {
             }
         });
     }
+
     @OnClick({R.id.iv_add, R.id.ll_msg, R.id.ll_all_count, R.id.ll_today_count, R.id.ll_green, R.id.ll_blue, R.id.ll_yellow, R.id.ll_friend_count})
     public void onViewClicked(View view) {
         Intent intent = null;

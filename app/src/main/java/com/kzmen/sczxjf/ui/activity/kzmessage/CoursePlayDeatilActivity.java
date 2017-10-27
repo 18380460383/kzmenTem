@@ -177,7 +177,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
                         beanlist.addAll(datalist);
                     }
                     Log.e("tst", beanlist.toString());
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 kzCoursePlayDetailAdapter.notifyDataSetChanged();
@@ -324,7 +324,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
                             AppContext.getPlayService().play(getPlayPostiton(title));
                         }
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -411,7 +411,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
                         tv_zans.setText(courseDetailBean.getZans());
 
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 initView();
