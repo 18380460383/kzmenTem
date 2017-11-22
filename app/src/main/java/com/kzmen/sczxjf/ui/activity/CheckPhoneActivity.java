@@ -18,7 +18,7 @@ import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.DESUtils;
 import com.kzmen.sczxjf.view.EshareDialogFragment;

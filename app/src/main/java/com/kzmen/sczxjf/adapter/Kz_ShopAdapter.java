@@ -45,14 +45,14 @@ public class Kz_ShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private TextView intoExchangeList;
     private PointListView shopPointListView;
     private int itemNum = 0;
-    private ShopAdapter.HeadBack headBack;
+    private HeadBack headBack;
 
     public Kz_ShopAdapter(Context context, List<JiFenShopListItemBean> mDatas) {
         this.mDatas = mDatas;
         this.context = context;
     }
 
-    public void addHeadView(int view, ShopAdapter.HeadBack headBack) {
+    public void addHeadView(int view, HeadBack headBack) {
         headViewid = view;
         headViewSize = 1;
         isAddHead = true;

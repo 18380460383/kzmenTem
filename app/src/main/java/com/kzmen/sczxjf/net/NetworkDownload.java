@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.bean.request.PublicParameter;
-import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.DESUtils;
 import com.loopj.android.http.AsyncHttpClient;

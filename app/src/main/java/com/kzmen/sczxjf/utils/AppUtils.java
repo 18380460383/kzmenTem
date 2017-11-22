@@ -13,20 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.AppContext;
-import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.request.PublicParameter;
-import com.kzmen.sczxjf.ebean.City;
-import com.kzmen.sczxjf.ebean.Province;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -161,124 +154,6 @@ public class AppUtils {
         }
         return addresstxt;
     }
-
-    public static List<Province> getAddressMes(final byte[] bytes, final Context context,int i) {
-        List<Province> listp = new ArrayList<Province>();
-        try {
-            InputStream inputStream = context.getResources().openRawResource(R.raw.city);
-            int available = inputStream.available();
-            byte[] b = new byte[available];
-            inputStream.read(b);
-            String json = new String(b);
-            JSONObject body = new JSONObject(json);
-            if (body.optInt("code") == 1) {
-                JSONObject data = body.optJSONObject("data");//取出所有省
-                Iterator<String> keys = data.keys();
-                Province p = null;
-                City city = null;
-                List<City> cityList = null;
-                if(i==1) {
-                    p = new Province();
-                    p.setItem("不限");
-                    city = new City();
-                    city.setItem("不限");
-                    ArrayList<String> areaList1 = new ArrayList<>();
-                    areaList1.add("不限");
-                    city.setAreaList(areaList1);
-                    ArrayList<City> listCity = new ArrayList<>();
-                    listCity.add(city);
-                    p.setListCity(listCity);
-                    listp.add(p);
-                }
-                while (keys.hasNext()) {
-                    p = new Province();
-                    cityList = new ArrayList<City>();
-                    JSONObject provinceJson = data.optJSONObject(keys.next());//取出某一个省
-                    p.setItem(provinceJson.optString("item"));
-                    JSONObject citys = provinceJson.optJSONObject("city");//取出所有的市
-                    Iterator<String> cityKeys = citys.keys();
-                    List<String> listarea = null;
-                    if(i==1){
-                        city = new City();
-                        city.setItem("不限");
-                        ArrayList<String> areaList2 = new ArrayList<>();
-                        areaList2.add("不限");
-                        city.setAreaList(areaList2);
-                        cityList.add(city);
-                    }
-                    p.setListCity(cityList);
-                    while (cityKeys.hasNext()) {
-                        JSONObject jsonCity = citys.optJSONObject(cityKeys.next());//取出某一个市
-                        if (null != jsonCity) {
-                            city = new City();
-                            city.setItem(jsonCity.optString("item") + "");
-                            JSONObject area = jsonCity.optJSONObject("area");//取出当前市的所有地区
-                            listarea = new ArrayList<String>();
-                            if(i==1){
-                                listarea.add("不限");
-                            }
-                            if (null != area) {
-                                Iterator<String> areaKeys = area.keys();
-                                while (areaKeys.hasNext()) {
-                                    listarea.add(area.optString(areaKeys.next()));//获得某一个地区
-                                }
-                            }
-                            city.setAreaList(listarea);
-
-                        }
-                        cityList.add(city);//每次加一个市
-                    }
-
-                    listp.add(p);//每次结束添加一个省
-                }
-                return listp;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  listp;
-    }
-    public static  List<String> getArea(String pro, String city,List<Province> listp) {
-        List<String> list = null;
-        int size = listp.size();
-        for (int i = 0; i < size; i++) {
-            Province province = listp.get(i);
-            if (province.getItem().equals(pro)) {
-                List<City> listCity = province.getListCity();
-                int size1 = listCity.size();
-                for (int j = 0; j < size1; j++) {
-                    City city1 = listCity.get(j);
-                    if (city1.getItem().equals(city)) {
-                        list = city1.getAreaList();
-                    }
-                }
-
-                return list;
-            }
-        }
-        return null;
-    }
-
-    public static List<String> getTown(String item,List<Province> listp) {
-        List<String> list = new ArrayList<String>();
-        int size = listp.size();
-        for (int i = 0; i < size; i++) {
-            Province province = listp.get(i);
-            if (province.getItem().equals(item)) {
-                List<City> listCity = province.getListCity();
-                int size1 = listCity.size();
-                for (int j = 0; j < size1; j++) {
-                    list.add(listCity.get(j).getItem());
-                }
-
-                return list;
-            }
-        }
-        return list;
-    }
-
     public static  Boolean judegPhon(String phoneNum,String regex){
         Pattern p = Pattern.compile(regex);
         Matcher matcher = p.matcher(phoneNum);

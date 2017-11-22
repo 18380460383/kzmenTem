@@ -24,7 +24,6 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.YaoBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.ui.activity.personal.ShopDetailsActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.FileUtils;
@@ -230,9 +229,7 @@ public class BaseWebActivity extends Activity {
         @JavascriptInterface
         public void getGoodsDetail(String id) {
             //EToastUtil.show(BaseWebActivity.this, id);
-            Intent intent = new Intent(BaseWebActivity.this, ShopDetailsActivity.class);
-            intent.putExtra(ShopDetailsActivity.SHOPID, id);
-            startActivity(intent);
+
         }
 
         @JavascriptInterface

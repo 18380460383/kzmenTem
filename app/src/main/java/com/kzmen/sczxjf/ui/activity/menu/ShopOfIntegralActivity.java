@@ -16,7 +16,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshStaggeredGridLayout;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.Kz_ShopAdapter;
-import com.kzmen.sczxjf.adapter.ShopAdapter;
 import com.kzmen.sczxjf.bean.kzbean.JiFenShopListItemBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
@@ -86,7 +85,7 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
         ivHistory.setOnClickListener(this);
         setNullListView(bjLl, bjNullIv, R.drawable.no_g_start, biTitle, "暂无数据", 0);
         setPullToRefreshListView();
-        adapter.addHeadView(R.layout.kz_shop_head, new ShopAdapter.HeadBack() {
+        adapter.addHeadView(R.layout.kz_shop_head, new Kz_ShopAdapter.HeadBack() {
             @Override
             public void setHeadView(View head) {
                 ll_jifen = (LinearLayout) head.findViewById(R.id.ll_jifen);

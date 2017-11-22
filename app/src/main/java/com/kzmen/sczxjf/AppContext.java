@@ -17,7 +17,6 @@ import com.kzmen.sczxjf.bean.kzbean.AddressBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
-import com.kzmen.sczxjf.ebean.User;
 import com.kzmen.sczxjf.imagepicker.ImagePicker;
 import com.kzmen.sczxjf.imagepicker.loader.GlideImageLoader;
 import com.kzmen.sczxjf.imagepicker.view.CropImageView;
@@ -64,7 +63,6 @@ public class AppContext extends MultiDexApplication {
     public String weixinCode;
     public String accessToken;
     public String openid;
-    public User user;
     private UserInfo userInfo;
     public SharedPreferences sp;
     public static UserBean userBean;
@@ -138,7 +136,6 @@ public class AppContext extends MultiDexApplication {
             @Override
             public void run() {
                 try {
-                    user = new User();
                     setChannel();
                     ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(instance)
                             .diskCache(new UnlimitedDiskCache(new File(FileUtils.getRootFile() + "/" + Constants.LOADER_PATH_IMG)))

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.kzmen.sczxjf.AppContext;
-import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 
 /**
  * 创建者：Administrator

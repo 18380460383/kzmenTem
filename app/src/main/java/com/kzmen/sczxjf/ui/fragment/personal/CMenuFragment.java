@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.UIManager;
 import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.agency.AllyIndexActivity;
@@ -35,6 +34,7 @@ import com.kzmen.sczxjf.ui.activity.menu.MyCollectionAcitivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyIntegralActivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyPackageAcitivity;
 import com.kzmen.sczxjf.ui.activity.menu.SpecialPowerActivity;
+import com.kzmen.sczxjf.ui.activity.personal.SetActivity;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.kzmen.sczxjf.util.MoneyFormateUtil;
 import com.kzmen.sczxjf.util.TextViewUtil;
@@ -199,7 +199,8 @@ public class CMenuFragment extends SuperFragment {
                 //RxToast.normal("开发中。。。");
                 break;
             case R.id.ll_setting:
-                UIManager.showSetActivity((Activity) getContext());
+                Intent intentn11 = new Intent(getContext(), SetActivity.class);
+                getContext().startActivity(intentn11);
                 break;
             case R.id.c_menu_feedback_onc:
                 Intent intent1 = new Intent(getContext(), WebAcitivity.class);

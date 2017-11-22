@@ -63,9 +63,6 @@
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:theme="@style/BaseAppTheme">
-        <activity
-            android:name=".test.Mp3RecorderActivity"
-            android:screenOrientation="portrait" />
         <!-- logo页面 -->
         <activity
             android:name=".ui.activity.LogoActivity"
@@ -99,23 +96,8 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <!-- 主界面 -->
-        <activity
-            android:name=".ui.activity.personal.MainTabActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".test.CityPickerActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
 
         <!-- 详情界面 -->
-        <activity
-            android:name=".ui.activity.personal.ShareActivity"
-            android:screenOrientation="portrait" />
         <!-- 验证手机号码界面 -->
         <activity
             android:name=".ui.activity.CheckPhoneActivity"
@@ -127,16 +109,7 @@
 
         <!-- 认证详情界面 -->
         <activity
-            android:name=".ui.activity.personal.MsgDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.personal.MsgCenterActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.personal.SetActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.personal.LoginActivity"
             android:screenOrientation="portrait" />
 
         <!-- 摇一摇界面 -->
@@ -147,14 +120,8 @@
             android:screenOrientation="portrait" />
 
         <!-- 兑换记录界面 -->
-        <activity
-            android:name=".ui.activity.personal.ExchangeActivity"
-            android:screenOrientation="portrait" />
 
         <!-- 兑换详情界面 -->
-        <activity
-            android:name=".ui.activity.personal.DetailEXActivity"
-            android:screenOrientation="portrait" />
 
         <!-- Ping++ SDK 注册 -->
         <activity
@@ -198,22 +165,10 @@
             android:screenOrientation="portrait" />
 
         <!-- 个人端手机注册 -->
-        <activity
-            android:name=".ui.activity.personal.PersonageRegister"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.personal.ShopActivity"
-            android:screenOrientation="portrait" />
 
         <!-- 商品详情 -->
-        <activity
-            android:name=".ui.activity.personal.ShopDetailsActivity"
-            android:screenOrientation="portrait" />
         <!-- 商品购买确认 -->
         <!-- 在线支付 -->
-        <activity
-            android:name=".ui.activity.personal.ShopOrderActivity"
-            android:screenOrientation="portrait" />
 
         <!-- 网页跳转处理界面 -->
         <activity
@@ -230,14 +185,8 @@
         </activity>
 
         <!-- 创意征集 -->
-        <activity
-            android:name=".ui.activity.personal.OriginalityCoollectActivity"
-            android:screenOrientation="portrait" />
         <!-- 申请代理 -->
 
-        <activity
-            android:name=".test.AnserQuesActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.kzmessage.MainTabActivity"
             android:label="@string/title_activity_main_tab"
@@ -273,12 +222,10 @@
             android:theme="@style/BaseAppTheme" />
         <activity android:name=".ui.activity.menu.MyCollectionAcitivity" />
         <activity android:name=".ui.activity.menu.MyAskActivity" />
-        <activity android:name=".test.MP3OnlineActivity" />
 
         <service android:name=".server.PlayServiceNew" />
         <service android:name=".test.server.PlayService" />
 
-        <activity android:name=".test.Mp3ServerAcitivity" />
         <activity android:name=".ui.activity.kzmessage.WantAskActivity" />
         <activity android:name=".ui.activity.kzmessage.CoursePlayDeatilActivity" />
         <activity android:name=".ui.activity.kzmessage.KnowageAskDetailActivity" />
@@ -526,16 +473,6 @@
             android:name=".ui.activity.menu.AddMoneyActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".test.WeixTestActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait">
-            <!--   <intent-filter>
-                   <action android:name="android.intent.action.MAIN" />
-
-                   <category android:name="android.intent.category.LAUNCHER" />
-               </intent-filter>-->
-        </activity>
         <activity
             android:name=".ui.activity.menu.CourseAskActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
