@@ -76,7 +76,7 @@ public class UpdateInvCodeActivity extends SuperActivity {
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[parentid_invite_code]", nicname);
+        params.put("parentid_invite_code", nicname);
         OkhttpUtilManager.postNoCacah(this, "User/save_user_info", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

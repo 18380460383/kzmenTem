@@ -88,7 +88,7 @@ public class UpdateNickNameAcitivy extends SuperActivity {
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[" + type + "]", nicname);
+        params.put("" + type + "", nicname);
         OkhttpUtilManager.postNoCacah(this, "User/save_user_info", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

@@ -8,7 +8,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.kzmen.sczxjf"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -64,19 +64,31 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
-    /*productFlavors {
-        wandoujia {}
+    productFlavors {
+        qihu360 {} // 360手机助手
+        yingyongbao {} // 腾讯应用宝
+        wandoujia {} // 豌豆荚
+        baidu {} // 百度手机助手
+        miui {} // 小米
+        flyme {} // 魅族
+        lenovo {} // 联想-乐商店
+        huawei {} // 华为
+        vivo {} // vivo
+        sj91 {} // 91手机助手
+        taobao {} // 淘宝手机助手
+        appchina {} // 应用汇
+        wangyi163 {} // 网易应用
+        uc {} // UC+开发平台
     }
-
     productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }*/
+        flavor -> flavor.manifestPlaceholders = [channel: name]
+    }
 }
 
 repositories {
     mavenCentral()
     flatDir {
-        dirs 'libs' /**在libs文件夹下找aar文件*/
+        dirs 'libs'
     }
 }
 

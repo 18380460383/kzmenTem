@@ -125,8 +125,8 @@ public class CourseDetailPlayListFragment extends SuperFragment {
                     return;
                 }
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("data[cid]", cid);
-                params.put("data[sid]", stageListBean.getSid());
+                params.put("cid", cid);
+                params.put("sid", stageListBean.getSid());
                 OkhttpUtilManager.setOrder(getActivity(), "Course/addCourseStageOrder", params);
             }
         });
@@ -260,8 +260,8 @@ public class CourseDetailPlayListFragment extends SuperFragment {
                         if (stageListBean.getIsunlock() == 1) {
                             if (item.getCharge_type().equals("1")) {
                                 Map<String, String> params = new HashMap<String, String>();
-                                params.put("data[type]", "1");
-                                params.put("data[aid]", item.getId());
+                                params.put("type", "1");
+                                params.put("aid", item.getId());
                                 OkhttpUtilManager.setOrder(mContext, "Course/addEavesdropOrder", params);
                             } else {
                                 Intent intent = new Intent(getActivity(), CoursePlayDeatilActivity.class);

@@ -285,11 +285,11 @@ public class SetActivity extends SuperActivity {
         Map<String, String> map = new HashMap<>();
 
         if (can) {
-            map.put("data[isjpush]", "1");
+            map.put("isjpush", "1");
             isjp = "1";
         } else {
             isjp = "2";
-            map.put("data[isjpush]", "2");
+            map.put("isjpush", "2");
         }
         showProgressDialog("正在设置。。。");
         OkhttpUtilManager.postNoCacah(this, "User/save_user_info", map, new OkhttpUtilResult() {

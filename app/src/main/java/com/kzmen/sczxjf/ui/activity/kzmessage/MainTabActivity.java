@@ -109,6 +109,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     private static FragmentManager supportFragmentManager;
     private BroadcastReceiver receiver;
     private KzMessageFragment kzMessageFragment;
+    private boolean isopen = false;
 
     @Override
     public void onCreateDataForView() {
@@ -210,10 +211,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             case R.id.main_headimage:
                 //TODO 左侧打开菜单
                 if (AppContext.getInstance().getPersonageOnLine()) {
-                   /* if (null != fragmentcmenu) {
-                        fragmentcmenu.getUserInfo();
-                    }*/
-                    idDrawerlayout.openDrawer(GravityCompat.START);
+                    isopen = true;
+                    getUserInfo();
                 } else {
                     intent = new Intent(this, IndexActivity.class);
                     startActivity(intent);
@@ -367,7 +366,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @Override
     public void onDrawerOpened(View drawerView) {
         if (AppContext.getInstance().getPersonageOnLine() && fragmentcmenu != null) {
-            fragmentcmenu.setDatauser();
+            fragmentcmenu.setUserInfo();
         }
     }
 
@@ -431,15 +430,17 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                     AppContext.getInstance().setPersonageOnLine(true);
                     getMsgCount();
                     getUserInfo();
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("tst", e.toString());
+                    AppContext.getInstance().setPersonageOnLine(false);
+                    AppContext.getInstance().setUserLoginOut();
                 }
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
-                Log.e("tst", msg);
+                AppContext.getInstance().setPersonageOnLine(false);
+                AppContext.getInstance().setUserLoginOut();
             }
         });
     }
@@ -454,6 +455,10 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                     UserMessageBean bean = gson.fromJson(object.getString("data"), UserMessageBean.class);
                     AppContext.userMessageBean = bean;
                     AppContext.getInstance().setUserMessageBean(bean);
+                    if (isopen) {
+                        idDrawerlayout.openDrawer(GravityCompat.START);
+                    }
+                    isopen = false;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -461,6 +466,9 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
             @Override
             public void onErrorWrong(int code, String msg) {
+                AppContext.getInstance().setPersonageOnLine(false);
+                AppContext.getInstance().setUserLoginOut();
+                startActivity(new Intent(MainTabActivity.this, IndexActivity.class));
             }
         });
     }

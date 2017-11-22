@@ -130,7 +130,7 @@ public class ChampionsIndexActivity extends SuperActivity {
                 try {
                     jsonObject1 = new JSONObject(data);
                     jsonObject = new JSONObject(jsonObject1.getString("data"));
-               // try {
+                    // try {
                     Gson gson = new Gson();
                     champIndexBean = gson.fromJson(jsonObject1.getString("data"), ChampIndexBean.class);
                     if (null != champIndexBean) {
@@ -278,6 +278,10 @@ public class ChampionsIndexActivity extends SuperActivity {
             tvTodayEaring.setText(StringUtils.addComma("" + champIndexBean.getToday_income()));
             tvPeopleAll.setText(StringUtils.addComma(champIndexBean.getLeader_count()));
             tvTodayAdd.setText(StringUtils.addComma(champIndexBean.getToday_new_leader()));
+            if (!TextUtil.isEmpty(AppContext.getInstance().getUserMessageBean().getLeaderid())
+                    && AppContext.getInstance().getUserMessageBean().getLeaderid().equals("0")) {
+                tvBuy.setVisibility(View.VISIBLE);
+            }
         }
     }
 

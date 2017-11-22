@@ -135,8 +135,8 @@ public class GetBalanceActivity extends SuperActivity {
         }
         showProgressDialog("提现中。。。");
         Map<String, String> params = new HashMap<>();
-        params.put("data[money]", tvGetMoney.getText().toString());
-        params.put("data[type]", payment);
+        params.put("money", tvGetMoney.getText().toString());
+        params.put("type", payment);
         OkhttpUtilManager.postNoCacah(this, "User/setMoneyWithdraw", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

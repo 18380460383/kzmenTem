@@ -78,8 +78,8 @@ public class XiaoJListActivity extends ListViewActivity {
                     public void onClick(View v) {
                         if (item.getCharge_type().equals("1")) {
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put("data[type]", "1");
-                            params.put("data[aid]", item.getId());
+                            params.put("type", "1");
+                            params.put("aid", item.getId());
                             OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                         } else {
                             Intent intent = new Intent(XiaoJListActivity.this, CoursePlayDeatilActivity.class);
@@ -129,10 +129,10 @@ public class XiaoJListActivity extends ListViewActivity {
             data_list.clear();
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", "" + cid);
-        params.put("data[sid]", "" + sid);
-        params.put("data[page]", "" + page);
-        params.put("data[limit]", "" + 20);
+        params.put("cid", "" + cid);
+        params.put("sid", "" + sid);
+        params.put("page", "" + page);
+        params.put("limit", "" + 20);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseXiaojiang/", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

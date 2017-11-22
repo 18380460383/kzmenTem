@@ -37,15 +37,14 @@ public class KnowageAskDetailBean {
     private String username;
     private String avatar;
     private String money;
-    private String daojishi="";
-    private String state="";
+    private String daojishi = "";
+    private String state = "";
     private InterlocutionBean interlocution;
     private String answer_tishi;
     private UserBean user;
 
     private List<String> images;
     private List<AnswerBean> answer;
-
 
     public String getState() {
         return state;

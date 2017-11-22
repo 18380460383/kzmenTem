@@ -36,19 +36,16 @@ import com.kzmen.sczxjf.ui.activity.menu.MyIntegralActivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyPackageAcitivity;
 import com.kzmen.sczxjf.ui.activity.menu.SpecialPowerActivity;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
+import com.kzmen.sczxjf.util.MoneyFormateUtil;
 import com.kzmen.sczxjf.util.TextViewUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
-import com.kzmen.sczxjf.utils.AppUtils;
-import com.kzmen.sczxjf.utils.BitmapUtils;
-import com.kzmen.sczxjf.utils.TextUtil;
+import com.vondear.rxtools.RxLogUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
- * 创建者：杨操
- * 时间：2016/4/12
  * 功能描述：个人端菜单栏
  */
 public class CMenuFragment extends SuperFragment {
@@ -137,15 +134,9 @@ public class CMenuFragment extends SuperFragment {
         AppContext instance = AppContext.getInstance();
         if (!TextUtils.isEmpty(instance.getUserLogin().getUid())) {
             setUserInfo();
-            // getUserInfo();
-            setDatauser();
-            setProxy();
-            //R.id.c_menu_activity_ally, R.id.c_menu_activity_champ, R.id.c_menu_activity_par
-
         }
         return view;
     }
-
 
     private void setRecriver() {
         bannerReceiver = new BroadcastReceiver() {
@@ -228,23 +219,20 @@ public class CMenuFragment extends SuperFragment {
             case R.id.iv_close:
                 ((MainTabActivity) getActivity()).closeDraw();
                 break;
-
         }
         if (menuBack != null) {
             menuBack.startActivity();
         }
     }
 
-
     public void setUserInfo() {
-        cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(getContext(), R.drawable.icon_user_normal)));
+        setProxy();
         setDatauser();
     }
 
     private UserMessageBean peUser;
 
     public void setDatauser() {
-        //getBanner();
         peUser = AppContext.getInstance().getUserMessageBean();
         if (!TextUtils.isEmpty(peUser.getUsername())) {
             cMenuUserNameTv.setText(peUser.getUsername());
@@ -258,20 +246,18 @@ public class CMenuFragment extends SuperFragment {
         cMenuUserLandingNumTv.setText(str.append(colorText));
         Glide.with(getActivity()).load(peUser.getAvatar()).placeholder(R.drawable.icon_user_normal).transform(new GlideCircleTransform(getActivity())).into(cMenuUserHeadIv);
         tvJifen.setText(peUser.getScore());
-        tvPackage.setText(TextUtil.isEmpty(peUser.getBalance()) ? "0" : (Integer.valueOf(peUser.getBalance()) / 100 + ""));
+        tvPackage.setText(MoneyFormateUtil.coinToYuan(peUser.getBalance()));
         try {
             tv_ask_count.setVisibility(View.GONE);
             if (null != peUser.getWenda_num() && Integer.valueOf(peUser.getWenda_num()) > 0) {
                 tv_ask_count.setVisibility(View.VISIBLE);
                 tv_ask_count.setText(peUser.getWenda_num());
-                setProxy();
+
             } else {
                 tv_ask_count.setVisibility(View.GONE);
             }
         } catch (Exception e) {
-
         }
-
     }
 
 
@@ -283,7 +269,6 @@ public class CMenuFragment extends SuperFragment {
 
     public interface MenuBack {
         void startActivity();
-
     }
 
     @Override
@@ -296,7 +281,6 @@ public class CMenuFragment extends SuperFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data.getIntExtra("loginstate", 0) == 1) {
             setUserInfo();
-            //getBanner();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -344,17 +328,21 @@ public class CMenuFragment extends SuperFragment {
         });
     }*/
 
-    private void setProxy() {
-        cMenuActivityAlly.setVisibility(View.VISIBLE);
-        cMenuActivityChamp.setVisibility(View.GONE);
-        cMenuActivityPar.setVisibility(View.GONE);
-        String leader = AppContext.getInstance().getUserLogin().getLeader();
-        String par = AppContext.getInstance().getUserLogin().getPartner();
-        if (!TextUtils.isEmpty(leader) && leader.equals("1")) {
-            cMenuActivityChamp.setVisibility(View.VISIBLE);
-        }
-        if (!TextUtils.isEmpty(par) && par.equals("1")) {
-            cMenuActivityPar.setVisibility(View.VISIBLE);
+    public void setProxy() {
+        RxLogUtils.e("tst", "++++++++++++++++++++++++++++++++++++++");
+        try {
+            cMenuActivityAlly.setVisibility(View.VISIBLE);
+            cMenuActivityChamp.setVisibility(View.GONE);
+            cMenuActivityPar.setVisibility(View.GONE);
+            String leader = AppContext.getInstance().getUserLogin().getLeader();
+            String par = AppContext.getInstance().getUserLogin().getPartner();
+            if (!TextUtils.isEmpty(leader) && leader.equals("1")) {
+                cMenuActivityChamp.setVisibility(View.VISIBLE);
+            }
+            if (!TextUtils.isEmpty(par) && par.equals("1")) {
+                cMenuActivityPar.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
         }
     }
 }

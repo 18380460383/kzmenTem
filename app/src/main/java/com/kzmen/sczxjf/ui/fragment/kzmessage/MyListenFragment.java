@@ -194,8 +194,8 @@ public class MyListenFragment extends SuperFragment implements PullToRefreshBase
     private void getData() {
         Map<String, String> params = new HashMap<>();
         showProgressDialog("加载中");
-        params.put("data[page]", "" + page);
-        params.put("data[limit]", "20");
+        params.put("page", "" + page);
+        params.put("limit", "20");
         OkhttpUtilManager.postNoCacah(getActivity(), "User/getUserEavesdrop", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

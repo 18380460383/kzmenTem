@@ -556,9 +556,9 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     protected void setUserCollect(final String optype, final String aid, final String state) {
         Map<String, String> params = new HashMap<>();
-        params.put("data[type]", optype);//收藏类型1课程2问题3商品4回答
-        params.put("data[aid]", aid);//id
-        params.put("data[state]", state);//1收藏 其他取消
+        params.put("type", optype);//收藏类型1课程2问题3商品4回答
+        params.put("aid", aid);//id
+        params.put("state", state);//1收藏 其他取消
         OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -576,8 +576,8 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     protected void setReports(final String optype, final String rid, final String state) {
         Map<String, String> params = new HashMap<>();
-        params.put("data[type]", optype);//举报类型1课程2问题3商品4回答
-        params.put("data[rid]", rid);//id
+        params.put("type", optype);//举报类型1课程2问题3商品4回答
+        params.put("rid", rid);//id
         OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -593,9 +593,9 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     protected void setZans(final String optype, final String zid, final String state) {
         Map<String, String> params = new HashMap<>();
-        params.put("data[type]", optype);//举报类型1课程2问题3商品4回答
-        params.put("data[zid]", zid);//id
-        params.put("data[state]", state);//id
+        params.put("type", optype);//举报类型1课程2问题3商品4回答
+        params.put("zid", zid);//id
+        params.put("state", state);//id
         OkhttpUtilManager.postNoCacah(this, "User/setZans", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

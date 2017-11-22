@@ -17,6 +17,7 @@ import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.MyListView;
 import com.vondear.rxtools.RxLogUtils;
 
@@ -84,7 +85,7 @@ public class SpecialPowerActivity extends SuperActivity {
         OkhttpUtilManager.postNoCacah(this, "User/getUserRole", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                RxLogUtils.e("tst",data);
+                RxLogUtils.e("tst", data);
                 JSONObject object = null;
                 try {
                     object = new JSONObject(data);
@@ -107,9 +108,10 @@ public class SpecialPowerActivity extends SuperActivity {
 
     private void initView() {
         if (specialPowerBean != null) {
-            RxLogUtils.e("tst",specialPowerBean.getAvatar());
+            RxLogUtils.e("tst", specialPowerBean.getAvatar());
             Glide.with(this).load(specialPowerBean.getAvatar()).placeholder(R.drawable.icon_user_normal).into(ivHead);
             if (specialPowerBean.getRole().equals("1")) {
+                tvLevel.setText("认证会员");
                 ivLevelSign.setBackgroundResource(R.drawable.icon_vip);
                 tvDate.setText(specialPowerBean.getRole_date());
                 llHaveLevel.setVisibility(View.GONE);
@@ -125,7 +127,11 @@ public class SpecialPowerActivity extends SuperActivity {
                 }
             };
             lvPower.setAdapter(listAdapter);
-            tv_money.setText("￥" + specialPowerBean.getRole_money() + "/年");
+            if (!TextUtil.isEmpty(specialPowerBean.getLeader_codenum()) && specialPowerBean.getLeader_codenum().equals("1")) {
+                tv_money.setText("￥" + specialPowerBean.getRole_money() + " 优惠价格(1年)");
+            } else {
+                tv_money.setText("￥" + specialPowerBean.getRole_money() + "/年");
+            }
         }
     }
 
@@ -140,6 +146,7 @@ public class SpecialPowerActivity extends SuperActivity {
         Bundle bundle = new Bundle();
         bundle.putString("price", specialPowerBean.getRole_money());
         bundle.putString("title", "会员充值");
+        bundle.putString("iscode", "" + specialPowerBean.getLeader_codenum());
         intent.putExtras(bundle);
         startActivity(intent);
     }

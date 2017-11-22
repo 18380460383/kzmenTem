@@ -50,8 +50,8 @@ import butterknife.OnClick;
  * 知识问答
  */
 public class KnowageAskIndexActivity extends SuperActivity {
-    @InjectView(R.id.iv_share)
-    ImageView ivShare;
+   /* @InjectView(R.id.iv_share)
+    ImageView ivShare;*/
     @InjectView(R.id.sv_main)
     PullToRefreshScrollView mPullRefreshScrollView;
     @InjectView(R.id.back)
@@ -155,10 +155,10 @@ public class KnowageAskIndexActivity extends SuperActivity {
 
     private void getAsk() {
         Map<String, String> params1 = new HashMap<>();
-        params1.put("data[limit]", "20");
-        params1.put("data[page]", "" + page);
-        params1.put("data[cid]", "1");
-        params1.put("data[type]", "" + opType);
+        params1.put("limit", "20");
+        params1.put("page", "" + page);
+        params1.put("cid", "1");
+        params1.put("type", "" + opType);
         OkhttpUtilManager.postNoCacah(this, "Interlocution/getInterlocutionList", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -256,7 +256,7 @@ public class KnowageAskIndexActivity extends SuperActivity {
 
     private void getAskItem() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[limit]", "2");
+        params.put("limit", "2");
         OkhttpUtilManager.postNoCacah(this, "Interlocution/getInterlocutionType", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -295,7 +295,7 @@ public class KnowageAskIndexActivity extends SuperActivity {
         setContentView(R.layout.activity_knowage_ask);
     }
 
-    @OnClick({R.id.tv_all, R.id.tv_hasanswer, R.id.iv_share})
+    @OnClick({R.id.tv_all, R.id.tv_hasanswer})
     public void onViewClicked(View view) {
         /*TextPaint paintAll = tvAll.getPaint();
         TextPaint paintHas = tvHasanswer.getPaint();*/
@@ -320,7 +320,7 @@ public class KnowageAskIndexActivity extends SuperActivity {
                 opType = 1;
                 getAsk();
                 break;
-            case R.id.iv_share:
+            /*case R.id.iv_share:
                 if (null == shareBean) {
                     return;
                 }
@@ -331,7 +331,7 @@ public class KnowageAskIndexActivity extends SuperActivity {
                         shareDialog.dismiss();
                     }
                 });
-                break;
+                break;*/
         }
     }
 

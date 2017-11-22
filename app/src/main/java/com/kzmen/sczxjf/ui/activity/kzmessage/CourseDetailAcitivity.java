@@ -226,7 +226,7 @@ public class CourseDetailAcitivity extends SuperActivity implements PlayMessage 
     private void initData() {
         beanlist = new ArrayList<>();
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", cid);
+        params.put("cid", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -292,9 +292,9 @@ public class CourseDetailAcitivity extends SuperActivity implements PlayMessage 
 
     private void getQuestion() {
         Map<String, String> params1 = new HashMap<>();
-        params1.put("data[page]", "" + page);
-        params1.put("data[limit]", "20");
-        params1.put("data[cid]", cid);
+        params1.put("page", "" + page);
+        params1.put("limit", "20");
+        params1.put("cid", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseQuestion", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -404,8 +404,8 @@ public class CourseDetailAcitivity extends SuperActivity implements PlayMessage 
     private void setCourseOrder() {
         showProgressDialog("生成订单中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", courseDetailBean.getCid());
-        params.put("data[tid]", courseDetailBean.getTid());
+        params.put("cid", courseDetailBean.getCid());
+        params.put("tid", courseDetailBean.getTid());
         OkhttpUtilManager.postNoCacah(this, "Course/addCourseOrder", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

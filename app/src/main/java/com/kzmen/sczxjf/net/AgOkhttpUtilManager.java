@@ -39,6 +39,7 @@ import okhttp3.Response;
 
 public class AgOkhttpUtilManager {
     public static String URL = "http://kzm.app.askany.cn/";
+   // public static String URL = "http://testkzm.app.askany.cn/";
     private Context mContext;
     private AgOkhttpUtilManager manager;
     private static RxDialogSureCancel rxDialogSureCancel;
@@ -186,8 +187,8 @@ public class AgOkhttpUtilManager {
         OkHttpUtils.post(URL + url)
                 .tag(mContext)
                 .params(param)
-                .addFileParams("data[mediafile]", paramFile)
-                //.params("data[mediafile]", paramFile.get(0), "audio/mp3")
+                .addFileParams("mediafile", paramFile)
+                //.params("mediafile", paramFile.get(0), "audio/mp3")
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/kz_title_with_share" />
+        <include layout="@layout/kz_title" />
     </RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView

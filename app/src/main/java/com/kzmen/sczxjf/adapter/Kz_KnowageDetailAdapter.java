@@ -135,8 +135,8 @@ public class Kz_KnowageDetailAdapter extends BaseAdapter {
                 playPos = position;
                 if (item.getMedia_status().equals(KzConstanst.IS_FASLE)) {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("data[type]", "2");
-                    params.put("data[aid]", item.getAid());
+                    params.put("type", "2");
+                    params.put("aid", item.getAid());
                     OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                 } else/* if (knowageBean.getIsopen().equals("0"))*/ {
                     setMusic(item.getMedia());

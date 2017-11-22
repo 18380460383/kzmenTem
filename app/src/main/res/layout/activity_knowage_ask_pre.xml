@@ -133,7 +133,6 @@
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/drawable_set_msg"
-                    android:checked="true"
                     android:text=""
                     android:textOff=""
                     android:textOn="" />
@@ -172,7 +171,6 @@
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/drawable_set_msg"
-                    android:checked="true"
                     android:text=""
                     android:textOff=""
                     android:textOn="" />

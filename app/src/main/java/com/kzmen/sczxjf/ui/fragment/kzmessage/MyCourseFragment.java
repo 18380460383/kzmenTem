@@ -259,9 +259,9 @@ public class MyCourseFragment extends SuperFragment implements PullToRefreshBase
     private void getData() {
         Map<String, String> params = new HashMap<>();
         showProgressDialog("加载中");
-        params.put("data[type]", type);
-        params.put("data[page]", "" + page);
-        params.put("data[limit]", "20");
+        params.put("type", type);
+        params.put("page", "" + page);
+        params.put("limit", "20");
         OkhttpUtilManager.postNoCacah(getActivity(), "User/getCourseQuestion", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

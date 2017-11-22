@@ -157,11 +157,11 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
         String pri = tbPri.isChecked() ? "1" : "0";
 
         Map<String, String> params = new HashMap<>();
-        params.put("data[type]", "2");
-        params.put("data[cid]", cid);
-        params.put("data[content]", content);
-        params.put("data[isopen]", pri);
-        params.put("data[isanony]", nim);
+        params.put("type", "2");
+        params.put("cid", cid);
+        params.put("content", content);
+        params.put("isopen", pri);
+        params.put("isanony", nim);
         List<File> fileList = new ArrayList<>();
         for (ImageItem bean : selImageList) {
             File file = new File(bean.path);

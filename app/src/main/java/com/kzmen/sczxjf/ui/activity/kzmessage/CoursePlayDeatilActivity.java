@@ -159,9 +159,9 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
     private void getQuestion() {
         Map<String, String> params1 = new HashMap<>();
-        params1.put("data[page]", "" + page);
-        params1.put("data[limit]", "20");
-        params1.put("data[cid]", cid);
+        params1.put("page", "" + page);
+        params1.put("limit", "20");
+        params1.put("cid", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseQuestion", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -291,10 +291,10 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
     private void getXiaojiangList() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", "" + cid);
-        params.put("data[sid]", "" + sid);
-        params.put("data[page]", "1");
-        params.put("data[limit]", "100");
+        params.put("cid", "" + cid);
+        params.put("sid", "" + sid);
+        params.put("page", "1");
+        params.put("limit", "100");
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseXiaojiang/", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -382,7 +382,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
     private void getCourseDetail() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", cid);
+        params.put("cid", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

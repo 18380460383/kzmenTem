@@ -50,8 +50,8 @@ public class KnowageAskActivity extends SuperActivity {
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
     TextView titleName;
-    @InjectView(R.id.iv_share)
-    ImageView ivShare;
+    /*@InjectView(R.id.iv_share)
+    ImageView ivShare;*/
     @InjectView(R.id.tv_ask)
     TextView tvAsk;
     @InjectView(R.id.lv_aks)
@@ -87,7 +87,7 @@ public class KnowageAskActivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "知识问答");
-        setShare(R.id.iv_share,knowageIndexItem.getShare_title(),knowageIndexItem.getShare_des(),knowageIndexItem.getShare_image(),knowageIndexItem.getShare_linkurl());
+        //setShare(R.id.iv_share,knowageIndexItem.getShare_title(),knowageIndexItem.getShare_des(),knowageIndexItem.getShare_image(),knowageIndexItem.getShare_linkurl());
         initView();
         getAsk();
     }
@@ -182,10 +182,10 @@ public class KnowageAskActivity extends SuperActivity {
     }
     private void getAsk() {
         Map<String, String> params1 = new HashMap<>();
-        params1.put("data[limit]", "20");
-        params1.put("data[page]", "" + page);
-        params1.put("data[cid]", "" + knowageIndexItem.getId());
-        params1.put("data[type]", "" + opType);
+        params1.put("limit", "20");
+        params1.put("page", "" + page);
+        params1.put("cid", "" + knowageIndexItem.getId());
+        params1.put("type", "" + opType);
         OkhttpUtilManager.postNoCacah(this, "Interlocution/getInterlocutionList", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

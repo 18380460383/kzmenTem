@@ -119,8 +119,8 @@ public class LoginActivity extends SuperActivity {
         if (isAllRight()) {
             showProgressDialog("登录中");
             Map<String, String> params = new HashMap<>();
-            params.put("data[phone]", phone);
-            params.put("data[pwd]", pass);
+            params.put("phone", phone);
+            params.put("pwd", pass);
             OkhttpUtilManager.postNoCacah(this, "public/login", params, new OkhttpUtilResult() {
                 @Override
                 public void onSuccess(int type, String data) {
@@ -206,14 +206,14 @@ public class LoginActivity extends SuperActivity {
             AppContext.getInstance().setWeixinInfo(json);
             AppContext.getInstance().setLoginType("1");
             Map<String, String> params = new HashMap<>();
-            params.put("data[weixin]", info.unionid + "");
-            params.put("data[openid]", info.openid + "");
-            params.put("data[username]", info.nickname + "");
-            params.put("data[avatar]", info.headimgurl + "");
-            params.put("data[third_country]", info.country + "");
-            params.put("data[third_province]", info.province + "");
-            params.put("data[third_city]", info.city + "");
-            params.put("data[third_sex]", info.sex + "");
+            params.put("weixin", info.unionid + "");
+            params.put("openid", info.openid + "");
+            params.put("username", info.nickname + "");
+            params.put("avatar", info.headimgurl + "");
+            params.put("third_country", info.country + "");
+            params.put("third_province", info.province + "");
+            params.put("third_city", info.city + "");
+            params.put("third_sex", info.sex + "");
             OkhttpUtilManager.postNoCacah(this, "public/weixinLogin", params, new OkhttpUtilResult() {
                 @Override
                 public void onSuccess(int type, String data) {

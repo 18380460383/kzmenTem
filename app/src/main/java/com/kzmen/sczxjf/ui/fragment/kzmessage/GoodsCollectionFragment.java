@@ -99,9 +99,9 @@ public class GoodsCollectionFragment extends ListViewFragment implements Seriali
                         showProgressDialog("加载中");
                         int state = item.getIscollect();
                         Map<String, String> params = new HashMap<>();
-                        params.put("data[type]", "3");//收藏类型1课程2问题3商品4回答
-                        params.put("data[aid]", item.getId());//id
-                        params.put("data[state]", "" + (state == 1 ? 0 : 1));//1收藏 其他取消
+                        params.put("type", "3");//收藏类型1课程2问题3商品4回答
+                        params.put("aid", item.getId());//id
+                        params.put("state", "" + (state == 1 ? 0 : 1));//1收藏 其他取消
                         OkhttpUtilManager.postNoCacah(getActivity(), "User/setCollect", params, new OkhttpUtilResult() {
                             @Override
                             public void onSuccess(int type, String data) {
@@ -203,9 +203,9 @@ public class GoodsCollectionFragment extends ListViewFragment implements Seriali
 
     private void getData() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[type]", type);
-        params.put("data[page]", "" + page);
-        params.put("data[limit]", "20");
+        params.put("type", type);
+        params.put("page", "" + page);
+        params.put("limit", "20");
         OkhttpUtilManager.postNoCacah(getActivity(), "User/getCollectList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

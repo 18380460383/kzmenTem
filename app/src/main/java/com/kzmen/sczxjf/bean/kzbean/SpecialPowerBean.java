@@ -23,8 +23,17 @@ public class SpecialPowerBean {
     private String role;
     private String role_date;
     private String role_money;
+    private String leader_codenum;
     private List<String> content;
     private List<String> role_str;
+
+    public String getLeader_codenum() {
+        return leader_codenum;
+    }
+
+    public void setLeader_codenum(String leader_codenum) {
+        this.leader_codenum = leader_codenum;
+    }
 
     public String getAvatar() {
         return avatar;

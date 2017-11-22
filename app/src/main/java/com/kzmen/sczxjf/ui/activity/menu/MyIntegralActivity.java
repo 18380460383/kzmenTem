@@ -127,8 +127,8 @@ public class MyIntegralActivity extends SuperActivity {
         }
         showProgressDialog("加载中");
         Map<String, String> params = new HashMap<>();
-       // params.put("data[limit]", "" + 50);
-        params.put("data[page]", "" + page);
+       // params.put("limit", "" + 50);
+        params.put("page", "" + page);
         OkhttpUtilManager.postNoCacah(this, "User/getScoreLogList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

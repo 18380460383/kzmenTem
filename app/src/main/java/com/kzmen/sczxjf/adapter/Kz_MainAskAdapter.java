@@ -98,9 +98,10 @@ public class Kz_MainAskAdapter extends BaseAdapter {
                    /* mainAskListClick.onPosClick(position);
                     playPosition = position;*/
                     if (listData.get(position).getMedia_status().equals(KzConstanst.IS_FASLE)) {
+                        playPosition = position;
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("data[type]", "2");
-                        params.put("data[aid]", listData.get(position).getAid());
+                        params.put("type", "2");
+                        params.put("aid", listData.get(position).getAid());
                         OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                     } else {
                         mainAskListClick.onPosClick(position);

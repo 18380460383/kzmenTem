@@ -147,8 +147,8 @@ public class ForgetPassActivity extends SuperActivity {
         }
         timer.start();
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", phone);
-        params.put("data[type]", "2");
+        params.put("phone", phone);
+        params.put("type", "2");
         OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -181,9 +181,9 @@ public class ForgetPassActivity extends SuperActivity {
     private void yzYzm() {
         showProgressDialog("验证中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", phone);
-        params.put("data[code]", "" + yzen);
-        params.put("data[type]", "2");
+        params.put("phone", phone);
+        params.put("code", "" + yzen);
+        params.put("type", "2");
         OkhttpUtilManager.postNoCacah(this, "public/checkPhoneCode", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

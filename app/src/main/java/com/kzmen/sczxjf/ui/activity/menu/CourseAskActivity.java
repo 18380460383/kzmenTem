@@ -161,7 +161,7 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
 
     private void initData() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[qid]", qid);
+        params.put("qid", qid);
         OkhttpUtilManager.postNoCacah(this, "User/getCourseQuestionShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -272,9 +272,9 @@ public class CourseAskActivity extends SuperActivity implements View.OnTouchList
     }
 
     private void addAnswer() {
-        showProgressDialog("提交中。。。");
+        showProgressDialog("提交中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[qid]", qid);
+        params.put("qid", qid);
         File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
        /* List<File> fileList = new ArrayList<>();
         fileList.add(file);*/

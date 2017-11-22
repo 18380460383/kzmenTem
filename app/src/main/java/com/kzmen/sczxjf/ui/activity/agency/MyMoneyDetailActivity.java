@@ -2,6 +2,8 @@ package com.kzmen.sczxjf.ui.activity.agency;
 
 import android.os.Bundle;
 import android.support.percent.PercentRelativeLayout;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -21,6 +23,7 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.StringUtils;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.MyListView;
 import com.vondear.rxtools.view.RxToast;
 
@@ -63,6 +66,16 @@ public class MyMoneyDetailActivity extends SuperActivity {
     TextView tvMonth;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
+    @InjectView(R.id.ll_ally)
+    LinearLayout llAlly;
+    @InjectView(R.id.ll_champ)
+    LinearLayout llChamp;
+    @InjectView(R.id.ll_part)
+    LinearLayout llPart;
+    @InjectView(R.id.iv_img)
+    ImageView ivImg;
+    @InjectView(R.id.tv_msg)
+    TextView tvMsg;
     private MyMoneyIndexBean myMoneyIndexBean;
     private int page = 1;
     private CommonAdapter<IncomeBean> commAdapter;
@@ -76,6 +89,14 @@ public class MyMoneyDetailActivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "我的收支明细");
+        llChamp.setVisibility(View.GONE);
+        llPart.setVisibility(View.GONE);
+        if (!TextUtil.isEmpty(AppContext.getInstance().getUserMessageBean().getLeader()) && AppContext.getInstance().getUserMessageBean().getLeader().equals("1")) {
+            llChamp.setVisibility(View.VISIBLE);
+        }
+        if (!TextUtil.isEmpty(AppContext.getInstance().getUserMessageBean().getPartner()) && AppContext.getInstance().getUserMessageBean().getPartner().equals("1")) {
+            llPart.setVisibility(View.VISIBLE);
+        }
         getIndexData();
         getMonthIncome();
         getChampList();

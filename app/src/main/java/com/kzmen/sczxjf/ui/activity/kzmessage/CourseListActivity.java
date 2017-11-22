@@ -146,9 +146,9 @@ public class CourseListActivity extends ListViewActivity {
             listData.clear();
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[limit]", "" + 10);
-        params.put("data[page]", "" + page);
-        params.put("data[keywords]", "" );
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
+        params.put("keywords", "" );
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

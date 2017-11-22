@@ -111,8 +111,8 @@ public class CaseListActivity extends ListViewActivity {
             data_list.clear();
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[limit]", "" + 10);
-        params.put("data[page]", "" + page);
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
         OkhttpUtilManager.postNoCacah(this, "Newscase/getNewscaseList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.OrderBean;
 import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
@@ -68,9 +69,12 @@ public class PayTypeAcitivity extends SuperActivity {
     TextView tvSure;
     @InjectView(R.id.vv_vip)
     View vv_vip;
+    private String iscode = "";
     private String title = "";
     private String price = "";
+    private String price1 = "";
     private double priceDouble;
+    private double priceDouble1;
     private int chargeYear = 1;
     private String payType = "";//100为代理过来的数据
 
@@ -90,13 +94,19 @@ public class PayTypeAcitivity extends SuperActivity {
             priceDouble = Double.valueOf(price);
             setTitle(R.id.kz_tiltle, title);
         }
+        if (!TextUtil.isEmpty(iscode) && iscode.equals("1")) {
+            llVipRecharge.setVisibility(View.GONE);
+        }
         tvPrice.setText(price);
         if (orderBean != null) {
-            Double money = Double.valueOf(orderBean.getMoney());
+            Double money = Double.valueOf(TextUtil.isEmpty(orderBean.getMoney()) ? "0" : orderBean.getMoney());
             priceDouble = ((Double) (money * 1.0 / 100));
             price = "" + ((Double) (money * 1.0 / 100));
             tvPrice.setText(price);
-            tvAcountPrice.setText("￥" + orderBean.getBalance());
+
+            Double money1 = Double.valueOf(TextUtil.isEmpty(AppContext.getInstance().getUserMessageBean().getBalance()) ? "0" : AppContext.getInstance().getUserMessageBean().getBalance());
+            price1 = "" + ((Double) (money1 * 1.0 / 100));
+            tvAcountPrice.setText("￥" + price1);
             String price = orderBean.getMoney();
             String balance = orderBean.getBalance();
             if (TextUtil.isEmpty(balance)) {
@@ -121,6 +131,7 @@ public class PayTypeAcitivity extends SuperActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             orderBean = (OrderBean) bundle.getSerializable("orderBean");
+            iscode = bundle.getString("iscode");
             title = bundle.getString("title");
             price = bundle.getString("price");
             payType = bundle.getString("payType");
@@ -176,6 +187,7 @@ public class PayTypeAcitivity extends SuperActivity {
                 break;
         }
     }
+
     private void doPayProxy(String payment) {
         if (orderBean == null) {
             Log.e("order", "orderbean is null");
@@ -185,11 +197,12 @@ public class PayTypeAcitivity extends SuperActivity {
         params.put("member_id", payment);
         params.put("order_no", orderBean.getOrder());
         params.put("order_type", orderBean.getOrder());
-        params.put("pay_type",payment);
+        params.put("pay_type", payment);
         OkhttpUtilManager.setUserOrder(this, params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 if (type == 1011) {
+                    RxToast.normal("支付成功");
                     ReturnOrderBean bean = new ReturnOrderBean(1, "支付成功");
                     bean.setPrice("" + tvPrice.getText());
                     bean.setErrType("支付成功");
@@ -206,11 +219,12 @@ public class PayTypeAcitivity extends SuperActivity {
             }
         });
     }
+
     private void setOrder() {
         showProgressDialog("支付中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[year]", "" + chargeYear);
-        params.put("data[payment]", payment);
+        params.put("year", "" + chargeYear);
+        params.put("payment", payment);
         OkhttpUtilManager.postNoCacah(this, "User/addUserRole", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -240,9 +254,9 @@ public class PayTypeAcitivity extends SuperActivity {
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[payment]", payment);
-        params.put("data[order]", orderBean.getOrder());
-        params.put("data[source]", orderBean.getSource());
+        params.put("payment", payment);
+        params.put("order", orderBean.getOrder());
+        params.put("source", orderBean.getSource());
         OkhttpUtilManager.setUserOrder(this, params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

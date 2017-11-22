@@ -62,7 +62,7 @@ public class RegisterActivity extends SuperActivity {
     private String phone;
     private String yz;
     private String password;
-    private String yq;
+    private String yq = "";
     private int timeCount = 60 * 1000;
     private CountDownTimer timer = new CountDownTimer(timeCount, 1000) {
 
@@ -136,11 +136,12 @@ public class RegisterActivity extends SuperActivity {
                 if (isAllRight()) {
                     showProgressDialog("注册中。。。");
                     Map<String, String> params = new HashMap<>();
-                    params.put("data[phone]", phone);
-                    params.put("data[code]", yz);
-                    params.put("data[pwd]", password);
-                    params.put("data[invite_code]", yq);
-
+                    params.put("phone", phone);
+                    params.put("code", yz);
+                    params.put("pwd", password);
+                    if(!TextUtil.isEmpty(yq)){
+                        params.put("invite_code", yq);
+                    }
                     OkhttpUtilManager.postNoCacah(RegisterActivity.this, "public/register", params, new OkhttpUtilResult() {
                         @Override
                         public void onSuccess(int type, String data) {
@@ -194,8 +195,8 @@ public class RegisterActivity extends SuperActivity {
         }
         timer.start();
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", phone);
-        params.put("data[type]", "1");
+        params.put("phone", phone);
+        params.put("type", "1");
         OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -257,11 +258,10 @@ public class RegisterActivity extends SuperActivity {
             RxToast.normal("密码长度不正确");
             return false;
         }
-        if (yq == null || yq.length() == 0) {
+       /* if (yq == null || yq.length() == 0) {
             RxToast.normal("邀请码不能为空");
             return false;
-        }
-
+        }*/
         return true;
     }
 }

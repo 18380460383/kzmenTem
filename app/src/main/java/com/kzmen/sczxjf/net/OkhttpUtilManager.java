@@ -25,6 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ import okhttp3.Response;
 
 public class OkhttpUtilManager {
     public static String URL = "http://api.kzmen.cn/api.php/";
+   // public static String URL = "http://testkzm.app.askany.cn/";
     public static String URL_INTEGAL = URL + "html/score_rule";//我的积分规则
     public static String URL_WITHDRAWAL = URL + "html/withdraw_rule";//提现规则
     public static String URL_RECHARGE = URL + "html/recharge_rule";//充值说明
@@ -73,7 +76,23 @@ public class OkhttpUtilManager {
         });
         rxDialogSureCancel.show();
     }
-
+    private static Map<String ,String> formateMap( Map<String, String> param){
+        if(null==param){
+            return null;
+        }
+        Map<String ,String>param1=new HashMap<>();
+        if(null!=param){
+            Iterator iter = param.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                Object key = entry.getKey();
+                Object val = entry.getValue();
+                //param1.put(""+key+"",""+val);
+                param1.put("data["+key+"]",""+val);
+            }
+        }
+        return param1;
+    }
     public static void postNoCacah(final Context mContext, final String url, Map<String, String> param, final OkhttpUtilResult result) {
         Gson gson = new Gson();
         HttpHeaders headers = new HttpHeaders();
@@ -84,7 +103,7 @@ public class OkhttpUtilManager {
         headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
         OkHttpUtils.post(URL + url)
                 .tag(mContext)
-                .params(param)
+                .params(formateMap(param))
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override
@@ -109,7 +128,7 @@ public class OkhttpUtilManager {
                             } else {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
                             }
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             result.onErrorWrong(99, "" + e.toString());
                             e.printStackTrace();
                         }
@@ -137,7 +156,7 @@ public class OkhttpUtilManager {
         headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
         OkHttpUtils.post(URL + url)
                 .tag(mContext)
-                .params(param)
+                .params(formateMap(param))
                 //.params("mediafile", paramFile)
                 .params("mediafile", paramFile, "recoder.mp3", MediaType.parse("application/octet-stream"))
                 .headers(headers)
@@ -191,9 +210,9 @@ public class OkhttpUtilManager {
         headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
         OkHttpUtils.post(URL + url)
                 .tag(mContext)
-                .params(param)
-                .addFileParams("data[mediafile]", paramFile)
-                //.params("data[mediafile]", paramFile.get(0), "audio/mp3")
+                .params(formateMap(param))
+                .addFileParams("mediafile", paramFile)
+                //.params("mediafile", paramFile.get(0), "audio/mp3")
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override
@@ -255,7 +274,7 @@ public class OkhttpUtilManager {
         headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
         OkHttpUtils.post(URL + url)
                 .tag(mContext)
-                .params(param)
+                .params(formateMap(param))
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override
@@ -334,7 +353,7 @@ public class OkhttpUtilManager {
         headers.put("publicdeviceid", AppContext.public_deviceId);    //所有的 header 都 不支持 中文
         OkHttpUtils.post(URL + "Order/UserOrderPay")
                 .tag(mContext)
-                .params(param)
+                .params(formateMap(param))
                 .headers(headers)
                 .execute(new StringCallback() {
                     @Override
@@ -349,7 +368,7 @@ public class OkhttpUtilManager {
                                 JSONObject jsonObject = new JSONObject(object1.getString("data"));
                                 if (result != null) {
                                     if (!TextUtil.isEmpty(jsonObject.getString("type")) && jsonObject.getString("type").equals("1")) {
-                                        result.onSuccess(1011, jsonObject.getString("charge"));
+                                        result.onSuccess(1011, "" + bean.getMessage());
                                     } else {
                                         result.onSuccess(code, jsonObject.getString("charge"));
                                     }

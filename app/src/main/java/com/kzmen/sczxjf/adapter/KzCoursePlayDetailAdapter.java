@@ -112,8 +112,8 @@ public class KzCoursePlayDetailAdapter extends BaseAdapter {
                 if (item.getMedia_status().equals(KzConstanst.IS_FASLE)) {
                     //doPay(item.getMedia_money());
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("data[type]", "2");
-                    params.put("data[aid]", item.getAnswer_id());
+                    params.put("type", "2");
+                    params.put("aid", item.getAnswer_id());
                     OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                 } else {
                     if (playDetailOperate != null) {
@@ -199,8 +199,8 @@ public class KzCoursePlayDetailAdapter extends BaseAdapter {
                             playType = 2;
                             if (item.getMedia_status().equals(KzConstanst.IS_FASLE)) {
                                 Map<String, String> params = new HashMap<String, String>();
-                                params.put("data[type]", "2");
-                                params.put("data[aid]", item.getAnswer_id());
+                                params.put("type", "2");
+                                params.put("aid", item.getAnswer_id());
                                 OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                             } else {
                                 if (playDetailOperate != null) {

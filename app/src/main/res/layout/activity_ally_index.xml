@@ -22,7 +22,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/icon_plus_bar" />
+            android:background="@drawable/icon_plus_bar"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <ScrollView
@@ -67,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_msg_count"
@@ -298,11 +300,26 @@
                 android:background="@color/title" />
 
             <LinearLayout
+                android:id="@+id/ll_qr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的推广二维码"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="20dp">
+                android:paddingBottom="20dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -336,6 +353,10 @@
                     android:textColor="@color/ally_money_color"
                     android:textSize="14dp" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/title" />
         </LinearLayout>
     </ScrollView>
 

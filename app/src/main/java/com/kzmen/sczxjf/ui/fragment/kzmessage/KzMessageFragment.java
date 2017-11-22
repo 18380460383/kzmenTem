@@ -53,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -96,9 +97,8 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     private List<HomeCourseBean> listCourse;
     public Kz_MainAskAdapter kz_mainAskAdapter;
     private List<HomeAskBean> listAsk;
-
     private boolean isCourseClick = false;
-
+    private HashMap<Integer, Integer> clickPos = new HashMap<>();
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {

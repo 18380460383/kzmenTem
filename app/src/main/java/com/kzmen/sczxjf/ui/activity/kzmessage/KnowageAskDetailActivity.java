@@ -30,10 +30,12 @@ import com.kzmen.sczxjf.audio.AudioRecoderUtils;
 import com.kzmen.sczxjf.bean.kzbean.KnowageAskDetailBean;
 import com.kzmen.sczxjf.bean.kzbean.KnowageIndexItem;
 import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
+import com.kzmen.sczxjf.bean.kzbean.ShareBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
+import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.easypermissions.AfterPermissionGranted;
 import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
 import com.kzmen.sczxjf.easypermissions.EasyPermissions;
@@ -133,6 +135,7 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
     LinearLayout llRecoder;
     private String qid;
     private KnowageAskDetailBean knowageBean;
+    private ShareBean share;
     // private CommonAdapter<KnowageAskDetailBean.AnswerBean> answerAdapter;
     private List<KnowageAskDetailBean.AnswerBean> answerList;
 
@@ -143,6 +146,7 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
     private String aid = "";
     private int playPos = -1;
     private int TimeCount = 0;
+    private ShareDialog shareDialog;
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -229,7 +233,7 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[qid]", qid);
+        params.put("qid", qid);
         OkhttpUtilManager.postNoCacah(this, "Interlocution/getInterlocutionShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -240,6 +244,7 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
                     object = new JSONObject(data);
                     Gson gson = new Gson();
                     knowageBean = gson.fromJson(object.getString("data"), KnowageAskDetailBean.class);
+                    share = gson.fromJson(object.getString("share"), ShareBean.class);
                     answerList.clear();
                     answerList.addAll(knowageBean.getAnswer());
                     imagesList.clear();
@@ -248,7 +253,7 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
                     imageAdapter.notifyDataSetInvalidated();
                     initView();
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 dismissProgressDialog();
@@ -365,6 +370,16 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
                 addAnswerText();
                 break;
             case R.id.iv_share:
+                if (null == share) {
+                    return;
+                }
+                shareDialog = new ShareDialog(KnowageAskDetailActivity.this, share.getTitle(), share.getDes(), share.getDes(), share.getLinkurl());
+                shareDialog.setCancelButtonOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
                 break;
            /* case R.id.iv_collect:
                 String state = knowageBean.getState();
@@ -407,8 +422,8 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
             RxToast.normal("回答的内容不能为空");
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[qid]", qid);
-        params.put("data[content]", content);
+        params.put("qid", qid);
+        params.put("content", content);
         OkhttpUtilManager.postNoCacah(this, "Question/addAnswer", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -423,9 +438,9 @@ public class KnowageAskDetailActivity extends SuperActivity implements View.OnTo
     }
 
     private void addAnswer() {
-        showProgressDialog("提交中。。。");
+        showProgressDialog("提交中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[qid]", qid);
+        params.put("qid", qid);
         File file = new File(Environment.getExternalStorageDirectory() + "/recoder.mp3");
        /* List<File> fileList = new ArrayList<>();
         fileList.add(file);*/

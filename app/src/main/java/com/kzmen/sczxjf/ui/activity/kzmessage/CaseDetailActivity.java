@@ -111,7 +111,7 @@ public class CaseDetailActivity extends AppCompatActivity {
 
     private void initData() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[id]", "" + id);
+        params.put("id", "" + id);
         OkhttpUtilManager.postNoCacah(this, "Newscase/getNewscaseShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

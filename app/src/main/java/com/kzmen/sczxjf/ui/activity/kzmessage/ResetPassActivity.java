@@ -95,10 +95,10 @@ public class ResetPassActivity extends SuperActivity {
 
     private void reseat() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", phone);
-        params.put("data[code]", code);
-        params.put("data[key]", key);
-        params.put("data[pwd]", pass);
+        params.put("phone", phone);
+        params.put("code", code);
+        params.put("key", key);
+        params.put("pwd", pass);
         OkhttpUtilManager.postNoCacah(this, "public/resetPwd", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -115,8 +115,8 @@ public class ResetPassActivity extends SuperActivity {
 
     private void doLogin() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", phone);
-        params.put("data[pwd]", pass);
+        params.put("phone", phone);
+        params.put("pwd", pass);
         OkhttpUtilManager.postNoCacah(this, "public/login", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

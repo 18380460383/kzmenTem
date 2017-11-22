@@ -176,9 +176,9 @@ public class CourseCollectionFragment extends SuperFragment implements PullToRef
     }
     private void getData() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[type]", type);
-        params.put("data[page]", "" + page);
-        params.put("data[limit]", "20");
+        params.put("type", type);
+        params.put("page", "" + page);
+        params.put("limit", "20");
         OkhttpUtilManager.postNoCacah(getActivity(), "User/getCollectList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

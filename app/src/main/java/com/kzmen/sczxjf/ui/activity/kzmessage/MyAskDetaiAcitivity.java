@@ -81,7 +81,7 @@ public class MyAskDetaiAcitivity extends SuperActivity {
         }
         Map<String, String> params = new HashMap<>();
         showProgressDialog("加载中");
-        params.put("data[qid]", qid);
+        params.put("qid", qid);
         OkhttpUtilManager.postNoCacah(this, "User/getInterlocutionQuestionShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -267,7 +267,7 @@ public class MyAskDetaiAcitivity extends SuperActivity {
                 rxDialogSureCancel.dismiss();
                 Map<String, String> params = new HashMap<>();
                 showProgressDialog("采纳中");
-                params.put("data[aid]", aid);
+                params.put("aid", aid);
                 OkhttpUtilManager.postNoCacah(MyAskDetaiAcitivity.this, "User/setInterlocutionOk", params, new OkhttpUtilResult() {
                     @Override
                     public void onSuccess(int type, String data) {

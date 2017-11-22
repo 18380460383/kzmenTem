@@ -157,7 +157,7 @@ public class FriendInvateActivity extends SuperActivity {
         try {
             File file1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile() + File.separator + "kzmen" + File.separator + "qr.png");
             if (!file1.exists()) {
-                params.put("data[make]", "1");
+                params.put("make", "1");
             }
         } catch (Exception e) {
         }

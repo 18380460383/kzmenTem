@@ -7,6 +7,7 @@ import android.support.percent.PercentRelativeLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class TestListActivity extends ListViewActivity {
     @InjectView(R.id.back)
@@ -43,6 +45,12 @@ public class TestListActivity extends ListViewActivity {
     PullToRefreshListView lvTestList;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
+    @InjectView(R.id.tv_sort)
+    TextView tvSort;
+    @InjectView(R.id.iv_img)
+    ImageView ivImg;
+    @InjectView(R.id.tv_msg)
+    TextView tvMsg;
     private int page = 1;
     private CommonAdapter<TestListItemBean> adapter;
     private List<TestListItemBean> data_list;
@@ -113,8 +121,8 @@ public class TestListActivity extends ListViewActivity {
             data_list.clear();
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[limit]", "" + 10);
-        params.put("data[page]", "" + page);
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
         OkhttpUtilManager.postNoCacah(this, "Evaluation/getEvaluationList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -172,5 +180,10 @@ public class TestListActivity extends ListViewActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.tv_sort)
+    public void onViewClicked() {
+        startActivity(new Intent(TestListActivity.this, IntegralListActivity.class));
     }
 }

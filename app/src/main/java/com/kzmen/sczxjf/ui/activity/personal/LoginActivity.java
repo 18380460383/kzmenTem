@@ -170,9 +170,9 @@ public class LoginActivity extends SuperActivity {
         if (info != null) {
             showProgressDialog("登陆中");
             RequestParams requestParams1 = new RequestParams();
-            requestParams1.put("weixin[platform]", "android");
-            requestParams1.put("weixin[unionid]", info.unionid);
-            requestParams1.put("weixin[imageurl]", info.headimgurl);
+            requestParams1.put("weixin[platform", "android");
+            requestParams1.put("weixin[unionid", info.unionid);
+            requestParams1.put("weixin[imageurl", info.headimgurl);
             requestParams1.put("weixin[username]", info.nickname);
             requestParams1.put("weixin[city]", info.city + "");
             requestParams1.put("weixin[country]", info.country + "");

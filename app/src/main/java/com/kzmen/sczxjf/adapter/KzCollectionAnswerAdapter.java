@@ -41,7 +41,6 @@ public class KzCollectionAnswerAdapter extends BaseAdapter {
     private int state = -1;
     private PlayDetailOperate playDetailOperate;
     private int playPosition = -1;
-    private CollectionAnswerBean bean;
     private String mediaName = "";
     public KzCollectionAnswerAdapter(Context mContext, List<CollectionAnswerBean> listData, PlayDetailOperate playDetailOperate) {
         this.mContext = mContext;
@@ -82,27 +81,26 @@ public class KzCollectionAnswerAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        bean = listData.get(position);
         viewHolder.tvContent.setText(TextUtil.isEmpty(listData.get(position).getContent()) ? "" : listData.get(position).getContent());
-        Glide.with(mContext).load(TextUtil.isEmpty(bean.getAvatar()) ? "" : bean.getAvatar()).placeholder(R.drawable.icon_user_normal)
+        Glide.with(mContext).load(TextUtil.isEmpty(listData.get(position).getAvatar()) ? "" : listData.get(position).getAvatar()).placeholder(R.drawable.icon_user_normal)
                 .transform(new GlideCircleTransform(mContext))
                 .dontAnimate().into(viewHolder.ivAnswerImg);
-        viewHolder.tvAnswerName.setText(TextUtil.isEmpty(bean.getUsername()) ? "匿名" : bean.getUsername());
-        viewHolder.tvAskState.setText(bean.getMedia_button());
-        if (!TextUtil.isEmpty(bean.getTeacher()) && bean.getTeacher().equals("1")) {
-            viewHolder.tvAnswerDes.setText(bean.getTid_title());
+        viewHolder.tvAnswerName.setText(TextUtil.isEmpty(listData.get(position).getUsername()) ? "匿名" : listData.get(position).getUsername());
+        viewHolder.tvAskState.setText(listData.get(position).getMedia_button());
+        if (!TextUtil.isEmpty(listData.get(position).getTeacher()) && listData.get(position).getTeacher().equals("1")) {
+            viewHolder.tvAnswerDes.setText(listData.get(position).getTid_title());
         } else {
             viewHolder.tvSeprate.setVisibility(View.GONE);
             viewHolder.tvAnswerDes.setVisibility(View.GONE);
         }
-        if (!TextUtil.isEmpty(bean.getMedia_status()) && bean.getMedia_status().equals(KzConstanst.IS_FASLE)) {
-            viewHolder.llListen.setBackgroundResource(R.drawable.bg_play_orange);
+        if (!TextUtil.isEmpty(listData.get(position).getMedia_status()) && listData.get(position).getMedia_status().equals(KzConstanst.IS_FASLE)) {
+            viewHolder.llListen.setBackgroundResource(R.drawable.bg_play_green);
         } else {
             viewHolder.tvAskState.setText("点击播放");
             viewHolder.llListen.setBackgroundResource(R.drawable.bg_play_blue);
         }
 
-        viewHolder.tvMediaTime.setText(bean.getMedia_time() + "\"");
+        viewHolder.tvMediaTime.setText(listData.get(position).getMedia_time() + "\"");
 
         viewHolder.llListen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,11 +109,11 @@ public class KzCollectionAnswerAdapter extends BaseAdapter {
                     playPosition = position;
                     if (!TextUtil.isEmpty(listData.get(position).getMedia_status()) && listData.get(position).getMedia_status().equals(KzConstanst.IS_FASLE)) {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("data[type]", "2");
-                        params.put("data[aid]", listData.get(position).getQid());
+                        params.put("type", "2");
+                        params.put("aid", listData.get(position).getAid());
                         OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                     } else {
-                        playDetailOperate.doPlay(bean.getQid(), bean.getMedia());
+                        playDetailOperate.doPlay(listData.get(position).getQid(), listData.get(position).getMedia());
                         playPosition = position;
                     }
                 }
@@ -126,7 +124,7 @@ public class KzCollectionAnswerAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, KnowageAskDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("qid", bean.getQid());
+                bundle.putString("qid", listData.get(position).getQid());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }

@@ -93,7 +93,7 @@ public class TestDetailActivity extends SuperActivity {
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[id]", testID);
+        params.put("id", testID);
         OkhttpUtilManager.postNoCacah(this, "Evaluation/getEvaluationShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

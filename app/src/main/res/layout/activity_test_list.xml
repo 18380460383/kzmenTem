@@ -4,27 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include
-            layout="@layout/kz_title" />
+
+        <include layout="@layout/kz_title" />
+
+        <TextView
+            android:id="@+id/tv_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:padding="15dp"
+            android:text="排行榜"
+            android:textColor="@color/black" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/lv_test_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:dividerHeight="0.5dp" />
-        <include layout="@layout/kz_empty_view"/>
+            android:dividerHeight="0.5dp"
+            android:scrollbars="none" />
+
+        <include layout="@layout/kz_empty_view" />
     </RelativeLayout>
 
 </LinearLayout>

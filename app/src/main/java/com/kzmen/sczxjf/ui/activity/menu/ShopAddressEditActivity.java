@@ -137,16 +137,16 @@ public class ShopAddressEditActivity extends SuperActivity {
         }
         Map<String, String> params = new HashMap<>();
         if (!TextUtil.isEmpty(aid)) {
-            params.put("data[aid]", aid);
+            params.put("aid", aid);
         }
         showProgressDialog("地址保存中");
-        params.put("data[nickname]", tvUserName.getText().toString());
-        params.put("data[tel]", tvUserPhone.getText().toString());
-        params.put("data[province]", bean.getProvince());
-        params.put("data[city]", bean.getCity());
-        params.put("data[area]", bean.getArea());
-        params.put("data[address]", tvUserStreet.getText().toString());
-        params.put("data[zip]", tvUserYbian.getText().toString());
+        params.put("nickname", tvUserName.getText().toString());
+        params.put("tel", tvUserPhone.getText().toString());
+        params.put("province", bean.getProvince());
+        params.put("city", bean.getCity());
+        params.put("area", bean.getArea());
+        params.put("address", tvUserStreet.getText().toString());
+        params.put("zip", tvUserYbian.getText().toString());
         OkhttpUtilManager.postNoCacah(this, "Goods/UserAddress", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

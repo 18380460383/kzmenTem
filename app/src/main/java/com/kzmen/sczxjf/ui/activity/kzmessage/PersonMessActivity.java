@@ -144,6 +144,14 @@ public class PersonMessActivity extends SuperActivity {
             tvPhone.setText(userMessageBean.getPhone());
             String wxId = AppContext.getInstance().getUserLogin().getWeixin();
             tvWx.setText(TextUtil.isEmpty(userMessageBean.getWeixin()) ? "未绑定" : "已绑定");
+            tvQq.setVisibility(View.VISIBLE);
+            llQq.setVisibility(View.VISIBLE);
+            if (!TextUtil.isEmpty(userMessageBean.getLeader()) && !userMessageBean.getLeader().equals("0")) {
+                if (!TextUtil.isEmpty(userMessageBean.getLeaderid()) && userMessageBean.getLeaderid().equals("0")) {
+                    tvQq.setVisibility(View.GONE);
+                    llQq.setVisibility(View.GONE);
+                }
+            }
             tvQq.setText(TextUtil.isEmpty(userMessageBean.getParentid_invite_code()) ? "" : userMessageBean.getParentid_invite_code());
         }
     }
@@ -246,7 +254,7 @@ public class PersonMessActivity extends SuperActivity {
 
     private void updata(String option, String name) {
         Map<String, String> params = new HashMap<>();
-        params.put("data[" + option + "]", name);
+        params.put("" + option + "", name);
         OkhttpUtilManager.postNoCacah(this, "User/save_user_info", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -310,14 +318,14 @@ public class PersonMessActivity extends SuperActivity {
         if (info != null) {
             showProgressDialog("绑定中");
             Map<String, String> params = new HashMap<>();
-            params.put("data[weixin]", info.unionid + "");
-            params.put("data[openid]", info.openid + "");
-            params.put("data[username]", info.nickname + "");
-            params.put("data[avatar]", info.headimgurl + "");
-            params.put("data[third_country]", info.country + "");
-            params.put("data[third_province]", info.province + "");
-            params.put("data[third_city]", info.city + "");
-            params.put("data[third_sex]", info.sex + "");
+            params.put("weixin", info.unionid + "");
+            params.put("openid", info.openid + "");
+            params.put("username", info.nickname + "");
+            params.put("avatar", info.headimgurl + "");
+            params.put("third_country", info.country + "");
+            params.put("third_province", info.province + "");
+            params.put("third_city", info.city + "");
+            params.put("third_sex", info.sex + "");
             OkhttpUtilManager.postNoCacah(this, "public/blind_weixin", params, new OkhttpUtilResult() {
                 @Override
                 public void onSuccess(int type, String data) {

@@ -149,10 +149,10 @@ public class BindPhoneAcitivity extends SuperActivity {
     private void bindPhone() {
         showProgressDialog("绑定中。。。");
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", etPhone.getText().toString());
-        params.put("data[code]", yzenGet);
-        params.put("data[pwd]", etPass.getText().toString());
-        params.put("data[uid]", bean.getUid());
+        params.put("phone", etPhone.getText().toString());
+        params.put("code", yzenGet);
+        params.put("pwd", etPass.getText().toString());
+        params.put("uid", bean.getUid());
         OkhttpUtilManager.postNoCacah(this, "public/blind_phone", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -194,8 +194,8 @@ public class BindPhoneAcitivity extends SuperActivity {
         }
         timer.start();
         Map<String, String> params = new HashMap<>();
-        params.put("data[phone]", etPhone.getText().toString());
-        params.put("data[type]", "3");
+        params.put("phone", etPhone.getText().toString());
+        params.put("type", "3");
         OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

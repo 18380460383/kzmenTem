@@ -200,9 +200,9 @@ public class MyAskFragment extends SuperFragment implements PullToRefreshBase.On
     private void getData() {
         Map<String, String> params = new HashMap<>();
         showProgressDialog("加载中");
-        params.put("data[type]", type);
-        params.put("data[page]", "" + page);
-        params.put("data[limit]", "20");
+        params.put("type", type);
+        params.put("page", "" + page);
+        params.put("limit", "20");
         OkhttpUtilManager.postNoCacah(getActivity(), "User/getInterlocutionQuestion", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

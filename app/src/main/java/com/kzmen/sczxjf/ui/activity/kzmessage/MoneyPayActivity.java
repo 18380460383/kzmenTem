@@ -172,8 +172,8 @@ public class MoneyPayActivity extends SuperActivity {
     private void setOrder() {
         showProgressDialog("支付中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[payment]", "" + payment);
-        params.put("data[money]", price);
+        params.put("payment", "" + payment);
+        params.put("money", price);
         OkhttpUtilManager.postNoCacah(this, "User/addUserRecharge/", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -204,9 +204,9 @@ public class MoneyPayActivity extends SuperActivity {
             return;
         }
         Map<String, String> params = new HashMap<>();
-        params.put("data[payment]", payment);
-        params.put("data[order]", orderBean.getOrder());
-        params.put("data[source]", orderBean.getSource());
+        params.put("payment", payment);
+        params.put("order", orderBean.getOrder());
+        params.put("source", orderBean.getSource());
         OkhttpUtilManager.setUserOrder(this, params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

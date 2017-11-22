@@ -105,7 +105,7 @@ public class ShopDetailActivity extends SuperActivity {
 
     private void initData() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[id]", "" + id);
+        params.put("id", "" + id);
         OkhttpUtilManager.postNoCacah(this, "Goods/goodsShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

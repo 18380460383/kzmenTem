@@ -122,9 +122,9 @@ public class ShopOrderComfirActivity extends SuperActivity {
     private void commitOrder() {
         showProgressDialog("订单生成中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[gid]", "" + shopDetailBean.getId());
-        params.put("data[num]", "1");
-        params.put("data[aid]", "" + msg.getAid());
+        params.put("gid", "" + shopDetailBean.getId());
+        params.put("num", "1");
+        params.put("aid", "" + msg.getAid());
         OkhttpUtilManager.postNoCacah(this, "Goods/UserAddOrder", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {

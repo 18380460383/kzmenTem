@@ -184,8 +184,8 @@ public class Kz_PlayListPopu extends PopupWindow {
                     public void onClick(View v) {
                         if (item.getCharge_type().equals("1")) {
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put("data[type]", "1");
-                            params.put("data[aid]", item.getId());
+                            params.put("type", "1");
+                            params.put("aid", item.getId());
                             OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
                         } else {
                             if (popuInterface != null) {

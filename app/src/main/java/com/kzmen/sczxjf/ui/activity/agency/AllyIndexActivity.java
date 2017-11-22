@@ -19,6 +19,7 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.AgOkhttpUtilManager;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.ui.activity.menu.FriendInvateActivity;
 import com.kzmen.sczxjf.util.StringUtils;
 import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.CircleImageViewBorder;
@@ -85,6 +86,8 @@ public class AllyIndexActivity extends SuperActivity {
     ImageView ivQr;
     @InjectView(R.id.activity_partner_index_acitivity)
     LinearLayout activityPartnerIndexAcitivity;
+    @InjectView(R.id.ll_qr)
+    LinearLayout llQr;
     private AllyIndexBean allyIndexBean;
 
     @Override
@@ -152,7 +155,7 @@ public class AllyIndexActivity extends SuperActivity {
         try {
             File file1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile() + File.separator + "kzmen" + File.separator + "qr.png");
             if (!file1.exists()) {
-                //params.put("data[make]", "1");
+                //params.put("make", "1");
                 OkhttpUtilManager.postNoCacah(this, "User/getUserInviteCode", params, new OkhttpUtilResult() {
                     @Override
                     public void onSuccess(int type, String data) {
@@ -211,7 +214,8 @@ public class AllyIndexActivity extends SuperActivity {
         });
     }
 
-    @OnClick({R.id.iv_add, R.id.ll_msg, R.id.ll_all_count, R.id.ll_today_count, R.id.ll_green, R.id.ll_blue, R.id.ll_yellow, R.id.ll_friend_count})
+    @OnClick({R.id.iv_add, R.id.ll_msg, R.id.ll_all_count, R.id.ll_today_count, R.id.ll_green, R.id.ll_blue, R.id.ll_yellow,
+            R.id.ll_friend_count,R.id.ll_qr})
     public void onViewClicked(View view) {
         Intent intent = null;
         Bundle bundle = new Bundle();
@@ -251,6 +255,9 @@ public class AllyIndexActivity extends SuperActivity {
                 intent = new Intent(AllyIndexActivity.this, MyAllyListActivity.class);
                 bundle.putInt("pos", 0);
                 intent.putExtras(bundle);
+                break;
+            case R.id.ll_qr:
+                intent = new Intent(AllyIndexActivity.this, FriendInvateActivity.class);
                 break;
         }
         if (null != intent) {

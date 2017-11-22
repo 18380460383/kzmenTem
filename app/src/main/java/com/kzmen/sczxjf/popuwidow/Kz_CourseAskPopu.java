@@ -133,14 +133,14 @@ public class Kz_CourseAskPopu extends PopupWindow {
                     return;
                 }
                 Map<String, String> params = new HashMap<>();
-                params.put("data[type]", "1");
-                params.put("data[cid]", courseDetailBean.getCid());
-                params.put("data[content]", content);
+                params.put("type", "1");
+                params.put("cid", courseDetailBean.getCid());
+                params.put("content", content);
                 if (!TextUtil.isEmpty(qid)) {
-                    params.put("data[qid]", qid);
+                    params.put("qid", qid);
                 }
                 if (!TextUtil.isEmpty(sid)) {
-                    params.put("data[sid]", sid);
+                    params.put("sid", sid);
                 }
                 OkhttpUtilManager.postNoCacah(mContext, "Question/addQuestion", params, new OkhttpUtilResult() {
                     @Override

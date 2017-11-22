@@ -57,7 +57,7 @@ public class Eparameter extends HashMap<String, Object> {
         Map<String, Object> map = new HashMap<>();
         while(iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            map.put("data[" + entry.getKey().toString() + "]", entry.getValue());
+            map.put("" + entry.getKey().toString() + "", entry.getValue());
         }
         this.clear();
         this.putAll(map);

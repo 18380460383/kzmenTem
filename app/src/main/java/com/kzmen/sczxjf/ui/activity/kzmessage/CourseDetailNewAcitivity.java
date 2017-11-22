@@ -51,6 +51,7 @@ import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.loading.LoadingView;
 import com.vondear.rxtools.RxLogUtils;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -258,7 +259,8 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                             intent.putExtras(bundle);
                             startActivity(intent);
                         } else {
-                            RxToast.normal("当前阶段未解锁");
+                            showAlert();
+                            // RxToast.normal("当前阶段未解锁");
                         }
                     }
                 });
@@ -277,34 +279,57 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                 viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (null != stageListBean && stageListBean.getIsunlock() == 1) {
-                            if (item.getCharge_type().equals("1")) {
-                                Map<String, String> params = new HashMap<String, String>();
-                                params.put("data[type]", "1");
-                                params.put("data[aid]", item.getId());
-                                OkhttpUtilManager.setOrder(mContext, "Course/addEavesdropOrder", params);
-                            } else {
-                                Intent intent = new Intent(CourseDetailNewAcitivity.this, CoursePlayDeatilActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("cid", cid);
-                                bundle.putString("isXiaojiang", "1");
-                                bundle.putString("title", item.getTitle());
-                                bundle.putString("media", item.getMedia());
-                                bundle.putString("media_time", item.getMedia_time());
-                                bundle.putString("opType", "2");
-                                bundle.putSerializable("stage", stageListBean);
-                                bundle.putInt("position", position);
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                            }
+                        //if (null != stageListBean && stageListBean.getIsunlock() == 1) {
+                        if (item.getCharge_type().equals("1")) {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("type", "1");
+                            params.put("aid", item.getId());
+                            OkhttpUtilManager.setOrder(mContext, "Course/addEavesdropOrder", params);
                         } else {
-                            RxToast.normal("当前阶段未解锁");
+                            Intent intent = new Intent(CourseDetailNewAcitivity.this, CoursePlayDeatilActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("cid", cid);
+                            bundle.putString("isXiaojiang", "1");
+                            bundle.putString("title", item.getTitle());
+                            bundle.putString("media", item.getMedia());
+                            bundle.putString("media_time", item.getMedia_time());
+                            bundle.putString("opType", "2");
+                            bundle.putSerializable("stage", stageListBean);
+                            bundle.putInt("position", position);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
+                        /*} else {
+                            RxToast.normal("当前阶段未解锁");
+                        }*/
                     }
                 });
             }
         };
         lvXiaojiangList.setAdapter(xjAdapter);
+    }
+
+    private void showAlert() {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(this);
+        rxDialogSureCancel.setTitle("提示");
+        rxDialogSureCancel.setContent("是否确定支付 " + stageListBean.getUnlock_money() + "元 解锁 " + stageListBean.getStage_name());
+        rxDialogSureCancel.setCancelListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rxDialogSureCancel.dismiss();
+            }
+        });
+        rxDialogSureCancel.setSureListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cid", courseDetailBean.getCid());
+                params.put("sid", stageListBean.getSid());
+                OkhttpUtilManager.setOrder(CourseDetailNewAcitivity.this, "Course/addCourseStageOrder", params);
+                rxDialogSureCancel.dismiss();
+            }
+        });
+        rxDialogSureCancel.show();
     }
 
     private View.OnClickListener mTabOnClickListener = new View.OnClickListener() {
@@ -407,7 +432,7 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
     private void initData() {
         beanlist = new ArrayList<>();
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", cid);
+        params.put("cid", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -477,9 +502,9 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
 
     private void getQuestion() {
         Map<String, String> params1 = new HashMap<>();
-        params1.put("data[page]", "" + page);
-        params1.put("data[limit]", "20");
-        params1.put("data[cid]", cid);
+        params1.put("page", "" + page);
+        params1.put("limit", "20");
+        params1.put("cid", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseQuestion", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -562,7 +587,7 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                 startActivity(intent);
                 break;
             case R.id.iv_share:
-                shareDialog = new ShareDialog(this, courseDetailBean.getShare_title(), courseDetailBean.getShare_des(), courseDetailBean.getShare_des(), courseDetailBean.getShare_linkurl());
+                shareDialog = new ShareDialog(this, courseDetailBean.getShare_title(), courseDetailBean.getShare_des(), courseDetailBean.getShare_image(), courseDetailBean.getShare_linkurl());
                 shareDialog.setCancelButtonOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -585,8 +610,8 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
                     return;
                 }
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("data[cid]", courseDetailBean.getCid());
-                params.put("data[sid]", stageListBean.getSid());
+                params.put("cid", courseDetailBean.getCid());
+                params.put("sid", stageListBean.getSid());
                 OkhttpUtilManager.setOrder(CourseDetailNewAcitivity.this, "Course/addCourseStageOrder", params);
                 break;
         }
@@ -595,8 +620,8 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
     private void setCourseOrder() {
         showProgressDialog("生成订单中");
         Map<String, String> params = new HashMap<>();
-        params.put("data[cid]", courseDetailBean.getCid());
-        params.put("data[tid]", courseDetailBean.getTid());
+        params.put("cid", courseDetailBean.getCid());
+        params.put("tid", courseDetailBean.getTid());
         OkhttpUtilManager.postNoCacah(this, "Course/addCourseOrder", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -635,6 +660,7 @@ public class CourseDetailNewAcitivity extends SuperActivity implements PlayMessa
         super.onOperateSuccess(opType, type, state, id);
         switch (type) {
             case "1"://收藏
+                courseDetailBean.setIscollect(state.equals(KzConstanst.IS_FASLE) ? 0 : 1);
                 ivCollect.setBackgroundResource(state.equals(KzConstanst.IS_FASLE) ? R.drawable.btn_collect : R.drawable.btn_collect_current);
                 break;
             case "2"://举报

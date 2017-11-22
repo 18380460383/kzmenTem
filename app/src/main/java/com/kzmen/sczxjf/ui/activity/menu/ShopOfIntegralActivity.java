@@ -112,8 +112,8 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
 
     private void getGoods() {
         Map<String, String> params = new HashMap<>();
-        params.put("data[limit]", "" + 10);
-        params.put("data[page]", "" + page);
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
 
         OkhttpUtilManager.postNoCacah(this, "Goods/index", params, new OkhttpUtilResult() {
             @Override
